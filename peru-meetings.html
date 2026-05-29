@@ -167,6 +167,7 @@
   <a href="#" onclick="showMeeting(event, 'inlearning')">📚 InLearning</a>
   <a href="#" onclick="showMeeting(event, 'intercorp')">🏢 Intercorp AI</a>
   <a href="#" onclick="showMeeting(event, 'teapuesto')">🎲 Te Apuesto</a>
+  <a href="#" onclick="showMeeting(event, 'atlantic')">🎰 Atlantic City</a>
 </nav>
 
 <main>
@@ -1709,6 +1710,156 @@ Piloto controlado pre-licitación en 3–5 campañas clave para demostrar eficie
   </div>
 </div>
 
+<!-- ATLANTIC CITY -->
+<div id="atlantic" class="meeting-view">
+  <div class="meeting-header">
+    <div class="top">
+      <h2><img class="meeting-logo" src="https://www.google.com/s2/favicons?domain=atlantic.com.pe&sz=128" alt="" onerror="this.style.display='none'"> Atlantic City</h2>
+      <button class="back-btn" onclick="showOverview(event)">← Vista general</button>
+    </div>
+    <div class="meeting-meta">
+      <span class="meta-chip">📅 Mayo 2026</span>
+      <span class="meta-chip">⏱ ~45m</span>
+      <span class="meta-chip">👥 Alberto Mandujano · Juan Pablo Brea · Santiago Giovannetti · Jahir Rosales · Cesar Mamani</span>
+      <span class="meta-chip">🎰 Casino / IA Capacitación / Growth</span>
+    </div>
+  </div>
+
+  <div class="tabs">
+    <button class="tab active" onclick="switchTab(this, 'atlantic-resumen')">Resumen</button>
+    <button class="tab" onclick="switchTab(this, 'atlantic-acciones')">Acciones</button>
+    <button class="tab" onclick="switchTab(this, 'atlantic-email')">Email</button>
+    <button class="tab" onclick="switchTab(this, 'atlantic-notas')">Notas Plaud</button>
+  </div>
+
+  <div id="atlantic-resumen">
+    <div class="section">
+      <h3><span class="icon">📋</span> Contexto</h3>
+      <p>Atlantic City opera en la industria del juego de azar online (casino + apuestas deportivas) con una ventaja diferencial: <strong>casino físico de 30 años</strong> que permite estrategias híbridas online/offline. Su equipo de Growth gestiona el ciclo de vida del usuario (adquisición, monetización, retención) usando el CRM <strong>Optimove</strong>. Tienen recursos limitados y niveles de conocimiento variables en IA — buscan nivelar al equipo para reducir dependencia de habilidades individuales.</p>
+    </div>
+    <div class="section">
+      <h3><span class="icon">🎯</span> Propuesta Hike</h3>
+      <ul class="bullets">
+        <li><strong>Discovery + Workshops:</strong> Auditoría de procesos y capacitación estandarizada para todo el equipo de Growth.</li>
+        <li><strong>Temario:</strong> Fundamentos de IA · Prompt engineering · Generación de contenido (texto, imagen, video, audio) · Agentes de IA.</li>
+        <li><strong>Máx. 30 personas</strong> en talleres prácticos (hands-on) para garantizar atención personalizada.</li>
+        <li><strong>30 días de soporte</strong> post-workshop incluidos en todas las modalidades.</li>
+        <li>Alianzas con Google Cloud, AWS y Microsoft. Acceso a modelos Anthropic vía alianza Google-Anthropic sin costo adicional.</li>
+      </ul>
+    </div>
+    <div class="section">
+      <h3><span class="icon">⚡</span> Oportunidades de Automatización Identificadas</h3>
+      <ul class="bullets">
+        <li>Optimización de SEO y SEM con IA.</li>
+        <li>Automatización de gestión de pauta publicitaria.</li>
+        <li>Creación y adaptación rápida de piezas gráficas para campañas.</li>
+        <li>Sistemas inteligentes para búsqueda y análisis de palabras clave.</li>
+      </ul>
+    </div>
+    <div class="section">
+      <h3><span class="icon">💰</span> 3 Modalidades de Inversión</h3>
+      <ul class="bullets">
+        <li><strong>Opción 1 — Base:</strong> Capacitación + exploración. Remoto. Grabaciones + playbook.</li>
+        <li><strong>Opción 2 — Media:</strong> Capacitación + construcción de un agente de IA en remoto.</li>
+        <li><strong>Opción 3 — Premium:</strong> Presencial en Lima. Talleres + construcción del agente.</li>
+      </ul>
+    </div>
+  </div>
+
+  <div id="atlantic-acciones" style="display:none">
+    <div class="section">
+      <h3><span class="icon">✅</span> Action Items <span class="progress-badge" id="prog-atlantic">0/0</span></h3>
+      <ul class="actions-list" id="actions-atlantic">
+        <li class="action-item" data-id="atl-1">
+          <input type="checkbox" class="action-check" onchange="toggleAction(this, 'atlantic', 'atl-1')">
+          <div><div class="action-text">Enviar correo con enlace a la presentación y detalles discutidos en la sesión.</div><div class="action-date">Alberto Mandujano</div></div>
+        </li>
+        <li class="action-item" data-id="atl-2">
+          <input type="checkbox" class="action-check" onchange="toggleAction(this, 'atlantic', 'atl-2')">
+          <div><div class="action-text">Revisar propuesta recibida y enviar feedback por correo para adaptar módulos según requerimientos del equipo.</div><div class="action-date">Cesar Mamani · Jahir Rosales</div></div>
+        </li>
+        <li class="action-item" data-id="atl-3">
+          <input type="checkbox" class="action-check" onchange="toggleAction(this, 'atlantic', 'atl-3')">
+          <div><div class="action-text">Definir modalidad de inversión preferida (Opción 1, 2 o 3) antes de la planificación del próximo trimestre.</div><div class="action-date">Atlantic — Cesar + Jahir</div></div>
+        </li>
+        <li class="action-item" data-id="atl-4">
+          <input type="checkbox" class="action-check" onchange="toggleAction(this, 'atlantic', 'atl-4')">
+          <div><div class="action-text">Evaluar transición a modelo pay-as-you-go para tokens de IA y optimización de prompting para reducir costos.</div><div class="action-date">Atlantic — equipo Growth</div></div>
+        </li>
+      </ul>
+    </div>
+  </div>
+
+  <div id="atlantic-email" style="display:none">
+    <div class="section">
+      <h3><span class="icon">✉️</span> Email de Seguimiento</h3>
+      <div class="email-subject">Asunto: Propuesta de capacitación en IA — Hike x Atlantic City</div>
+      <div class="email-box" id="email-atlantic">Hola Jahir, hola Cesar,
+
+Gracias por la reunión de hoy — fue muy valioso conocer el contexto de Atlantic y la forma en que el equipo de Growth gestiona el ciclo de vida del usuario.
+
+Como acordamos, les comparto a continuación el enlace a la presentación con los detalles de nuestra propuesta de capacitación:
+
+[INSERTAR ENLACE A PRESENTACIÓN]
+
+Resumen de las 3 modalidades de inversión:
+• Opción 1 — Base: Capacitación remota + exploración de casos de uso. Incluye grabaciones, playbook y 30 días de soporte.
+• Opción 2 — Media: Todo lo anterior + construcción de un agente de IA en remoto.
+• Opción 3 — Premium: Todo lo anterior en formato presencial en Lima, con talleres hands-on (máx. 30 personas) y construcción del agente.
+
+Todas las opciones incluyen grabación de las sesiones, manual de implementación (playbook) y 30 días de soporte post-workshop.
+
+Quedo atento a su feedback para adaptar la propuesta a las necesidades específicas del equipo antes de la planificación del próximo trimestre.
+
+Saludos,
+Alberto Mandujano</div>
+      <button class="copy-btn" onclick="copyEmail('email-atlantic', this)">📋 Copiar email</button>
+    </div>
+  </div>
+
+  <div id="atlantic-notas" style="display:none">
+    <div class="section">
+      <h3><span class="icon">📝</span> Notas Plaud — Atlantic City (Mayo 2026 · ~45m)</h3>
+      <div class="notes-content">Resumen
+La reunión presentó una propuesta de capacitación sobre inteligencia artificial para optimizar estrategias y procesos internos corporativos.
+
+Contexto y objetivos estratégicos
+Atlantic busca implementar capacitación en inteligencia artificial para estandarizar procesos del equipo de Growth. El objetivo integra capacidades digitales con la trayectoria en casinos físicos.
+
+Metodología y automatización operativa
+Se presentaron estrategias para optimizar SEO, SEM y gestión de pauta publicitaria mediante inteligencia artificial. La metodología busca nivelar conocimientos técnicos para reducir la dependencia de habilidades individuales.
+
+Opciones de inversión educativa
+Se presentaron 3 modalidades de inversión que incluyen capacitación, creación de agentes y soporte técnico. Se decidió evaluar la propuesta recibida para definir la planificación futura.
+
+Próximos pasos
+[Alberto Mandujano] Enviar propuesta: Enviar un correo electrónico con el enlace a la presentación y los detalles discutidos durante la sesión.
+[Cesar Willington Mamani Leon, Jahir Armando Rosales Zapata] Revisar propuesta: Analizar el material enviado y proporcionar retroalimentación por correo electrónico para adaptar los módulos según los requerimientos del equipo.
+
+Detalles
+Introducciones y propósito de la reunión: Alberto Mandujano da inicio a la sesión con la presencia de Juan Pablo Brea y Santiago Giovannetti, representantes de la firma Hike, y los miembros del equipo de Atlantic, Jahir Armando Rosales Zapata y Cesar Willington Mamani Leon. El objetivo fundamental del encuentro es presentar una propuesta de capacitación sobre inteligencia artificial para el equipo de Growth, dando continuidad a conversaciones previas sobre los retos tecnológicos de la empresa (00:03:21) (00:07:08).
+
+Contexto del negocio y estrategias de Growth: Jahir Armando Rosales Zapata expone que Atlantic opera en la industria del juego de azar, la cual funciona bajo un modelo de comercio electrónico masivo. Explica que la estrategia de Growth se basa en la gestión del ciclo de vida del usuario (adquisición, monetización y retención) mediante perfiles específicos. Actualmente, utilizan el CRM Optimove, adaptado para entornos de casino en línea y apuestas deportivas, y cuentan con una ventaja competitiva al poseer un casino físico con 30 años de trayectoria, lo que facilita la ejecución de estrategias híbridas entre el mundo físico y digital (00:08:23).
+
+Presentación de Hike y sus capacidades: Juan Pablo Brea explica que Hike forma parte de un holding especializado en marketing digital y analítica, cuyo enfoque principal es el rediseño de procesos corporativos mediante la integración de inteligencia artificial. El equipo destaca que su metodología busca escalar el uso de estas tecnologías más allá de las consultas individuales, asegurando una adopción colectiva. Mencionan tener alianzas estratégicas con Google Cloud, Amazon Web Services y Microsoft, además de reclutar talento directamente de universidades de ingeniería en Argentina (00:10:54).
+
+Metodología de capacitación y nivelación de equipos: Santiago Giovannetti subraya que el enfoque de sus capacitaciones es estandarizar procesos para reducir la dependencia de la curiosidad o habilidad técnica de cada individuo. La metodología incluye auditorías (Discovery) y workshops destinados a elevar el nivel de todo el equipo de forma homogénea. Jahir Armando Rosales Zapata menciona que el equipo de Atlantic posee recursos limitados y niveles de conocimiento variables, por lo que buscan una nivelación integral que les permita avanzar hacia el uso de agentes de inteligencia artificial (00:15:43).
+
+Estructura propuesta para la capacitación: Santiago Giovannetti describe un temario estándar que abarca desde fundamentos de inteligencia artificial y técnicas de ingeniería de instrucciones (prompt engineering), hasta herramientas específicas para la generación de contenido en formato de texto, imagen, video y audio. La estructura también contempla un módulo práctico sobre agentes de inteligencia artificial, cuya complejidad puede ajustarse según las necesidades específicas del equipo de Atlantic (00:19:43) (00:23:55).
+
+Oportunidades de automatización en Growth: Alberto Mandujano identifica áreas específicas donde la implementación de inteligencia artificial puede generar impacto inmediato, incluyendo la optimización de SEO y SEM, la automatización de la gestión de pauta publicitaria, la aceleración en la creación y adaptación de piezas gráficas para campañas, y la implementación de sistemas inteligentes para la búsqueda de palabras clave. Estas oportunidades se alinean con los objetivos de negocio de mejorar la adquisición y recurrencia de usuarios (00:22:22).
+
+Herramientas actuales y gestión de recursos: Cesar Willington Mamani Leon señala que Atlantic utiliza Google Workspace Enterprise y OpenAI (ChatGPT) para tareas conversacionales, pero reconoce la oportunidad de integrar mejor las herramientas de Google. Juan Pablo Brea aclara que, dada su suscripción actual, el equipo puede acceder a modelos de Anthropic mediante la alianza entre Google y Anthropic sin costos adicionales. Respecto al uso de tokens, se discute la transición a un modelo de pago por uso (pay as you go) y cómo la optimización de las instrucciones (prompting) es clave para mejorar la eficiencia y reducir el consumo de recursos (00:28:17) (00:32:04).
+
+Modalidades de inversión y acompañamiento: Alberto Mandujano presenta tres opciones de inversión: una opción base de capacitación y exploración, una segunda que añade la construcción de un agente de inteligencia artificial en remoto, y una tercera opción presencial en Lima que incluye talleres y la construcción del agente. Todas las alternativas contemplan la grabación de las sesiones, la entrega de un manual (playbook) y un periodo de soporte de 30 días posteriores al workshop para asegurar la correcta implementación de los conocimientos adquiridos (00:35:16).
+
+Logística y capacidad de los grupos: Juan Pablo Brea responde a una consulta sobre el tamaño ideal de los grupos de capacitación, indicando que para talleres prácticos (hands-on) se recomienda un máximo de 30 personas para garantizar una atención adecuada por parte de los instructores. Si el taller es puramente teórico, el número de asistentes puede ser mayor, ya que el soporte técnico y el seguimiento de dudas se gestionan durante los 30 días de acompañamiento posterior al programa (00:39:44).
+
+Próximos pasos: Cesar Willington Mamani Leon acuerda revisar la propuesta detallada, la cual será enviada por correo electrónico por Alberto Mandujano, para evaluar posibles ajustes antes de la planificación del próximo trimestre. Se establece que cualquier feedback será comunicado por escrito para adaptar la propuesta final a las necesidades específicas de Atlantic (00:34:18) (00:44:13).</div>
+    </div>
+  </div>
+</div>
+
 </main>
 
 <script>
@@ -1720,6 +1871,7 @@ const meetings = [
   { id: 'inlearning',emoji: '📚', logo: 'https://www.google.com/s2/favicons?domain=inlearning.pe&sz=128',        name: 'InLearning',              date: '28/05/2026', tags: 'E-learning · Martech · Nov' },
   { id: 'intercorp', emoji: '🏢', logo: 'https://www.google.com/s2/favicons?domain=intercorp.com.pe&sz=128',     name: 'Intercorp — Gabriel AI',  date: '28/05/2026', tags: 'Grupo · Educación · hi-chat' },
   { id: 'teapuesto', emoji: '🎲', logo: 'https://www.google.com/s2/favicons?domain=teapuesto.pe&sz=128',         name: 'Te Apuesto',              date: '28/05/2026', tags: 'Apuestas · Tracking · Pragmatic' },
+  { id: 'atlantic',  emoji: '🎰', logo: 'https://www.google.com/s2/favicons?domain=atlanticcity.com.ar&sz=128',  name: 'Atlantic City',           date: 'Mayo 2026',  tags: 'Casino · IA · Capacitación · Growth' },
 ];
 
 // Load state from localStorage
