@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Reuniones Perú — ABN/Hyke</title>
+<title>Reuniones Perú — ABN/Hike</title>
 <style>
   :root {
     --bg: #f5f5f0;
@@ -118,6 +118,19 @@
     nav { padding: 0 20px; }
     .header-meta { flex-wrap: wrap; }
   }
+  /* TRIP SUMMARY */
+  .trip-summary { margin-bottom: 32px; }
+  .trip-summary-header { background: linear-gradient(135deg, #C8102E 0%, #8B0A1E 100%); color: white; border-radius: 14px; padding: 28px 32px; margin-bottom: 16px; }
+  .trip-badge { display: inline-block; background: rgba(255,255,255,0.18); border: 1px solid rgba(255,255,255,0.3); border-radius: 99px; padding: 4px 14px; font-size: 0.8rem; font-weight: 600; letter-spacing: 0.3px; margin-bottom: 12px; }
+  .trip-title { font-size: 1.5rem; font-weight: 800; margin-bottom: 8px; }
+  .trip-desc { color: rgba(255,255,255,0.82); font-size: 0.92rem; line-height: 1.65; max-width: 760px; }
+  .trip-highlights { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 12px; }
+  .highlight-card { background: white; border: 1px solid var(--border); border-radius: 12px; padding: 16px 18px; display: flex; gap: 14px; align-items: flex-start; transition: box-shadow 0.15s; }
+  .highlight-card:hover { box-shadow: 0 4px 16px rgba(0,0,0,0.07); }
+  .hl-icon { font-size: 1.4rem; flex-shrink: 0; margin-top: 1px; }
+  .hl-title { font-size: 0.9rem; font-weight: 700; color: var(--text); margin-bottom: 4px; }
+  .hl-desc { font-size: 0.82rem; color: var(--muted); line-height: 1.55; }
+
   .notes-content { font-size: 0.88rem; line-height: 1.75; white-space: pre-wrap; max-height: 560px; overflow-y: auto; padding: 18px; background: #f9f9f7; border-radius: 8px; border: 1px solid var(--border); font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; color: #222; }
 </style>
 </head>
@@ -139,7 +152,7 @@
         </svg>
         <div class="header-titles">
           <h1>Reuniones Perú</h1>
-          <div class="subtitle">ABN / Hyke &nbsp;·&nbsp; Semana del 26–28 de mayo de 2026</div>
+          <div class="subtitle">ABN / Hike &nbsp;·&nbsp; Semana del 26–28 de mayo de 2026</div>
         </div>
       </div>
       <div class="abn-logo-wrap">
@@ -174,6 +187,59 @@
 
 <!-- OVERVIEW -->
 <div id="overview" class="visible">
+
+  <div class="trip-summary">
+    <div class="trip-summary-header">
+      <div class="trip-badge">🇵🇪 Lima, Perú &nbsp;·&nbsp; 26–28 de mayo de 2026</div>
+      <div class="trip-title">Resumen del viaje</div>
+      <p class="trip-desc">Tres días de reuniones con clientes clave del mercado peruano, abarcando retail, fintech, loterías, educación y entretenimiento. El viaje consolidó oportunidades concretas de IA y MarTech con empresas del grupo Intercorp y otros líderes del mercado.</p>
+    </div>
+    <div class="trip-highlights">
+      <div class="highlight-card">
+        <div class="hl-icon">🤖</div>
+        <div class="hl-text">
+          <div class="hl-title">IA como eje central</div>
+          <div class="hl-desc">Todos los clientes buscan integrar IA en sus procesos — desde generación de contenido y dashboards hasta agentes conversacionales y Marketing Mix Modeling.</div>
+        </div>
+      </div>
+      <div class="highlight-card">
+        <div class="hl-icon">📊</div>
+        <div class="hl-text">
+          <div class="hl-title">Datos fragmentados, oportunidad unificada</div>
+          <div class="hl-desc">Tottus, InLearning y Credicorp comparten el mismo dolor: data dispersa en múltiples herramientas sin una fuente única de verdad ni capacidad de consulta en tiempo real.</div>
+        </div>
+      </div>
+      <div class="highlight-card">
+        <div class="hl-icon">🎨</div>
+        <div class="hl-text">
+          <div class="hl-title">Creatividades y producción masiva</div>
+          <div class="hl-desc">La Tinka necesita 700 piezas/mes adaptadas a 800 formatos. Credicorp tiene 350 diseñadores con 60–80% del tiempo en tareas repetitivas. La IA generativa es la solución.</div>
+        </div>
+      </div>
+      <div class="highlight-card">
+        <div class="hl-icon">📈</div>
+        <div class="hl-text">
+          <div class="hl-title">Medición y atribución como urgencia</div>
+          <div class="hl-desc">Yape y Te Apuesto buscan MMM/Meridian para justificar inversión en branding y medir conversiones post-clic dentro de plataformas de terceros como Pragmatic.</div>
+        </div>
+      </div>
+      <div class="highlight-card">
+        <div class="hl-icon">🎓</div>
+        <div class="hl-text">
+          <div class="hl-title">Capacitación como puerta de entrada</div>
+          <div class="hl-desc">InLearning, Intercorp, Atlantic City y La Tinka priorizan workshops antes de proyectos técnicos — el equipo necesita saber "para qué usar IA" antes de adoptarla.</div>
+        </div>
+      </div>
+      <div class="highlight-card">
+        <div class="hl-icon">🔁</div>
+        <div class="hl-text">
+          <div class="hl-title">Portabilidad y sinergias de grupo</div>
+          <div class="hl-desc">Soluciones como social listening (ya desarrollado para NFR) son 100% transportables a La Tinka y Te Apuesto. Intercorp representa una oportunidad de escalado horizontal.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
   <div class="overview-grid" id="overview-grid"></div>
 </div>
 
@@ -202,7 +268,7 @@
   <div id="tottus-resumen">
     <div class="section">
       <h3><span class="icon">📋</span> Contexto</h3>
-      <p>Gran retailer similar a Grupo Falabella. Stack: Salesforce CRM, BigQuery, Firebase, GA4, Adobe Analytics, Looker, Power BI. En proceso de migración de datos sin finalizar. La reunión la condujo Sebastián presentando <strong>Hyke</strong> (empresa hermana de ABN especializada en IA/tech), con el objetivo de mostrar cómo Hyke Chat puede resolver la fragmentación de datos sin competir con su agencia de medios.</p>
+      <p>Gran retailer similar a Grupo Falabella. Stack: Salesforce CRM, BigQuery, Firebase, GA4, Adobe Analytics, Looker, Power BI. En proceso de migración de datos sin finalizar. La reunión la condujo Sebastián presentando <strong>Hike</strong> (empresa hermana de ABN especializada en IA/tech), con el objetivo de mostrar cómo Hike Chat puede resolver la fragmentación de datos sin competir con su agencia de medios.</p>
     </div>
     <div class="section">
       <h3><span class="icon">🔴</span> Puntos de Dolor</h3>
@@ -218,7 +284,7 @@
       <h3><span class="icon">🎯</span> Expectativas</h3>
       <ul class="bullets">
         <li>Centralizar todo en <strong>BigQuery</strong> como "fuente única de verdad".</li>
-        <li><strong>Hyke Chat</strong>: agente conversacional para que no-técnicos hagan preguntas en lenguaje natural y creen dashboards via prompts.</li>
+        <li><strong>Hike Chat</strong>: agente conversacional para que no-técnicos hagan preguntas en lenguaje natural y creen dashboards via prompts.</li>
         <li>Scraping diario de campañas de competidores diferenciando pauta pagada/orgánica.</li>
         <li>Datos alojados en su propia infraestructura, costos predecibles, enfoque "Adoc" (no SaaS genérico).</li>
       </ul>
@@ -226,7 +292,7 @@
     <div class="section">
       <h3><span class="icon">ℹ️</span> Información adicional</h3>
       <ul class="bullets">
-        <li>Hyke es partner de McKinsey, ITBA y Google Cloud.</li>
+        <li>Hike es partner de McKinsey, ITBA y Google Cloud.</li>
         <li>Hubo mención al temor de "canibalización" de empleos por IA — oportunidad para enmarcar como liberación de tiempo estratégico.</li>
         <li>Prefieren proyectos "Adoc" con diagnóstico y solución a medida.</li>
       </ul>
@@ -247,7 +313,7 @@
         </li>
         <li class="action-item" data-id="t3">
           <input type="checkbox" class="action-check" onchange="toggleAction(this, 'tottus', 't3')">
-          <div><div class="action-text">Preparar demo detallada de Hyke Chat con caso de uso relevante para retail/Tottus.</div></div>
+          <div><div class="action-text">Preparar demo detallada de Hike Chat con caso de uso relevante para retail/Tottus.</div></div>
         </li>
         <li class="action-item" data-id="t4">
           <input type="checkbox" class="action-check" onchange="toggleAction(this, 'tottus', 't4')">
@@ -268,7 +334,7 @@
   <div id="tottus-email" style="display:none">
     <div class="section">
       <h3><span class="icon">✉️</span> Email de Seguimiento</h3>
-      <div class="email-subject">Asunto: Próximos pasos — Hyke x Tottus</div>
+      <div class="email-subject">Asunto: Próximos pasos — Hike x Tottus</div>
       <div class="email-box" id="email-tottus">Hola Analu, Patricio y José,
 
 Gracias por el tiempo y la apertura en nuestra reunión. Fue muy valioso entender en profundidad los desafíos que enfrentan con la gestión y unificación de datos.
@@ -281,7 +347,7 @@ Vamos a preparar una propuesta detallando el proyecto de arquitectura (con BigQu
 2. Plan para scraping de competencia
 Diseñaremos una propuesta para el monitoreo automatizado de campañas creativas de competidores, con reporte diario diferenciando pauta pagada y orgánica.
 
-3. Demo de Hyke Chat
+3. Demo de Hike Chat
 Prepararemos una demostración más detallada del agente conversacional con un caso de uso relevante para retail/Tottus.
 
 Para avanzar, nos sería muy útil agendar una call para alinear:
@@ -312,7 +378,7 @@ Las reuniones se centraron en los desafíos del cliente, una gran organización 
 
 Antecedentes
 
-El cliente es una gran organización del sector retail con múltiples unidades de negocio y mercados, similar a Grupo Falabella. Su ecosistema tecnológico incluye Salesforce para CRM, BigQuery como repositorio de datos, Firebase para notificaciones, y GA4 y Adobe Analytics para tráfico web, con visualizaciones en Looker y Power BI. A pesar de tener estas herramientas y un equipo centralizado de datos, los procesos son lentos y manuales. La empresa ha estado en un proceso de migración de datos durante el último año que aún no está finalizado. La reunión fue presentada por Sebastián de ABN Group, quien explicó que su empresa evolucionó para incluir a "Hyke", una empresa hermana especializada en proyectos de tecnología e IA que trabaja con clientes como Sodimac y Grupo Despegar. El objetivo era presentar cómo la solución de Hyke, "Hyke Chat", podría resolver los desafíos de integración de datos sin competir con su agencia de medios o equipo tecnológico actual.
+El cliente es una gran organización del sector retail con múltiples unidades de negocio y mercados, similar a Grupo Falabella. Su ecosistema tecnológico incluye Salesforce para CRM, BigQuery como repositorio de datos, Firebase para notificaciones, y GA4 y Adobe Analytics para tráfico web, con visualizaciones en Looker y Power BI. A pesar de tener estas herramientas y un equipo centralizado de datos, los procesos son lentos y manuales. La empresa ha estado en un proceso de migración de datos durante el último año que aún no está finalizado. La reunión fue presentada por Sebastián de ABN Group, quien explicó que su empresa evolucionó para incluir a "Hike", una empresa hermana especializada en proyectos de tecnología e IA que trabaja con clientes como Sodimac y Grupo Despegar. El objetivo era presentar cómo la solución de Hike, "Hike Chat", podría resolver los desafíos de integración de datos sin competir con su agencia de medios o equipo tecnológico actual.
 
 Puntos de Dolor
 
@@ -340,9 +406,9 @@ Resumen de Otra Información
 
 Preferencia por Proyectos a Medida: El cliente valora un enfoque de proyectos "Adoc" (diagnóstico y solución personalizada) en lugar de un producto SaaS genérico.
 
-Herramientas y Partners Actuales: Utilizan Salesforce, BigQuery, Firebase, GA4 y Looker. Hyke es partner de McKinsey, ITBA y Google Cloud.
+Herramientas y Partners Actuales: Utilizan Salesforce, BigQuery, Firebase, GA4 y Looker. Hike es partner de McKinsey, ITBA y Google Cloud.
 
-Solución Propuesta ("Hyke Chat"): Es un agente conversacional que permite a usuarios no técnicos crear dashboards y analizar datos mediante prompts, centralizando la información de diversas APIs en BigQuery.
+Solución Propuesta ("Hike Chat"): Es un agente conversacional que permite a usuarios no técnicos crear dashboards y analizar datos mediante prompts, centralizando la información de diversas APIs en BigQuery.
 
 Preocupación por la IA: Hubo una mención sobre el temor a la "canibalización" de empleos por la IA, aunque se reconoció su potencial para reducir la carga de trabajo manual.
 
@@ -352,7 +418,7 @@ Enviar propuesta detallando un proyecto de arquitectura de datos por fases como 
 
 Elaborar un plan para el proyecto de scraping de la competencia, enfocándose en piezas creativas y diferenciación de pauta pagada/orgánica.
 
-Preparar una demostración más detallada de "Hyke Chat" o un agente conversacional, utilizando un caso de uso relevante para el cliente.
+Preparar una demostración más detallada de "Hike Chat" o un agente conversacional, utilizando un caso de uso relevante para el cliente.
 
 Hacer seguimiento con los contactos clave (Analu, Patricio, José) para definir el alcance de un proyecto inicial (fuentes de datos, equipos, KPIs).
 
@@ -394,7 +460,7 @@ Investigar y compartir información sobre el posicionamiento en IA generativa ("
       <h3><span class="icon">🎯</span> 5 Iniciativas Identificadas</h3>
       <ul class="bullets">
         <li><strong>1. IA para contenidos y paid media (ambas marcas):</strong> Arquitectura compartida con motor común y despliegues separados. Separación total de datos entre marcas.</li>
-        <li><strong>2. Refuerzo performance marketing Te Apuesto:</strong> Agencia actual percibida como débil. ABN/Hyke como músculo externo temporal + upskilling del equipo interno.</li>
+        <li><strong>2. Refuerzo performance marketing Te Apuesto:</strong> Agencia actual percibida como débil. ABN/Hike como músculo externo temporal + upskilling del equipo interno.</li>
         <li><strong>3. Programa de capacitación y workshops de IA:</strong> Procesos nuevos que nazcan integrados con IA. Workshops por roles (marketing, datos, TI, negocio).</li>
         <li><strong>4. Proyecto optimización rentabilidad con IA/ML + capa generativa:</strong> Conectar toda la data en BigQuery + queries en lenguaje natural. Reunión técnica con Sandra.</li>
         <li><strong>5. Portabilidad de soluciones dentro del grupo:</strong> Social listening (ya hecho para NFR) transportable a otras cuentas. Definir gobernanza y licenciamiento interno.</li>
@@ -439,7 +505,7 @@ Investigar y compartir información sobre el posicionamiento en IA generativa ("
         </li>
         <li class="action-item" data-id="lt1-4">
           <input type="checkbox" class="action-check" onchange="toggleAction(this, 'latinka1', 'lt1-4')">
-          <div><div class="action-text">Reunión técnica entre liderazgo del proyecto y ABN/Hyke para explorar aceleración del proyecto de rentabilidad con IA/ML.</div><div class="action-date">Plazo: 06/06/2026 — Willy + Sandra Aguero</div></div>
+          <div><div class="action-text">Reunión técnica entre liderazgo del proyecto y ABN/Hike para explorar aceleración del proyecto de rentabilidad con IA/ML.</div><div class="action-date">Plazo: 06/06/2026 — Willy + Sandra Aguero</div></div>
         </li>
         <li class="action-item" data-id="lt1-5">
           <input type="checkbox" class="action-check" onchange="toggleAction(this, 'latinka1', 'lt1-5')">
@@ -488,7 +554,7 @@ Investigar y compartir información sobre el posicionamiento en IA generativa ("
   <div id="latinka1-email" style="display:none">
     <div class="section">
       <h3><span class="icon">✉️</span> Email de Seguimiento</h3>
-      <div class="email-subject">Asunto: Resumen y próximos pasos — ABN/Hyke x La Tinka & Te Apuesto</div>
+      <div class="email-subject">Asunto: Resumen y próximos pasos — ABN/Hike x La Tinka & Te Apuesto</div>
       <div class="email-box" id="email-latinka1">Hola Willy,
 
 Gracias por las dos sesiones de hoy — fue muy valioso tanto estructurar las iniciativas estratégicas como profundizar en los desafíos de creatividades y datos de campañas.
@@ -537,24 +603,24 @@ Diseñar la arquitectura de solución compartida (motor común, instancias separ
 
 Levantar requerimientos detallados por marca (flujos de social, tipos de contenido, canales de paid, métricas objetivo) y definir KPIs de impacto medible -- Lupe Ricardo 2026-06-07
 
-Prototipo funcional mínimo (MVP) del motor de IA aplicado a un caso de uso de social listening + gestión de comentarios y a una táctica de paid media por marca -- HYKE (Martech de ABN) Equipo de Marketing Interno 2026-06-24
+Prototipo funcional mínimo (MVP) del motor de IA aplicado a un caso de uso de social listening + gestión de comentarios y a una táctica de paid media por marca -- HIKE (Martech de ABN) Equipo de Marketing Interno 2026-06-24
 
-Definir y documentar el esquema de segregación de datos y compliance entre "Te Apuesto" y "La Tinka" -- TI Interna HYKE (Martech de ABN) 2026-06-14
+Definir y documentar el esquema de segregación de datos y compliance entre "Te Apuesto" y "La Tinka" -- TI Interna HIKE (Martech de ABN) 2026-06-14
 
-Estimar costos y proponer esquema de pricing "de entrada" para el primer proyecto, con opción de ajuste tras demostrar valor -- ABN/HYKE 2026-06-05
+Estimar costos y proponer esquema de pricing "de entrada" para el primer proyecto, con opción de ajuste tras demostrar valor -- ABN/HIKE 2026-06-05
 
 
 2. Refuerzo de performance marketing para "Te Apuesto"
 
-"Te Apuesto" presenta un problema en su servicio actual de agencia de performance; se percibe falta de respuesta técnica y de estrategia. El impacto es bajo rendimiento en paid media y riesgo en objetivos comerciales. Se propone que ABN/HYKE actúe como músculo externo temporal, revisando estrategia, proponiendo nuevos medios y optimizando campañas mientras se define el rumbo. Se busca también upskilling del equipo interno para ganar autonomía.
+"Te Apuesto" presenta un problema en su servicio actual de agencia de performance; se percibe falta de respuesta técnica y de estrategia. El impacto es bajo rendimiento en paid media y riesgo en objetivos comerciales. Se propone que ABN/HIKE actúe como músculo externo temporal, revisando estrategia, proponiendo nuevos medios y optimizando campañas mientras se define el rumbo. Se busca también upskilling del equipo interno para ganar autonomía.
 
 Acciones
 
-Auditoría de performance actual (canales, creatividades, estructura de cuentas, tracking, atribución) y plan de optimización de 90 días -- ABN/HYKE (Marketing y Martech) 2026-06-12
+Auditoría de performance actual (canales, creatividades, estructura de cuentas, tracking, atribución) y plan de optimización de 90 días -- ABN/HIKE (Marketing y Martech) 2026-06-12
 
-Propuesta de mix de medios y testing plan (nuevos canales/formatos, hipótesis, métricas de éxito) -- ABN/HYKE (Marketing) 2026-06-17
+Propuesta de mix de medios y testing plan (nuevos canales/formatos, hipótesis, métricas de éxito) -- ABN/HIKE (Marketing) 2026-06-17
 
-Implementación de quick wins en campañas prioritarias con seguimiento semanal de métricas clave -- ABN/HYKE (Marketing) Equipo de Marketing Interno 2026-06-21
+Implementación de quick wins en campañas prioritarias con seguimiento semanal de métricas clave -- ABN/HIKE (Marketing) Equipo de Marketing Interno 2026-06-21
 
 Definición del modelo de colaboración con agencia actual (continuidad, reemplazo o modelo híbrido) y cronograma de transición -- Lupe Ricardo 2026-06-26
 
@@ -565,26 +631,26 @@ Se prioriza que los procesos nuevos nazcan ya integrados con IA para evitar cost
 
 Acciones
 
-Plan de workshops por roles (marketing, datos, TI, negocio) con objetivos, temario y materiales -- ABN/HYKE 2026-06-07
+Plan de workshops por roles (marketing, datos, TI, negocio) con objetivos, temario y materiales -- ABN/HIKE 2026-06-07
 
 Calendario de 4 sesiones iniciales y selección de participantes -- [Insertar Nombres] 2026-06-10
 
-Módulo de upskilling específico para el equipo interno de "Te Apuesto" orientado a performance y MarTech -- ABN/HYKE Equipo de Marketing Interno 2026-06-19
+Módulo de upskilling específico para el equipo interno de "Te Apuesto" orientado a performance y MarTech -- ABN/HIKE Equipo de Marketing Interno 2026-06-19
 
-Métricas de adopción y evaluación de impacto (participación, casos implementados, eficiencia) -- ABN/HYKE PMO/Operaciones Internas 2026-06-28
+Métricas de adopción y evaluación de impacto (participación, casos implementados, eficiencia) -- ABN/HIKE PMO/Operaciones Internas 2026-06-28
 
 
 4. Proyecto transversal de optimización de rentabilidad con IA/ML y capa generativa
 
-Existe un proyecto corporativo grande para optimizar la rentabilidad conectando toda la data relevante (puntos de venta, mix de producto, comisiones, gastos). El sistema incluye motores de IA/ML que procesan datos en tiempo real y una capa generativa que permite consultas en lenguaje natural, generando queries contra el data warehouse. El impacto es detección temprana de brechas de rentabilidad y capacidad de acción informada. Se evalúa la posibilidad de que ABN/HYKE acelere el desarrollo dado su experiencia en soluciones similares (por ejemplo, chat interno sobre datos en BigQuery).
+Existe un proyecto corporativo grande para optimizar la rentabilidad conectando toda la data relevante (puntos de venta, mix de producto, comisiones, gastos). El sistema incluye motores de IA/ML que procesan datos en tiempo real y una capa generativa que permite consultas en lenguaje natural, generando queries contra el data warehouse. El impacto es detección temprana de brechas de rentabilidad y capacidad de acción informada. Se evalúa la posibilidad de que ABN/HIKE acelere el desarrollo dado su experiencia en soluciones similares (por ejemplo, chat interno sobre datos en BigQuery).
 
 Acciones
 
-Reunión técnica entre liderazgo del proyecto y ABN/HYKE para explorar aceleración y sinergias -- Speaker 1 (Líder de Loterías) Sandra Aguero (TI) ABN/HYKE 2026-06-06
+Reunión técnica entre liderazgo del proyecto y ABN/HIKE para explorar aceleración y sinergias -- Speaker 1 (Líder de Loterías) Sandra Aguero (TI) ABN/HIKE 2026-06-06
 
-Definir alcance de un piloto acotado (área/dominio de datos, KPIs de rentabilidad, alertas) y entregables -- Sandra Aguero (TI) ABN/HYKE 2026-06-13
+Definir alcance de un piloto acotado (área/dominio de datos, KPIs de rentabilidad, alertas) y entregables -- Sandra Aguero (TI) ABN/HIKE 2026-06-13
 
-Evaluación de integración con BigQuery y seguridad de acceso para la capa generativa -- TI Interna ABN/HYKE (Datos/Martech) 2026-06-20
+Evaluación de integración con BigQuery y seguridad de acceso para la capa generativa -- TI Interna ABN/HIKE (Datos/Martech) 2026-06-20
 
 
 5. Modelo de reutilización/portabilidad de soluciones dentro del grupo
@@ -593,11 +659,11 @@ Se valida que desarrollos (p. ej., social listening ya hecho para NFR) son 100% 
 
 Acciones
 
-Inventario de soluciones existentes reutilizables (social listening, módulos MarTech/IA) y criterios de adopción -- ABN/HYKE 2026-06-11
+Inventario de soluciones existentes reutilizables (social listening, módulos MarTech/IA) y criterios de adopción -- ABN/HIKE 2026-06-11
 
-Propuesta de gobernanza para portabilidad (responsables, SLAs, costos de transferencia) -- ABN/HYKE Finanzas Internas 2026-06-18
+Propuesta de gobernanza para portabilidad (responsables, SLAs, costos de transferencia) -- ABN/HIKE Finanzas Internas 2026-06-18
 
-Selección de 1-2 soluciones para implementación rápida en "La Tinka" y/o "Te Apuesto" -- Lupe Ricardo ABN/HYKE 2026-06-25
+Selección de 1-2 soluciones para implementación rápida en "La Tinka" y/o "Te Apuesto" -- Lupe Ricardo ABN/HIKE 2026-06-25
 
 
 Sugerencias de IA
@@ -1118,7 +1184,7 @@ Explorar una solución de Geo-experimentos (Geo-Lift) como paso intermedio. Este
   <div id="inlearning-email" style="display:none">
     <div class="section">
       <h3><span class="icon">✉️</span> Email de Seguimiento</h3>
-      <div class="email-subject">Asunto: Propuesta equipo extendido + roadmap hacia noviembre — NGR x ABN/Hyke</div>
+      <div class="email-subject">Asunto: Propuesta equipo extendido + roadmap hacia noviembre — NGR x ABN/Hike</div>
       <div class="email-box" id="email-inlearning">Hola Carlos,
 
 Gracias por el tiempo de hoy. Queda muy claro el desafío: tienen el negocio, el producto y la ambición — lo que hace falta es capacidad técnica para ejecutar sin depender de TI interno.
@@ -1527,7 +1593,7 @@ Implementar un "Creative Workflow Hub" Centralizado: Para abordar el dolor de la
   <div id="teapuesto-email" style="display:none">
     <div class="section">
       <h3><span class="icon">✉️</span> Email de Seguimiento</h3>
-      <div class="email-subject">Asunto: Propuesta equipo dedicado + roadmap técnico — ABN/Hyke x Te Apuesto</div>
+      <div class="email-subject">Asunto: Propuesta equipo dedicado + roadmap técnico — ABN/Hike x Te Apuesto</div>
       <div class="email-box" id="email-teapuesto">Hola,
 
 Gracias por la reunión de hoy. Entendemos el contexto: operan en un mercado exigente donde cada punto de conversión cuenta, y hoy no tienen visibilidad suficiente para optimizar con confianza.
@@ -1864,7 +1930,7 @@ Próximos pasos: Cesar Willington Mamani Leon acuerda revisar la propuesta detal
 
 <script>
 const meetings = [
-  { id: 'tottus',    emoji: '🏬', logo: 'https://www.google.com/s2/favicons?domain=tottus.com.pe&sz=128',       name: 'Tottus',                  date: '26/05/2026', tags: 'Retail · Data · Hyke Chat' },
+  { id: 'tottus',    emoji: '🏬', logo: 'https://www.google.com/s2/favicons?domain=tottus.com.pe&sz=128',       name: 'Tottus',                  date: '26/05/2026', tags: 'Retail · Data · Hike Chat' },
   { id: 'latinka1',  emoji: '🎰', logo: 'https://www.google.com/s2/favicons?domain=latinka.com.pe&sz=128',       name: 'La Tinka — Willy',        date: '27/05/2026', tags: 'Loterías · IA · Creatividades · Performance' },
   { id: 'credicorp', emoji: '🏦', logo: 'https://www.google.com/s2/favicons?domain=credicorp.com&sz=128',        name: 'Credicorp',               date: '27/05/2026', tags: 'Diseño · 13 subsidiarias · BCP' },
   { id: 'yape',      emoji: '💳', logo: 'https://www.google.com/s2/favicons?domain=yape.com.pe&sz=128',          name: 'Yape',                    date: '27/05/2026', tags: 'Fintech · MMM · Meridian' },
@@ -2015,3 +2081,4 @@ restoreCheckboxes();
 </script>
 </body>
 </html>
+
