@@ -27,7 +27,9 @@
   .flag-red { background: #C8102E; flex: 1; }
   .flag-white { background: #ffffff; flex: 1; }
   .header-inner { padding: 32px 40px 28px; position: relative; }
-  .header-brand { display: flex; align-items: center; gap: 20px; }
+  .header-brand { display: flex; align-items: center; gap: 20px; flex: 1; }
+  .header-top-row { display: flex; align-items: center; justify-content: space-between; }
+  .abn-logo-wrap { background: white; border-radius: 10px; padding: 10px 20px; display: flex; align-items: center; box-shadow: 0 2px 12px rgba(0,0,0,0.2); }
   .flag-svg { flex-shrink: 0; border-radius: 4px; box-shadow: 0 2px 10px rgba(0,0,0,0.3); }
   .header-titles h1 { font-size: 1.9rem; font-weight: 800; letter-spacing: -0.5px; line-height: 1.1; }
   .header-titles .subtitle { color: rgba(255,255,255,0.75); margin-top: 5px; font-size: 0.95rem; }
@@ -128,16 +130,25 @@
     <div class="flag-red"></div>
   </div>
   <div class="header-inner">
-    <div class="header-brand">
-      <svg class="flag-svg" width="72" height="48" viewBox="0 0 3 2" xmlns="http://www.w3.org/2000/svg">
-        <rect width="1" height="2" x="0" fill="#C8102E"/>
-        <rect width="1" height="2" x="1" fill="#ffffff"/>
-        <rect width="1" height="2" x="2" fill="#C8102E"/>
-      </svg>
-      <div class="header-titles">
-        <h1>Reuniones Perú</h1>
-        <div class="subtitle">ABN / Hyke &nbsp;·&nbsp; Semana del 26–28 de mayo de 2026</div>
+    <div class="header-top-row">
+      <div class="header-brand">
+        <svg class="flag-svg" width="72" height="48" viewBox="0 0 3 2" xmlns="http://www.w3.org/2000/svg">
+          <rect width="1" height="2" x="0" fill="#C8102E"/>
+          <rect width="1" height="2" x="1" fill="#ffffff"/>
+          <rect width="1" height="2" x="2" fill="#C8102E"/>
+        </svg>
+        <div class="header-titles">
+          <h1>Reuniones Perú</h1>
+          <div class="subtitle">ABN / Hyke &nbsp;·&nbsp; Semana del 26–28 de mayo de 2026</div>
+        </div>
       </div>
+      <div class="abn-logo-wrap">
+        <svg width="160" height="32" viewBox="0 0 320 64" xmlns="http://www.w3.org/2000/svg" fill="none">
+          <text x="0" y="50" font-family="'Segoe UI',Arial,sans-serif" font-weight="700" font-size="52" fill="#1B2B4B">ABN</text>
+          <text x="136" y="50" font-family="'Segoe UI',Arial,sans-serif" font-weight="300" font-size="52" fill="#1B2B4B"> DIGITAL.</text>
+        </svg>
+      </div>
+    </div>
     </div>
     <div class="header-meta">
       <div class="stat"><div class="stat-num">8</div><div class="stat-label">Reuniones</div></div>
