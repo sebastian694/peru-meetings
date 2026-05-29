@@ -1,0 +1,1913 @@
+﻿<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Reuniones Perú — ABN/Hyke</title>
+<style>
+  :root {
+    --bg: #f5f5f0;
+    --card: #ffffff;
+    --accent: #C8102E;
+    --accent2: #a00d24;
+    --text: #1a1a1a;
+    --muted: #666;
+    --border: #e5e5e0;
+    --done-bg: #f0fdf4;
+    --done-text: #16a34a;
+    --tag-bg: #fff0f2;
+    --tag-text: #C8102E;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background: var(--bg); color: var(--text); line-height: 1.6; }
+
+  /* HEADER */
+  header { background: var(--accent); color: white; padding: 0; overflow: hidden; }
+  .header-flag { display: flex; height: 8px; }
+  .flag-red { background: #C8102E; flex: 1; }
+  .flag-white { background: #ffffff; flex: 1; }
+  .header-inner { padding: 32px 40px 28px; position: relative; }
+  .header-brand { display: flex; align-items: center; gap: 20px; }
+  .flag-svg { flex-shrink: 0; border-radius: 4px; box-shadow: 0 2px 10px rgba(0,0,0,0.3); }
+  .header-titles h1 { font-size: 1.9rem; font-weight: 800; letter-spacing: -0.5px; line-height: 1.1; }
+  .header-titles .subtitle { color: rgba(255,255,255,0.75); margin-top: 5px; font-size: 0.95rem; }
+  .header-meta { display: flex; gap: 16px; margin-top: 24px; flex-wrap: wrap; }
+  .stat { background: rgba(255,255,255,0.12); border: 1px solid rgba(255,255,255,0.18); border-radius: 10px; padding: 12px 20px; backdrop-filter: blur(4px); }
+  .stat-num { font-size: 1.6rem; font-weight: 800; }
+  .stat-label { font-size: 0.72rem; color: rgba(255,255,255,0.7); text-transform: uppercase; letter-spacing: 0.8px; margin-top: 1px; }
+
+  /* NAV */
+  nav { background: white; border-bottom: 1px solid var(--border); padding: 0 40px; display: flex; gap: 4px; overflow-x: auto; }
+  nav a { padding: 14px 16px; text-decoration: none; color: var(--muted); font-size: 0.9rem; white-space: nowrap; border-bottom: 2px solid transparent; transition: all 0.15s; }
+  nav a:hover { color: var(--text); }
+  nav a.active { color: var(--accent); border-bottom-color: var(--accent2); font-weight: 600; }
+
+  /* MAIN */
+  main { max-width: 1100px; margin: 0 auto; padding: 32px 24px; }
+
+  /* OVERVIEW */
+  #overview { display: none; }
+  #overview.visible { display: block; }
+  .overview-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 16px; }
+  .overview-card { background: white; border: 1px solid var(--border); border-radius: 12px; padding: 20px; cursor: pointer; transition: all 0.15s; }
+  .overview-card:hover { border-color: var(--accent2); box-shadow: 0 4px 20px rgba(0,0,0,0.08); transform: translateY(-1px); }
+  .overview-card .emoji { font-size: 1.8rem; margin-bottom: 8px; }
+  .overview-card .co-logo { width: 48px; height: 48px; object-fit: contain; margin-bottom: 12px; border-radius: 10px; background: #f0f0f0; padding: 6px; display: block; image-rendering: crisp-edges; }
+  .meeting-logo { width: 32px; height: 32px; object-fit: contain; border-radius: 8px; background: #f0f0f0; padding: 4px; flex-shrink: 0; image-rendering: crisp-edges; }
+  .overview-card h3 { font-size: 1rem; font-weight: 600; }
+  .overview-card .date { font-size: 0.8rem; color: var(--muted); margin-top: 2px; }
+  .overview-card .progress-bar { background: #eee; border-radius: 99px; height: 6px; margin-top: 14px; overflow: hidden; }
+  .overview-card .progress-fill { background: var(--accent2); height: 100%; border-radius: 99px; transition: width 0.3s; }
+  .overview-card .progress-label { font-size: 0.75rem; color: var(--muted); margin-top: 4px; }
+
+  /* MEETING VIEW */
+  .meeting-view { display: none; }
+  .meeting-view.visible { display: block; }
+
+  .meeting-header { background: white; border: 1px solid var(--border); border-radius: 12px; padding: 28px; margin-bottom: 24px; }
+  .meeting-header .top { display: flex; align-items: flex-start; justify-content: space-between; flex-wrap: wrap; gap: 12px; }
+  .meeting-header h2 { font-size: 1.5rem; font-weight: 700; display: flex; align-items: center; gap: 10px; }
+  .meeting-meta { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 12px; }
+  .meta-chip { background: var(--tag-bg); color: var(--tag-text); font-size: 0.8rem; padding: 4px 12px; border-radius: 99px; }
+  .back-btn { background: none; border: 1px solid var(--border); color: var(--muted); padding: 8px 16px; border-radius: 8px; cursor: pointer; font-size: 0.85rem; transition: all 0.15s; }
+  .back-btn:hover { border-color: var(--accent); color: var(--accent); }
+
+  /* SECTIONS */
+  .section { background: white; border: 1px solid var(--border); border-radius: 12px; padding: 24px; margin-bottom: 16px; }
+  .section h3 { font-size: 1rem; font-weight: 700; margin-bottom: 14px; color: var(--accent); display: flex; align-items: center; gap: 8px; }
+  .section h3 .icon { font-size: 1rem; }
+  .section p { color: #333; font-size: 0.92rem; line-height: 1.7; }
+
+  /* PAIN POINTS & BULLETS */
+  .bullets { list-style: none; padding: 0; }
+  .bullets li { padding: 8px 0 8px 20px; position: relative; font-size: 0.92rem; color: #333; border-bottom: 1px solid var(--border); }
+  .bullets li:last-child { border-bottom: none; }
+  .bullets li::before { content: '→'; position: absolute; left: 0; color: var(--accent2); font-weight: 700; }
+
+  /* ACTION ITEMS */
+  .actions-list { list-style: none; padding: 0; }
+  .action-item { display: flex; align-items: flex-start; gap: 12px; padding: 12px 0; border-bottom: 1px solid var(--border); transition: background 0.1s; }
+  .action-item:last-child { border-bottom: none; }
+  .action-item.done .action-text { text-decoration: line-through; color: var(--muted); }
+  .action-item.done { background: var(--done-bg); border-radius: 8px; padding: 12px; margin: 4px 0; }
+  .action-check { width: 20px; height: 20px; border-radius: 6px; border: 2px solid var(--border); appearance: none; -webkit-appearance: none; cursor: pointer; flex-shrink: 0; margin-top: 2px; transition: all 0.15s; }
+  .action-check:checked { background: var(--done-text); border-color: var(--done-text); background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 12'%3E%3Cpath fill='white' d='M2 6l3 3 5-5'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: center; }
+  .action-text { font-size: 0.9rem; color: #333; line-height: 1.5; }
+  .action-date { font-size: 0.75rem; color: var(--accent2); font-weight: 600; margin-top: 2px; }
+
+  /* EMAIL SECTION */
+  .email-box { background: #fafafa; border: 1px solid var(--border); border-radius: 8px; padding: 20px; font-size: 0.88rem; white-space: pre-wrap; color: #333; line-height: 1.7; font-family: 'Georgia', serif; }
+  .email-subject { font-weight: 700; margin-bottom: 12px; font-size: 0.95rem; color: var(--accent); }
+  .copy-btn { margin-top: 12px; background: var(--accent); color: white; border: none; padding: 8px 18px; border-radius: 8px; cursor: pointer; font-size: 0.85rem; transition: opacity 0.15s; }
+  .copy-btn:hover { opacity: 0.85; }
+  .copy-btn.copied { background: var(--done-text); }
+
+  /* TABS */
+  .tabs { display: flex; gap: 4px; margin-bottom: 20px; background: #f0f0f0; border-radius: 10px; padding: 4px; }
+  .tab { padding: 8px 20px; border-radius: 8px; cursor: pointer; font-size: 0.88rem; color: var(--muted); transition: all 0.15s; border: none; background: none; }
+  .tab.active { background: white; color: var(--accent); font-weight: 600; box-shadow: 0 1px 4px rgba(0,0,0,0.1); }
+
+  /* PROGRESS BADGE */
+  .progress-badge { display: inline-flex; align-items: center; gap: 6px; background: #f0fdf4; color: var(--done-text); font-size: 0.8rem; font-weight: 600; padding: 4px 12px; border-radius: 99px; }
+
+  @media (max-width: 600px) {
+    header { padding: 20px; }
+    main { padding: 16px; }
+    nav { padding: 0 20px; }
+    .header-meta { flex-wrap: wrap; }
+  }
+  .notes-content { font-size: 0.88rem; line-height: 1.75; white-space: pre-wrap; max-height: 560px; overflow-y: auto; padding: 18px; background: #f9f9f7; border-radius: 8px; border: 1px solid var(--border); font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; color: #222; }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="header-flag">
+    <div class="flag-red"></div>
+    <div class="flag-white"></div>
+    <div class="flag-red"></div>
+  </div>
+  <div class="header-inner">
+    <div class="header-brand">
+      <svg class="flag-svg" width="72" height="48" viewBox="0 0 3 2" xmlns="http://www.w3.org/2000/svg">
+        <rect width="1" height="2" x="0" fill="#C8102E"/>
+        <rect width="1" height="2" x="1" fill="#ffffff"/>
+        <rect width="1" height="2" x="2" fill="#C8102E"/>
+      </svg>
+      <div class="header-titles">
+        <h1>Reuniones Perú</h1>
+        <div class="subtitle">ABN / Hyke &nbsp;·&nbsp; Semana del 26–28 de mayo de 2026</div>
+      </div>
+    </div>
+    <div class="header-meta">
+      <div class="stat"><div class="stat-num">8</div><div class="stat-label">Reuniones</div></div>
+      <div class="stat"><div class="stat-num" id="total-done">0</div><div class="stat-label">Tareas completadas</div></div>
+      <div class="stat"><div class="stat-num" id="total-tasks">0</div><div class="stat-label">Tareas totales</div></div>
+    </div>
+  </div>
+</header>
+
+<nav id="main-nav">
+  <a href="#" class="active" onclick="showOverview(event)">Vista General</a>
+  <a href="#" onclick="showMeeting(event, 'tottus')">🏬 Tottus</a>
+  <a href="#" onclick="showMeeting(event, 'latinka1')">🎰 La Tinka 1</a>
+  <a href="#" onclick="showMeeting(event, 'latinka2')">🎰 La Tinka 2</a>
+  <a href="#" onclick="showMeeting(event, 'credicorp')">🏦 Credicorp</a>
+  <a href="#" onclick="showMeeting(event, 'yape')">💳 Yape</a>
+  <a href="#" onclick="showMeeting(event, 'inlearning')">📚 InLearning</a>
+  <a href="#" onclick="showMeeting(event, 'intercorp')">🏢 Intercorp AI</a>
+  <a href="#" onclick="showMeeting(event, 'teapuesto')">🎲 Te Apuesto</a>
+</nav>
+
+<main>
+
+<!-- OVERVIEW -->
+<div id="overview" class="visible">
+  <div class="overview-grid" id="overview-grid"></div>
+</div>
+
+<!-- MEETING VIEWS -->
+<div id="tottus" class="meeting-view">
+  <div class="meeting-header">
+    <div class="top">
+      <h2><img class="meeting-logo" src="https://www.google.com/s2/favicons?domain=tottus.com.pe&sz=128" alt="" onerror="this.style.display='none'"> Tottus</h2>
+      <button class="back-btn" onclick="showOverview(event)">← Vista general</button>
+    </div>
+    <div class="meeting-meta">
+      <span class="meta-chip">📅 26/05/2026</span>
+      <span class="meta-chip">⏱ 47m 50s</span>
+      <span class="meta-chip">👥 Analu · Patricio · José</span>
+      <span class="meta-chip">🏢 Retail / Data</span>
+    </div>
+  </div>
+
+  <div class="tabs">
+    <button class="tab active" onclick="switchTab(this, 'tottus-resumen')">Resumen</button>
+    <button class="tab" onclick="switchTab(this, 'tottus-acciones')">Acciones</button>
+    <button class="tab" onclick="switchTab(this, 'tottus-email')">Email</button>
+    <button class="tab" onclick="switchTab(this, 'tottus-notas')">Notas Plaud</button>
+  </div>
+
+  <div id="tottus-resumen">
+    <div class="section">
+      <h3><span class="icon">📋</span> Contexto</h3>
+      <p>Gran retailer similar a Grupo Falabella. Stack: Salesforce CRM, BigQuery, Firebase, GA4, Adobe Analytics, Looker, Power BI. En proceso de migración de datos sin finalizar. La reunión la condujo Sebastián presentando <strong>Hyke</strong> (empresa hermana de ABN especializada en IA/tech), con el objetivo de mostrar cómo Hyke Chat puede resolver la fragmentación de datos sin competir con su agencia de medios.</p>
+    </div>
+    <div class="section">
+      <h3><span class="icon">🔴</span> Puntos de Dolor</h3>
+      <ul class="bullets">
+        <li>Datos fragmentados en múltiples plataformas (Looker, Power BI, Excel). Las decisiones tardan hasta <strong>5 días</strong>.</li>
+        <li>Análisis 100% manual en Excel — "gran pain" del equipo.</li>
+        <li>Sin monitoreo automatizado de creatividades de la competencia. Quieren reporte diario a las 9am.</li>
+        <li>Preocupación por gobernanza y costos si escalan ("mil analistas") — riesgo de caos en BigQuery.</li>
+        <li>Desconfianza en los datos (ej: dudas sobre fuente de quiebres de stock).</li>
+      </ul>
+    </div>
+    <div class="section">
+      <h3><span class="icon">🎯</span> Expectativas</h3>
+      <ul class="bullets">
+        <li>Centralizar todo en <strong>BigQuery</strong> como "fuente única de verdad".</li>
+        <li><strong>Hyke Chat</strong>: agente conversacional para que no-técnicos hagan preguntas en lenguaje natural y creen dashboards via prompts.</li>
+        <li>Scraping diario de campañas de competidores diferenciando pauta pagada/orgánica.</li>
+        <li>Datos alojados en su propia infraestructura, costos predecibles, enfoque "Adoc" (no SaaS genérico).</li>
+      </ul>
+    </div>
+    <div class="section">
+      <h3><span class="icon">ℹ️</span> Información adicional</h3>
+      <ul class="bullets">
+        <li>Hyke es partner de McKinsey, ITBA y Google Cloud.</li>
+        <li>Hubo mención al temor de "canibalización" de empleos por IA — oportunidad para enmarcar como liberación de tiempo estratégico.</li>
+        <li>Prefieren proyectos "Adoc" con diagnóstico y solución a medida.</li>
+      </ul>
+    </div>
+  </div>
+
+  <div id="tottus-acciones" style="display:none">
+    <div class="section">
+      <h3><span class="icon">✅</span> Action Items <span class="progress-badge" id="prog-tottus">0/0</span></h3>
+      <ul class="actions-list" id="actions-tottus">
+        <li class="action-item" data-id="t1">
+          <input type="checkbox" class="action-check" onchange="toggleAction(this, 'tottus', 't1')">
+          <div><div class="action-text">Enviar propuesta de arquitectura de datos por fases (con BigQuery como hub), incluyendo opciones y rangos de costos estimados.</div></div>
+        </li>
+        <li class="action-item" data-id="t2">
+          <input type="checkbox" class="action-check" onchange="toggleAction(this, 'tottus', 't2')">
+          <div><div class="action-text">Elaborar plan para el proyecto de scraping de la competencia (piezas creativas, diferenciación pauta pagada/orgánica, reporte diario 9am).</div></div>
+        </li>
+        <li class="action-item" data-id="t3">
+          <input type="checkbox" class="action-check" onchange="toggleAction(this, 'tottus', 't3')">
+          <div><div class="action-text">Preparar demo detallada de Hyke Chat con caso de uso relevante para retail/Tottus.</div></div>
+        </li>
+        <li class="action-item" data-id="t4">
+          <input type="checkbox" class="action-check" onchange="toggleAction(this, 'tottus', 't4')">
+          <div><div class="action-text">Hacer seguimiento con Analu, Patricio y José para definir fuentes de datos prioritarias, KPIs del piloto y alcance inicial.</div></div>
+        </li>
+        <li class="action-item" data-id="t5">
+          <input type="checkbox" class="action-check" onchange="toggleAction(this, 'tottus', 't5')">
+          <div><div class="action-text">Aclarar políticas de acceso a sistemas (Salesforce, BigQuery) para evaluar viabilidad técnica.</div></div>
+        </li>
+        <li class="action-item" data-id="t6">
+          <input type="checkbox" class="action-check" onchange="toggleAction(this, 'tottus', 't6')">
+          <div><div class="action-text">Investigar y compartir información sobre el posicionamiento en IA generativa ("nuevo SEO").</div></div>
+        </li>
+      </ul>
+    </div>
+  </div>
+
+  <div id="tottus-email" style="display:none">
+    <div class="section">
+      <h3><span class="icon">✉️</span> Email de Seguimiento</h3>
+      <div class="email-subject">Asunto: Próximos pasos — Hyke x Tottus</div>
+      <div class="email-box" id="email-tottus">Hola Analu, Patricio y José,
+
+Gracias por el tiempo y la apertura en nuestra reunión. Fue muy valioso entender en profundidad los desafíos que enfrentan con la gestión y unificación de datos.
+
+En base a lo conversado, los próximos pasos que acordamos son:
+
+1. Propuesta de arquitectura de datos por fases
+Vamos a preparar una propuesta detallando el proyecto de arquitectura (con BigQuery como fuente central), incluyendo fases de implementación, equipos involucrados y rangos de costos estimados.
+
+2. Plan para scraping de competencia
+Diseñaremos una propuesta para el monitoreo automatizado de campañas creativas de competidores, con reporte diario diferenciando pauta pagada y orgánica.
+
+3. Demo de Hyke Chat
+Prepararemos una demostración más detallada del agente conversacional con un caso de uso relevante para retail/Tottus.
+
+Para avanzar, nos sería muy útil agendar una call para alinear:
+- Fuentes de datos prioritarias (¿por dónde empezamos: Salesforce, Google Ads, Adobe?)
+- Políticas de acceso a sistemas (BigQuery, Salesforce)
+- KPIs de éxito del proyecto piloto
+
+¿Tienen disponibilidad esta semana o la próxima?
+
+Saludos,
+[Tu nombre]</div>
+      <button class="copy-btn" onclick="copyEmail('email-tottus', this)">📋 Copiar email</button>
+    </div>
+  </div>
+
+  <div id="tottus-notas" style="display:none">
+    <div class="section">
+      <h3><span class="icon">📝</span> Notas Plaud — Tottus (26/05/2026 · 47m 50s)</h3>
+      <div class="notes-content">Fecha y Hora: 26 de mayo de 2026, 16:05:47
+
+Ubicación: [Insertar Ubicación]
+
+Cliente: [Insertar Cliente / Tottus]
+
+Resumen General
+
+Las reuniones se centraron en los desafíos del cliente, una gran organización de retail (como Tottus), relacionados con la integración, gestión y visualización de datos de múltiples fuentes (Google Ads, Adobe Analytics, Salesforce, Power BI, etc.). El principal problema es la falta de una arquitectura de datos unificada, lo que resulta en información dispersa en múltiples dashboards (Looker, Power BI), silos de datos y una fuerte dependencia de procesos de análisis manuales en Excel. Esto retrasa la toma de decisiones hasta en 5 días y genera desconfianza en la información. El cliente busca una solución, preferiblemente en formato de proyectos "Adoc" (a medida), que centralice sus datos en una única fuente de verdad (como BigQuery), automatice la creación de dashboards y permita a sus equipos (desde 100 hasta 1000 analistas) realizar consultas en lenguaje natural mediante un agente conversacional. Además, expresaron la necesidad de una herramienta de scraping para monitorear las campañas de la competencia en tiempo real y mostraron preocupación por la gobernanza de datos, la confidencialidad y los costos escalables.
+
+Antecedentes
+
+El cliente es una gran organización del sector retail con múltiples unidades de negocio y mercados, similar a Grupo Falabella. Su ecosistema tecnológico incluye Salesforce para CRM, BigQuery como repositorio de datos, Firebase para notificaciones, y GA4 y Adobe Analytics para tráfico web, con visualizaciones en Looker y Power BI. A pesar de tener estas herramientas y un equipo centralizado de datos, los procesos son lentos y manuales. La empresa ha estado en un proceso de migración de datos durante el último año que aún no está finalizado. La reunión fue presentada por Sebastián de ABN Group, quien explicó que su empresa evolucionó para incluir a "Hyke", una empresa hermana especializada en proyectos de tecnología e IA que trabaja con clientes como Sodimac y Grupo Despegar. El objetivo era presentar cómo la solución de Hyke, "Hyke Chat", podría resolver los desafíos de integración de datos sin competir con su agencia de medios o equipo tecnológico actual.
+
+Puntos de Dolor
+
+Fragmentación de Datos y Falta de una Vista Unificada: El problema central es la dispersión de datos en múltiples plataformas y dashboards desconectados (Looker, Power BI, Adobe Analytics, Excels). La información de áreas críticas como Paid Media, CRM (Salesforce), Loyalty, y ventas de tiendas físicas no se integra de forma coherente, impidiendo una visión 360 del cliente y del rendimiento. Esto genera desconfianza en los datos, como se evidenció al dudar sobre la fuente de información de quiebres de stock.
+
+Dependencia de Procesos Manuales y Lentos: Los equipos dependen en gran medida de procesos manuales, principalmente en Excel, para consolidar y analizar datos, descritos como un gran "pain". Tareas como generar evidencias de campañas o cruzar datos de Salesforce con ventas para calcular el ROI son lentas y propensas a errores, provocando retrasos de hasta 5 días en la toma de decisiones.
+
+Falta de Monitoreo Automatizado de la Competencia (Scraping): El cliente carece de una herramienta para monitorear automáticamente las activaciones de campañas y piezas creativas de la competencia en tiempo real. Desean recibir un reporte diario (ej. a las 9 am) que les informe sobre los lanzamientos de sus rivales, diferenciando entre pauta pagada y orgánica, para reaccionar con mayor agilidad.
+
+Gobernanza de Datos y Escalabilidad: Con un potencial de hasta "mil analistas", existe una preocupación significativa sobre la gobernanza y los costos. Temen que una herramienta de autoservicio genere una proliferación de dashboards y tablas en BigQuery sin control, creando un caos de gobernanza y costos de infraestructura impredecibles.
+
+Expectativas
+
+Unificar la Arquitectura de Datos: La principal expectativa es implementar una arquitectura de datos que centralice y unifique todas sus fuentes de información en un solo lugar (como BigQuery) para crear una "fuente única de verdad". El éxito se medirá por la eliminación de la dependencia de procesos manuales en Excel y la confianza en la veracidad de los datos.
+
+Automatización de Dashboards y Análisis Conversacional: Una vez unificados los datos, el cliente espera tener dashboards en tiempo real y un "agente embebido" que permita a los usuarios hacer preguntas en lenguaje natural ("prontear") para obtener insights rápidamente, reduciendo la carga operativa y acelerando la toma de decisiones.
+
+Implementación de una Solución de Scraping a Medida: Buscan un proyecto "Adoc" que automatice el monitoreo de las campañas creativas de la competencia, proporcionando visibilidad casi en tiempo real para informar sus propias estrategias de marketing.
+
+Confidencialidad, Control y Costos Predecibles: Cualquier solución debe garantizar la confidencialidad de los datos, permitiendo que se aloje en la infraestructura del cliente. La gobernanza debe permanecer bajo su control, y esperan un modelo de costos basado en el proyecto y su impacto, no por usuario o uso de API.
+
+Posicionamiento en IA Generativa: Mostraron interés en explorar cómo posicionarse en los resultados de búsqueda de plataformas de IA generativa (el "nuevo SEO") para capturar a usuarios con alta intención de compra.
+
+Resumen de Otra Información
+
+Preferencia por Proyectos a Medida: El cliente valora un enfoque de proyectos "Adoc" (diagnóstico y solución personalizada) en lugar de un producto SaaS genérico.
+
+Herramientas y Partners Actuales: Utilizan Salesforce, BigQuery, Firebase, GA4 y Looker. Hyke es partner de McKinsey, ITBA y Google Cloud.
+
+Solución Propuesta ("Hyke Chat"): Es un agente conversacional que permite a usuarios no técnicos crear dashboards y analizar datos mediante prompts, centralizando la información de diversas APIs en BigQuery.
+
+Preocupación por la IA: Hubo una mención sobre el temor a la "canibalización" de empleos por la IA, aunque se reconoció su potencial para reducir la carga de trabajo manual.
+
+Lista de Tareas
+
+Enviar propuesta detallando un proyecto de arquitectura de datos por fases como primer paso, incluyendo opciones de proyectos y rangos de costos estimados.
+
+Elaborar un plan para el proyecto de scraping de la competencia, enfocándose en piezas creativas y diferenciación de pauta pagada/orgánica.
+
+Preparar una demostración más detallada de "Hyke Chat" o un agente conversacional, utilizando un caso de uso relevante para el cliente.
+
+Hacer seguimiento con los contactos clave (Analu, Patricio, José) para definir el alcance de un proyecto inicial (fuentes de datos, equipos, KPIs).
+
+Aclarar con el cliente las políticas de acceso a sus sistemas (Salesforce, BigQuery, etc.) para evaluar la viabilidad técnica.
+
+Investigar y compartir información sobre el posicionamiento en IA generativa ("nuevo SEO").</div>
+    </div>
+  </div>
+</div>
+
+<!-- LA TINKA 1 -->
+<div id="latinka1" class="meeting-view">
+  <div class="meeting-header">
+    <div class="top">
+      <h2><img class="meeting-logo" src="https://www.google.com/s2/favicons?domain=latinka.com.pe&sz=128" alt="" onerror="this.style.display='none'"> La Tinka — Willy (Reunión 1)</h2>
+      <button class="back-btn" onclick="showOverview(event)">← Vista general</button>
+    </div>
+    <div class="meeting-meta">
+      <span class="meta-chip">📅 27/05/2026</span>
+      <span class="meta-chip">⏱ 13m 18s</span>
+      <span class="meta-chip">👥 Willy · Sandra Aguero · Lupe · Ricardo · Félix · Pamela</span>
+      <span class="meta-chip">🏢 Loterías / IA Estratégica</span>
+    </div>
+  </div>
+
+  <div class="tabs">
+    <button class="tab active" onclick="switchTab(this, 'latinka1-resumen')">Resumen</button>
+    <button class="tab" onclick="switchTab(this, 'latinka1-acciones')">Acciones</button>
+    <button class="tab" onclick="switchTab(this, 'latinka1-email')">Email</button>
+    <button class="tab" onclick="switchTab(this, 'latinka1-notas')">Notas Plaud</button>
+  </div>
+
+  <div id="latinka1-resumen">
+    <div class="section">
+      <h3><span class="icon">📋</span> Contexto</h3>
+      <p>Grupo con dos marcas: <strong>La Tinka</strong> (loterías) y <strong>Te Apuesto</strong> (apuestas deportivas). Reunión estructurada con 5 iniciativas concretas y fechas definidas. Willy es el líder del área de loterías. Sandra Aguero lidera TI.</p>
+    </div>
+    <div class="section">
+      <h3><span class="icon">🎯</span> 5 Iniciativas Identificadas</h3>
+      <ul class="bullets">
+        <li><strong>1. IA para contenidos y paid media (ambas marcas):</strong> Arquitectura compartida con motor común y despliegues separados. Separación total de datos entre marcas.</li>
+        <li><strong>2. Refuerzo performance marketing Te Apuesto:</strong> Agencia actual percibida como débil. ABN/Hyke como músculo externo temporal + upskilling del equipo interno.</li>
+        <li><strong>3. Programa de capacitación y workshops de IA:</strong> Procesos nuevos que nazcan integrados con IA. Workshops por roles (marketing, datos, TI, negocio).</li>
+        <li><strong>4. Proyecto optimización rentabilidad con IA/ML + capa generativa:</strong> Conectar toda la data en BigQuery + queries en lenguaje natural. Reunión técnica con Sandra.</li>
+        <li><strong>5. Portabilidad de soluciones dentro del grupo:</strong> Social listening (ya hecho para NFR) transportable a otras cuentas. Definir gobernanza y licenciamiento interno.</li>
+      </ul>
+    </div>
+  </div>
+
+  <div id="latinka1-acciones" style="display:none">
+    <div class="section">
+      <h3><span class="icon">✅</span> Action Items <span class="progress-badge" id="prog-latinka1">0/0</span></h3>
+      <ul class="actions-list" id="actions-latinka1">
+        <li class="action-item" data-id="lt1-1">
+          <input type="checkbox" class="action-check" onchange="toggleAction(this, 'latinka1', 'lt1-1')">
+          <div><div class="action-text">Diseñar arquitectura de solución compartida (motor común, instancias separadas por marca, segregación de datos).</div><div class="action-date">Plazo: 05/06/2026</div></div>
+        </li>
+        <li class="action-item" data-id="lt1-2">
+          <input type="checkbox" class="action-check" onchange="toggleAction(this, 'latinka1', 'lt1-2')">
+          <div><div class="action-text">Auditoría de performance actual de Te Apuesto (canales, creatividades, tracking, atribución) y plan de optimización de 90 días.</div><div class="action-date">Plazo: 10/06/2026</div></div>
+        </li>
+        <li class="action-item" data-id="lt1-3">
+          <input type="checkbox" class="action-check" onchange="toggleAction(this, 'latinka1', 'lt1-3')">
+          <div><div class="action-text">Plan de workshops por roles (marketing, datos, TI, negocio) con objetivos, temario y materiales.</div><div class="action-date">Plazo: 07/06/2026</div></div>
+        </li>
+        <li class="action-item" data-id="lt1-4">
+          <input type="checkbox" class="action-check" onchange="toggleAction(this, 'latinka1', 'lt1-4')">
+          <div><div class="action-text">Reunión técnica entre liderazgo del proyecto y ABN/Hyke para explorar aceleración del proyecto de rentabilidad con IA/ML.</div><div class="action-date">Plazo: 06/06/2026 — Willy + Sandra Aguero</div></div>
+        </li>
+        <li class="action-item" data-id="lt1-5">
+          <input type="checkbox" class="action-check" onchange="toggleAction(this, 'latinka1', 'lt1-5')">
+          <div><div class="action-text">Inventario de soluciones existentes reutilizables (social listening, módulos MarTech/IA) y criterios de adopción.</div><div class="action-date">Plazo: 11/06/2026</div></div>
+        </li>
+        <li class="action-item" data-id="lt1-6">
+          <input type="checkbox" class="action-check" onchange="toggleAction(this, 'latinka1', 'lt1-6')">
+          <div><div class="action-text">Propuesta de gobernanza para portabilidad de soluciones (responsables, SLAs, costos de transferencia).</div><div class="action-date">Plazo: 18/06/2026</div></div>
+        </li>
+        <li class="action-item" data-id="lt1-7">
+          <input type="checkbox" class="action-check" onchange="toggleAction(this, 'latinka1', 'lt1-7')">
+          <div><div class="action-text">Selección de 1-2 soluciones para implementación rápida en La Tinka y/o Te Apuesto.</div><div class="action-date">Plazo: 25/06/2026 — Lupe + Ricardo</div></div>
+        </li>
+      </ul>
+    </div>
+  </div>
+
+  <div id="latinka1-email" style="display:none">
+    <div class="section">
+      <h3><span class="icon">✉️</span> Email de Seguimiento</h3>
+      <div class="email-subject">Asunto: Resumen y próximos pasos — ABN/Hyke x La Tinka & Te Apuesto</div>
+      <div class="email-box" id="email-latinka1">Hola Willy,
+
+Gracias por la sesión de hoy — fue muy productivo poder estructurar las 5 iniciativas con claridad.
+
+Resumen de los proyectos que vamos a trabajar:
+
+1. Arquitectura de IA compartida para gestión de contenidos y paid media (La Tinka + Te Apuesto) — con motor común y datos completamente segregados por marca.
+
+2. Refuerzo de performance marketing para Te Apuesto — auditoría + plan de optimización 90 días como equipo externo complementario.
+
+3. Programa de capacitación y workshops de IA por roles — procesos que nazcan ya integrados con IA desde el inicio.
+
+4. Capa generativa sobre BigQuery para optimización de rentabilidad — coordinar reunión técnica con Sandra para explorar aceleración.
+
+5. Modelo de portabilidad de soluciones del grupo — inventario de lo existente (ej. social listening de NFR) y gobernanza de reutilización.
+
+Próxima acción: ¿Podemos confirmar la reunión técnica con Sandra Aguero para la semana del 6/06?
+
+Saludos,
+[Tu nombre]</div>
+      <button class="copy-btn" onclick="copyEmail('email-latinka1', this)">📋 Copiar email</button>
+    </div>
+  </div>
+
+  <div id="latinka1-notas" style="display:none">
+    <div class="section">
+      <h3><span class="icon">📝</span> Notas Plaud — La Tinka Reunión 1 (27/05/2026 · 13m 18s)</h3>
+      <div class="notes-content">1. Solución conjunta de IA para gestión de contenidos y paid media en "Te Apuesto" y "La Tinka" (loterías)
+
+Las unidades de negocio de loterías ("La Tinka") y apuestas deportivas ("Te Apuesto") convergen en la necesidad de usar IA para gestión de contenidos en redes sociales, moderación/gestión de comentarios y optimización de paid media. El impacto buscado es mejorar eficiencia operativa y performance de marketing, evitando esfuerzos duplicados. Se plantea una arquitectura compartida: un mismo motor/lógica de IA con despliegues separados para cada marca, asegurando separación de datos. Se considera apoyo adicional en performance marketing debido a debilidades de la agencia actual de "Te Apuesto", y la posibilidad de trasladar soluciones entre cuentas del grupo para ganar velocidad y ahorro.
+
+Acciones
+
+Diseñar la arquitectura de solución compartida (motor común, instancias separadas por marca, gobierno de datos) para gestión de contenidos, comentarios y paid media -- [Insertar Nombres] 2026-06-10
+
+Levantar requerimientos detallados por marca (flujos de social, tipos de contenido, canales de paid, métricas objetivo) y definir KPIs de impacto medible -- Lupe Ricardo 2026-06-07
+
+Prototipo funcional mínimo (MVP) del motor de IA aplicado a un caso de uso de social listening + gestión de comentarios y a una táctica de paid media por marca -- HYKE (Martech de ABN) Equipo de Marketing Interno 2026-06-24
+
+Definir y documentar el esquema de segregación de datos y compliance entre "Te Apuesto" y "La Tinka" -- TI Interna HYKE (Martech de ABN) 2026-06-14
+
+Estimar costos y proponer esquema de pricing "de entrada" para el primer proyecto, con opción de ajuste tras demostrar valor -- ABN/HYKE 2026-06-05
+
+
+2. Refuerzo de performance marketing para "Te Apuesto"
+
+"Te Apuesto" presenta un problema en su servicio actual de agencia de performance; se percibe falta de respuesta técnica y de estrategia. El impacto es bajo rendimiento en paid media y riesgo en objetivos comerciales. Se propone que ABN/HYKE actúe como músculo externo temporal, revisando estrategia, proponiendo nuevos medios y optimizando campañas mientras se define el rumbo. Se busca también upskilling del equipo interno para ganar autonomía.
+
+Acciones
+
+Auditoría de performance actual (canales, creatividades, estructura de cuentas, tracking, atribución) y plan de optimización de 90 días -- ABN/HYKE (Marketing y Martech) 2026-06-12
+
+Propuesta de mix de medios y testing plan (nuevos canales/formatos, hipótesis, métricas de éxito) -- ABN/HYKE (Marketing) 2026-06-17
+
+Implementación de quick wins en campañas prioritarias con seguimiento semanal de métricas clave -- ABN/HYKE (Marketing) Equipo de Marketing Interno 2026-06-21
+
+Definición del modelo de colaboración con agencia actual (continuidad, reemplazo o modelo híbrido) y cronograma de transición -- Lupe Ricardo 2026-06-26
+
+
+3. Programa de capacitación y talleres para integrar IA "de hoy hacia el futuro"
+
+Se prioriza que los procesos nuevos nazcan ya integrados con IA para evitar costosas reestructuraciones posteriores. El impacto esperado es escalabilidad y adopción sostenida. Se proponen workshops y entrenamientos para que equipos aprendan a identificar casos, usar herramientas y diseñar procesos con IA desde el inicio. Complementariamente, se rediseñarán procesos existentes "de hoy hacia el pasado" vía proyectos específicos.
+
+Acciones
+
+Plan de workshops por roles (marketing, datos, TI, negocio) con objetivos, temario y materiales -- ABN/HYKE 2026-06-07
+
+Calendario de 4 sesiones iniciales y selección de participantes -- [Insertar Nombres] 2026-06-10
+
+Módulo de upskilling específico para el equipo interno de "Te Apuesto" orientado a performance y MarTech -- ABN/HYKE Equipo de Marketing Interno 2026-06-19
+
+Métricas de adopción y evaluación de impacto (participación, casos implementados, eficiencia) -- ABN/HYKE PMO/Operaciones Internas 2026-06-28
+
+
+4. Proyecto transversal de optimización de rentabilidad con IA/ML y capa generativa
+
+Existe un proyecto corporativo grande para optimizar la rentabilidad conectando toda la data relevante (puntos de venta, mix de producto, comisiones, gastos). El sistema incluye motores de IA/ML que procesan datos en tiempo real y una capa generativa que permite consultas en lenguaje natural, generando queries contra el data warehouse. El impacto es detección temprana de brechas de rentabilidad y capacidad de acción informada. Se evalúa la posibilidad de que ABN/HYKE acelere el desarrollo dado su experiencia en soluciones similares (por ejemplo, chat interno sobre datos en BigQuery).
+
+Acciones
+
+Reunión técnica entre liderazgo del proyecto y ABN/HYKE para explorar aceleración y sinergias -- Speaker 1 (Líder de Loterías) Sandra Aguero (TI) ABN/HYKE 2026-06-06
+
+Definir alcance de un piloto acotado (área/dominio de datos, KPIs de rentabilidad, alertas) y entregables -- Sandra Aguero (TI) ABN/HYKE 2026-06-13
+
+Evaluación de integración con BigQuery y seguridad de acceso para la capa generativa -- TI Interna ABN/HYKE (Datos/Martech) 2026-06-20
+
+
+5. Modelo de reutilización/portabilidad de soluciones dentro del grupo
+
+Se valida que desarrollos (p. ej., social listening ya hecho para NFR) son 100% transportables a otras cuentas del grupo, con beneficios de costos y time-to-value. El impacto es acelerar despliegues y estandarizar buenas prácticas. Se requiere definir criterios de portabilidad, licenciamiento interno y facturación entre unidades.
+
+Acciones
+
+Inventario de soluciones existentes reutilizables (social listening, módulos MarTech/IA) y criterios de adopción -- ABN/HYKE 2026-06-11
+
+Propuesta de gobernanza para portabilidad (responsables, SLAs, costos de transferencia) -- ABN/HYKE Finanzas Internas 2026-06-18
+
+Selección de 1-2 soluciones para implementación rápida en "La Tinka" y/o "Te Apuesto" -- Lupe Ricardo ABN/HYKE 2026-06-25
+
+
+Sugerencias de IA
+
+La IA ha identificado los siguientes temas que no quedaron concluidos en la reunión o carecen de acciones claras; por favor, prestar atención:
+
+Falta de definición formal de responsables internos por tarea en varias acciones (p. ej., arquitectura de solución compartida, calendario de workshops); asignar dueños claros y disponibilidad.
+
+Indefinición sobre el rol de la agencia de performance actual de "Te Apuesto" (continuidad, reemplazo o modelo híbrido) y el plan de transición; riesgo de duplicidades y conflictos operativos.
+
+Detalle pendiente del modelo de datos, seguridad y cumplimiento para la segregación estricta entre "La Tinka" y "Te Apuesto" en la solución conjunta; riesgo de exposición de datos sensibles.
+
+Estructura de costos y esquema de pricing "de entrada" para el primer proyecto no cerrados; sin claridad presupuestaria puede retrasar el inicio.
+
+Alcance concreto del piloto en el proyecto transversal de rentabilidad (dominio, KPIs, alertas y datasets) aún no especificado; riesgo de demoras y desalineación técnica.</div>
+    </div>
+  </div>
+</div>
+
+<!-- LA TINKA 2 -->
+<div id="latinka2" class="meeting-view">
+  <div class="meeting-header">
+    <div class="top">
+      <h2><img class="meeting-logo" src="https://www.google.com/s2/favicons?domain=latinka.com.pe&sz=128" alt="" onerror="this.style.display='none'"> La Tinka — Willy (Reunión 2)</h2>
+      <button class="back-btn" onclick="showOverview(event)">← Vista general</button>
+    </div>
+    <div class="meeting-meta">
+      <span class="meta-chip">📅 27/05/2026</span>
+      <span class="meta-chip">⏱ 1h 20m</span>
+      <span class="meta-chip">👥 Willy · Félix · Pamela</span>
+      <span class="meta-chip">🏢 Creatividades / Dashboard / IA</span>
+    </div>
+  </div>
+
+  <div class="tabs">
+    <button class="tab active" onclick="switchTab(this, 'latinka2-resumen')">Resumen</button>
+    <button class="tab" onclick="switchTab(this, 'latinka2-acciones')">Acciones</button>
+    <button class="tab" onclick="switchTab(this, 'latinka2-email')">Email</button>
+    <button class="tab" onclick="switchTab(this, 'latinka2-notas')">Notas Plaud</button>
+  </div>
+
+  <div id="latinka2-resumen">
+    <div class="section">
+      <h3><span class="icon">📋</span> Contexto</h3>
+      <p>Segunda reunión de profundización con Willy (1h20m). Foco en creatividades, dashboards de performance y claridad de uso de IA. La empresa no aprueba fees mensuales — solo proyectos cerrados con soporte on-demand.</p>
+    </div>
+    <div class="section">
+      <h3><span class="icon">🔴</span> Puntos de Dolor</h3>
+      <ul class="bullets">
+        <li>Análisis de campañas Meta/TikTok 100% manual en Excel.</li>
+        <li>Adaptación de piezas creativas: hasta <strong>800 formatos</strong>, proceso caro y lento con agencia gráfica actual.</li>
+        <li>Falta de claridad interna sobre cómo y para qué usar IA.</li>
+        <li><strong>No aprueban fees mensuales</strong> — solo proyectos cerrados con soporte on-demand.</li>
+        <li>Falta de tech partners confiables en Perú y México.</li>
+      </ul>
+    </div>
+    <div class="section">
+      <h3><span class="icon">🎯</span> Expectativas</h3>
+      <ul class="bullets">
+        <li>Dashboard integrado Meta+TikTok con recomendaciones proactivas de IA.</li>
+        <li>Producción creativa con IA (imagen/video) en 2-3 días a menor costo.</li>
+        <li>Workshop de "para qué usar IA" para líderes de negocio y TI.</li>
+        <li>Pricing unificado para social listening en ambas marcas.</li>
+      </ul>
+    </div>
+  </div>
+
+  <div id="latinka2-acciones" style="display:none">
+    <div class="section">
+      <h3><span class="icon">✅</span> Action Items <span class="progress-badge" id="prog-latinka2">0/0</span></h3>
+      <ul class="actions-list" id="actions-latinka2">
+        <li class="action-item" data-id="lt2-1">
+          <input type="checkbox" class="action-check" onchange="toggleAction(this, 'latinka2', 'lt2-1')">
+          <div><div class="action-text">Compartir tarifarios detallados de generación de contenido por IA (imagen y video).</div></div>
+        </li>
+        <li class="action-item" data-id="lt2-2">
+          <input type="checkbox" class="action-check" onchange="toggleAction(this, 'latinka2', 'lt2-2')">
+          <div><div class="action-text">Preparar propuesta de piloto de producción creativa con IA (alcance, tiempos de 2-3 días, costos cerrados).</div></div>
+        </li>
+        <li class="action-item" data-id="lt2-3">
+          <input type="checkbox" class="action-check" onchange="toggleAction(this, 'latinka2', 'lt2-3')">
+          <div><div class="action-text">Diseñar y proponer workshop inicial "para qué usar IA" dirigido a líderes de unidades y TI.</div></div>
+        </li>
+        <li class="action-item" data-id="lt2-4">
+          <input type="checkbox" class="action-check" onchange="toggleAction(this, 'latinka2', 'lt2-4')">
+          <div><div class="action-text">Reunirse con Félix para alinear proyectos similares y definir pricing unificado de social listening para ambas marcas.</div></div>
+        </li>
+        <li class="action-item" data-id="lt2-5">
+          <input type="checkbox" class="action-check" onchange="toggleAction(this, 'latinka2', 'lt2-5')">
+          <div><div class="action-text">Definir arquitectura sin fee mensual + marco de integración segura de IA con sistemas internos (correo, TI).</div></div>
+        </li>
+        <li class="action-item" data-id="lt2-6">
+          <input type="checkbox" class="action-check" onchange="toggleAction(this, 'latinka2', 'lt2-6')">
+          <div><div class="action-text">Coordinar reunión con el estudio creativo (Aven/Gas Studio) para presentar capacidades a Félix, Pamela y Willy.</div></div>
+        </li>
+        <li class="action-item" data-id="lt2-7">
+          <input type="checkbox" class="action-check" onchange="toggleAction(this, 'latinka2', 'lt2-7')">
+          <div><div class="action-text">Enviar ejemplos de videos generados con IA (ej. campaña CALM) al cliente.</div></div>
+        </li>
+      </ul>
+    </div>
+  </div>
+
+  <div id="latinka2-email" style="display:none">
+    <div class="section">
+      <h3><span class="icon">✉️</span> Email de Seguimiento</h3>
+      <div class="email-subject">Asunto: Creatividades IA + Dashboard + Próximos pasos — ABN/Hyke x La Tinka</div>
+      <div class="email-box" id="email-latinka2">Hola Willy,
+
+Gracias por la segunda sesión de hoy — fue muy valioso profundizar en los desafíos de creatividades y datos de campañas.
+
+Tal como acordamos, esta semana te estaremos enviando:
+
+📊 Tarifarios de generación de contenido por IA (imagen y video)
+🎬 Ejemplos de videos generados con IA (campaña CALM y otros)
+📋 Propuesta de piloto de producción creativa con alcance, tiempos (2-3 días) y costos cerrados — sin fee mensual
+🧠 Diseño del workshop "para qué usar IA" para líderes y TI
+
+Además, me gustaría coordinar dos reuniones:
+1. Con Félix — para alinear pricing del social listening en ambas marcas.
+2. Con Félix, Pamela y vos — para presentar las capacidades del estudio creativo (Aven/Gas Studio).
+
+¿Cuándo tienen disponibilidad para ambas? ¿La semana que viene funciona?
+
+Saludos,
+[Tu nombre]</div>
+      <button class="copy-btn" onclick="copyEmail('email-latinka2', this)">📋 Copiar email</button>
+    </div>
+  </div>
+
+  <div id="latinka2-notas" style="display:none">
+    <div class="section">
+      <h3><span class="icon">📝</span> Notas Plaud — La Tinka Reunión 2 (27/05/2026 · 1h 20m)</h3>
+      <div class="notes-content">Fecha y Hora: 2026-05-27 12:24:39
+
+Ubicación: [Insertar Ubicación]
+
+Cliente: Willy / [Insertar Cliente]
+
+Resumen General
+
+La consulta se centra en cómo la inteligencia artificial puede mejorar los procesos de marketing digital, abarcando desde la gestión de datos y optimización de campañas hasta la creación automatizada de contenido. El cliente, que representa a una empresa con múltiples marcas (como La Tinka y Te Apuesto), enfrenta desafíos significativos en eficiencia, costos y capacidad de ejecución. Sus principales problemas son la dependencia de procesos manuales con hojas de cálculo para analizar datos de campañas (Meta, TikTok), los altos costos y largos procesos de su agencia gráfica para adaptar piezas creativas a numerosos formatos (hasta 800), y la falta de claridad interna sobre cómo y para qué implementar la IA de manera efectiva.
+
+Las expectativas se centran en tres áreas clave:
+
+Datos y Optimización: Implementar un dashboard centralizado en tiempo real que elimine el trabajo manual y proporcione recomendaciones de optimización de campañas basadas en IA para mejorar métricas como el CPA.
+
+Generación de Contenido: Automatizar la producción de piezas de marketing recurrentes (imágenes y videos cortos) para acelerar la entrega, reducir costos y cubrir un déficit de capacidad de la agencia actual (que produce 500 piezas de las 700 requeridas mensualmente).
+
+Capacitación y Estrategia: Recibir apoyo a través de workshops y consultoría para ayudar a sus equipos a identificar y priorizar casos de uso de IA, superando la parálisis actual en la adopción.
+
+Adicionalmente, se discutieron restricciones presupuestarias, como la negativa a aceptar fees mensuales de mantenimiento, prefiriendo modelos de proyecto cerrado con soporte on-demand. Se exploró la posibilidad de unificar proyectos para distintas marcas para optimizar costos y la necesidad de encontrar "tech partners" confiables en Perú y México.
+
+Antecedentes
+
+El cliente gestiona campañas de medios digitales, principalmente en Meta y TikTok, y su análisis de rendimiento se realiza manualmente con archivos de Excel, lo que retrasa la toma de decisiones. Tienen acceso limitado a plataformas como Google, que es gestionada por otra entidad. El cliente opera con múltiples marcas, incluyendo "La Tinka", "Te Apuesto" y "Olimpo", bajo el paraguas de Intercorp.
+
+Actualmente, gastan una suma considerable en una agencia tradicional que se encuentra desbordada, cotizando 500 piezas mensuales cuando la necesidad real es de 700. El gerente general promueve la adopción interna de IA (con licencias de Gemini) pero el equipo carece de los "skills" y la dirección para implementarla, por lo que se contempla tercerizar proyectos específicos para ganar velocidad. La discusión se basa en propuestas previas que incluyen soluciones de dashboard con analistas de IA, automatización de contenidos creativos (Creative AI) y social listening en tiempo real. Se destaca una restricción explícita de no aprobar fees de mantenimiento recurrentes. La conversación también tuvo un carácter informal, mencionando contactos profesionales previos (Frubis, ABN) y la logística de reuniones en Lima.
+
+Puntos Problemáticos / Puntos de Dolor
+
+Gestión de datos ineficiente y reactiva: El análisis del rendimiento de las campañas depende de procesos manuales que involucran la descarga de datos en archivos de Excel. Este método es lento, propenso a errores y retrasa la toma de decisiones, afectando la optimización de métricas como el CPA.
+
+Capacidad y costo de producción creativa desbordados: La agencia actual está "desbordada", cotizando 500 piezas al mes cuando se necesitan 700. Adaptar una sola pieza a 800 formatos diferentes para diversos canales impone una carga operativa y financiera "una locura de plata", generando cuellos de botella y pérdida de oportunidades.
+
+Falta de claridad y capacidad interna en IA: El equipo del cliente no sabe "ni cómo implementar la inteligencia artificial" ni "para qué aplicarla", lo que causa parálisis en la adopción. Esto se agrava por la falta de "skills" internos para ejecutar soluciones complejas, a pesar del impulso de la dirección.
+
+Costos variables e impredecibles en IA: Existe incertidumbre sobre los costos de consumo de plataformas de IA para la generación de contenido (especialmente video, limitado a 8 segundos), lo que dificulta evaluar su rentabilidad frente a los métodos tradicionales y arriesga sobrecostos.
+
+Barreras técnicas y de seguridad: Integrar la IA con sistemas internos sensibles como el correo electrónico requiere la aprobación de TI, lo que añade fricción y demora la implementación de casos de uso de productividad personal y de equipo.
+
+Modelo comercial restrictivo: El cliente no aprobará fees mensuales de mantenimiento, lo que exige modelos de proyecto cerrado con soporte on-demand y condiciona el diseño y soporte de las soluciones.
+
+Falta de "tech partners" locales: Se percibe una carencia de socios tecnológicos confiables en Perú y México que puedan ayudar a evaluar, descubrir y ejecutar proyectos tecnológicos y de analítica.
+
+Expectativas
+
+Dashboard Centralizado con Recomendaciones de IA: Implementar un dashboard que integre en tiempo real los datos de Meta y TikTok, eliminando los procesos manuales. Se espera que la herramienta actúe como un "asesor" de IA, proporcionando recomendaciones proactivas para optimizar campañas y mejorar el CPA, cuya precisión y acierto serán la métrica clave de éxito.
+
+Automatización de Contenido Creativo: Desplegar una solución que permita, a partir de una única solicitud (posiblemente un prompt), generar automáticamente múltiples formatos y variantes de piezas de marketing. El objetivo es cubrir el gap de 200 piezas mensuales que la agencia no puede producir, reduciendo drásticamente los costos y tiempos de entrega (de semanas a 2-3 días).
+
+Programa de Capacitación y Descubrimiento de Casos de Uso: Realizar workshops y programas de formación para que el equipo interno pueda identificar y priorizar aplicaciones concretas de la IA, superando la parálisis actual y construyendo "skills" internos de manera progresiva.
+
+Modelo Comercial Flexible y Transparente: Trabajar con un modelo de proyectos cerrados, sin fees de mantenimiento recurrentes, y con la opción de contratar horas de soporte on-demand. Se espera recibir tarifarios claros y previsibles sobre los costos de consumo de IA.
+
+Soluciones Unificadas para Múltiples Marcas: Desplegar productos como social listening en tiempo real para "La Tinka" y "Te Apuesto" con un pricing unificado que evite la duplicidad de costos.
+
+Flujo Controlado de Generación de Video: Implementar un proceso para generar videos cortos (15 segundos) que respete los lineamientos de marca, con un piloto que demuestre entregas rápidas (2-3 días).
+
+Resumen de Otra Información
+
+Flexibilidad Tecnológica: La plataforma de IA propuesta puede conectarse a cualquier motor de IA (como Gemini), permitiendo al cliente usar su propia API key. El entrenamiento del agente de IA se basa en el modelo base, el contexto de negocio proporcionado y el feedback del usuario.
+
+Interés en Generación de Contenido: El cliente mostró un fuerte interés en la generación de contenido automatizado, tanto para piezas gráficas como para videos cortos (hasta 8 segundos).
+
+Contexto del Cliente: Willy, con 13 años en La Tinka (ahora parte de Intercorp), lidera equipos que gestionan múltiples marcas. Hay una conversación paralela con un colega llamado Félix sobre proyectos similares.
+
+Propuestas del Proveedor: El proveedor cuenta con una unidad "Creative AI" (Aven/Gas Studio) y ha realizado campañas de video con IA en 2-3 días a costos bajos. También ofrecen workshops sobre "Gemini Enterprise" para la creación de agentes de IA.
+
+Colaboración Futura: Se percibe un interés en explorar colaboraciones externas en consultoría tecnológica, dada la falta de "tech partners" locales. Hay un viaje planificado a Buenos Aires en el tercer trimestre que podría ser una oportunidad para avanzar en estas conversaciones.
+
+Restricciones: No se aprueban fees mensuales, aunque el costo de herramientas y consumo de tokens sí es aceptado como variable. La calidad de la IA para impresión de gran formato no es viable actualmente.
+
+Lista de Tareas
+
+Cliente: Enviar el volumen exacto de piezas recurrentes a automatizar (ej. 200 piezas/mes) y los lineamientos de marca.
+
+Proveedor: Compartir tarifarios detallados para la generación de contenido por IA (imagen/video) y preparar una propuesta de piloto de producción creativa (alcance, tiempos de 2-3 días, costos).
+
+Proveedor: Diseñar y proponer un workshop inicial ("para qué usar IA") para los líderes de unidades y TI del cliente.
+
+Proveedor y Cliente (Félix): Reunirse para alinear proyectos similares y definir un pricing unificado para el producto de social listening en dos marcas.
+
+Proveedor y Cliente (Willy/TI): Definir una arquitectura sin fee mensual y explorar un marco de integración segura de la IA con sistemas internos como el correo.
+
+Proveedor: Coordinar una reunión con el estudio creativo (Aven/Gas Studio) para presentar sus capacidades a los stakeholders clave del cliente (Félix, Pamela, Willy).
+
+Proveedor: Enviar ejemplos de videos generados con IA (ej. campaña CALM) al cliente.
+
+Sugerencias de la IA
+
+La IA ha identificado dos puntos de dolor principales: la ineficiencia y el costo de la producción creativa, y la falta de recomendaciones proactivas para la optimización de campañas. A continuación, se presentan algunas posibles soluciones para su consideración:
+
+Fábrica de Creatividades Híbrida: Implementar un piloto con el estudio (Aven/Gas Studio) para producir un volumen fijo de piezas (ej. el gap de 200/mes) con IA, usando plantillas de marca y SLAs de 2-3 días. Asignar las piezas de alto valor a la agencia tradicional y el alto volumen a la IA, optimizando el mix de producción.
+
+Plataforma de Creatividad Dinámica (DCO) + IA Generativa: Implementar una solución DCO que genere automáticamente los 800 formatos a partir de una plantilla maestra, combinada con una herramienta de IA generativa entrenada con las guías de marca para que los usuarios puedan solicitar nuevas creatividades mediante prompts de texto.
+
+Enfoque por Fases para el Asesor de IA: Iniciar con un "Agente de IA Consultor" para responder preguntas sobre datos históricos en tiempo real. Paralelamente, lanzar un piloto de 2-3 meses para entrenar un "Agente de IA Asesor" enfocado en generar recomendaciones de optimización para una métrica clave (ej. CPA) y medir su impacto frente a las decisiones humanas.
+
+Implementar un Bucle de Retroalimentación y "Cost Guardrails": Desarrollar un sistema donde la IA no solo proponga cambios, sino que el equipo pueda aprobar su ejecución como pruebas A/B directamente desde el dashboard, retroalimentando al modelo. A su vez, implementar medidores de consumo en tiempo real con alertas y topes para controlar los costos variables de la IA.
+
+Establecer un "Partner of Record" con Modelo Flexible: Definir un acuerdo marco que ofrezca un catálogo de servicios (evaluación, descubrimiento, ejecución) sin fee mensual, sino basado en paquetes de proyectos y una bolsa de horas de soporte on-demand, alineándose a la restricción presupuestaria del cliente.</div>
+    </div>
+  </div>
+</div>
+
+<!-- CREDICORP -->
+<div id="credicorp" class="meeting-view">
+  <div class="meeting-header">
+    <div class="top">
+      <h2><img class="meeting-logo" src="https://www.google.com/s2/favicons?domain=credicorp.com&sz=128" alt="" onerror="this.style.display='none'"> Credicorp</h2>
+      <button class="back-btn" onclick="showOverview(event)">← Vista general</button>
+    </div>
+    <div class="meeting-meta">
+      <span class="meta-chip">📅 27/05/2026</span>
+      <span class="meta-chip">⏱ 39m 18s</span>
+      <span class="meta-chip">👥 Juanfra (Diseño Corporativo)</span>
+      <span class="meta-chip">🏢 Diseño / IA / 13 subsidiarias</span>
+    </div>
+  </div>
+
+  <div class="tabs">
+    <button class="tab active" onclick="switchTab(this, 'credicorp-resumen')">Resumen</button>
+    <button class="tab" onclick="switchTab(this, 'credicorp-acciones')">Acciones</button>
+    <button class="tab" onclick="switchTab(this, 'credicorp-email')">Email</button>
+    <button class="tab" onclick="switchTab(this, 'credicorp-notas')">Notas Plaud</button>
+  </div>
+
+  <div id="credicorp-resumen">
+    <div class="section">
+      <h3><span class="icon">📋</span> Contexto</h3>
+      <p>Reunión en sede central de BCP. Juanfra es responsable de la estrategia de diseño corporativo en Credicorp, supervisando 13 subsidiarias con 300-350 diseñadores. El <strong>60-80%</strong> del tiempo de los diseñadores se pierde en tareas manuales y repetitivas. Necesitan un business case con proyección hasta 2029.</p>
+    </div>
+    <div class="section">
+      <h3><span class="icon">🔴</span> Puntos de Dolor</h3>
+      <ul class="bullets">
+        <li>Alta carga operativa en tareas de diseño manuales y repetitivas — limita el pensamiento estratégico.</li>
+        <li>Reto previo con IA: alto costo de tokens por falta de capacitación en prompting eficiente.</li>
+        <li>Necesitan escalar personalización de contenidos a través de 13 subsidiarias.</li>
+      </ul>
+    </div>
+    <div class="section">
+      <h3><span class="icon">🎯</span> Expectativas</h3>
+      <ul class="bullets">
+        <li>Centralizar herramientas de IA para el equipo de diseño.</li>
+        <li>Aumentar eficiencia y liberar tiempo para trabajo creativo y estratégico.</li>
+        <li>Modelo de equipo híbrido/extendido con integración profunda al negocio.</li>
+        <li>Capacitación en mentalidad y herramientas de IA. Orientación alineada a McKinsey.</li>
+      </ul>
+    </div>
+  </div>
+
+  <div id="credicorp-acciones" style="display:none">
+    <div class="section">
+      <h3><span class="icon">✅</span> Action Items <span class="progress-badge" id="prog-credicorp">0/0</span></h3>
+      <ul class="actions-list" id="actions-credicorp">
+        <li class="action-item" data-id="cred-1">
+          <input type="checkbox" class="action-check" onchange="toggleAction(this, 'credicorp', 'cred-1')">
+          <div><div class="action-text">Enviar deck personalizado para Credicorp con casos de uso de IA aplicados a equipos de diseño a escala.</div></div>
+        </li>
+        <li class="action-item" data-id="cred-2">
+          <input type="checkbox" class="action-check" onchange="toggleAction(this, 'credicorp', 'cred-2')">
+          <div><div class="action-text">Preparar propuesta de próximos pasos: workshop de descubrimiento (2-3h) o proyecto piloto acotado en una subsidiaria.</div></div>
+        </li>
+        <li class="action-item" data-id="cred-3">
+          <input type="checkbox" class="action-check" onchange="toggleAction(this, 'credicorp', 'cred-3')">
+          <div><div class="action-text">Dar seguimiento con Juanfra tras revisar el deck para definir camino y proyectos específicos.</div></div>
+        </li>
+      </ul>
+    </div>
+  </div>
+
+  <div id="credicorp-email" style="display:none">
+    <div class="section">
+      <h3><span class="icon">✉️</span> Email de Seguimiento</h3>
+      <div class="email-subject">Asunto: Próximos pasos — IA para equipos de diseño Credicorp</div>
+      <div class="email-box" id="email-credicorp">Hola Juanfra,
+
+Muchas gracias por la reunión de hoy en la sede de BCP. Fue muy enriquecedor entender el contexto de los 300+ diseñadores en las 13 subsidiarias y el desafío de transformar el tiempo operativo en tiempo estratégico.
+
+Tal como acordamos, te estaré enviando en los próximos días un deck personalizado para Credicorp con casos de uso concretos de IA aplicados a equipos de diseño a escala — incluyendo ejemplos de implementación en organizaciones similares y proyecciones de impacto.
+
+Asimismo, te propongo dos opciones de próximos pasos:
+
+Opción A: Workshop de descubrimiento (2-3 horas) para mapear los procesos con mayor carga manual y priorizar casos de uso de alto impacto.
+
+Opción B: Proyecto piloto acotado en un equipo o subsidiaria específica para demostrar valor antes de escalar.
+
+¿Cuál te parece más alineada con los tiempos de Credicorp? Podemos hablar apenas revises el material.
+
+Saludos,
+[Tu nombre]</div>
+      <button class="copy-btn" onclick="copyEmail('email-credicorp', this)">📋 Copiar email</button>
+    </div>
+  </div>
+
+  <div id="credicorp-notas" style="display:none">
+    <div class="section">
+      <h3><span class="icon">📝</span> Notas Plaud — Credicorp (27/05/2026 · 39m 18s)</h3>
+      <div class="notes-content">Fecha y Hora: 27 de mayo de 2026, 14:57:24
+
+Ubicación: Sede central de BCP
+
+Cliente: Credicorp
+
+Resumen
+
+La consulta fue con Juanfra, responsable de la estrategia de diseño corporativo en Credicorp, que supervisa 13 subsidiarias. Se discutieron dos objetivos principales: aprovechar los datos de todas las subsidiarias para crear una vista unificada del "cliente Credicorp" y, crucialmente, integrar la Inteligencia Artificial (IA) en los flujos de trabajo de sus 300-350 diseñadores para generar valor operativo real, evitando que sean solo pilotos. El mayor punto de dolor es el tiempo excesivo dedicado a tareas manuales y repetitivas (estimado en 60-80%), lo que limita el enfoque en el pensamiento estratégico del producto. Buscan una solución a mediano plazo (con caso de negocio hasta 2029) que centralice herramientas de IA, aumente eficiencia, permita personalización a gran escala (marketing 1 a 1) y unifique diversas fuentes de datos de CX como Medalia y Qualtrics.
+
+Antecedentes
+
+La reunión se realizó en la sede de BCP con Juanfra, quien lleva dos meses en su rol corporativo en Credicorp, supervisando la estrategia de diseño en 13 subsidiarias en Perú, Chile, Colombia, Panamá, Bolivia y Miami. El equipo corporativo de diseño es relativamente nuevo: formado hace seis meses y operativo como equipo desde hace dos o tres meses. El grupo Credicorp tiene 300-350 diseñadores. El desafío principal es pasar de la exploración de IA a implementar soluciones con valor tangible y eficiencia operativa. Planean iniciar un proyecto en el tercer trimestre (Q3) con una visión a mediano plazo hasta 2029 para transformar el proceso de trabajo de los diseñadores con IA.
+
+Puntos de Dolor
+
+El flujo de trabajo actual es ineficiente y demandante. Los diseñadores dedican 60-80% de su tiempo a tareas manuales y repetitivas como adaptar diseños a distintos formatos, lo que limita el pensamiento estratégico, la innovación y la creatividad de mayor valor. Esto reduce la productividad e impide escalar creatividades para campañas personalizadas (marketing 1 a 1), objetivo estratégico. La operación se apoya en herramientas tradicionales como Figma. Los stakeholders afectados son los 300-350 diseñadores del grupo Credicorp y los equipos de marketing y producto que dependen de ellos.
+
+Además, Credicorp utiliza múltiples plataformas de datos de CX en sus subsidiarias (por ejemplo, Medalia en BCP y Qualtrics en Yape, además de QuestionPro), generando fragmentación que impide una visión unificada del "cliente Credicorp". Falta una plataforma centralizada que consolide esta información, dificultando insights transversales y la creación de valor a nivel de grupo. Consideran dos rutas: estandarizar una única herramienta para todas las subsidiarias (complejo y costoso) o desarrollar una plataforma que integre todas las fuentes vía APIs, opción más ágil.
+
+Expectativas
+
+El cliente quiere implementar un proyecto de IA desde el Q3, con un caso de negocio a mediano plazo hasta 2029. Buscan transformar el flujo de trabajo para que los diseñadores reduzcan drásticamente tareas manuales y evolucionen a "directores de arte" en lugar de ejecutores. La solución debe ser una plataforma centralizada, gestionada por el corporativo, con herramientas de IA que optimicen las etapas del proceso de diseño. El éxito se medirá por mayor eficiencia, ahorro de costos y capacidad de enfocarse en tareas estratégicas.
+
+También esperan unificar las fuentes de datos de CX (Medalia, Qualtrics, QuestionPro) en una sola plataforma, creando una vista integral del "cliente Credicorp" para análisis transversal e insights a nivel de grupo. Esto habilitaría el marketing 1 a 1 y la personalización a escala. El éxito se medirá por consolidar y analizar datos en un solo lugar de forma ágil y sin migraciones completas, consideradas largas y complejas.
+
+Información Adicional
+
+Credicorp valora la metodología de McKinsey, alineada con el enfoque del consultor.
+
+Un reto previo con IA fue el alto costo de tokens por falta de capacitación en prompting eficiente, generando uso excesivo y costos elevados.
+
+Están abiertos a un modelo de equipo híbrido o extendido, con integración profunda del socio externo para aprovechar el conocimiento del negocio.
+
+Interés explícito en capacitar a empleados para adoptar mentalidad y herramientas de IA, optimizando procesos existentes y diseñando nuevos procesos ya optimizados.
+
+Lista de Tareas
+
+Enviar la presentación (deck) personalizada para Credicorp mencionada en la reunión.
+
+Preparar propuesta de próximos pasos: workshop de descubrimiento o proyecto piloto inicial para demostrar valor.
+
+Dar seguimiento con Juanfra tras revisar la presentación para discutir proyectos específicos y definir el camino.
+
+Sugerencias de IA
+
+La IA identifica como mayor punto de dolor la ineficiencia y la alta carga manual en diseño, que impide el enfoque estratégico. Posibles soluciones:
+
+Desarrollar un Agente de Diseño Aumentado: Plataforma a medida, similar a la demo de "Hixfield con Claude", integrada al flujo de trabajo. Automatiza redimensionamiento de creatividades para múltiples canales, adapta elementos visuales a lineamientos de marca y genera variaciones para pruebas A/B. Entrenado con manuales de marca de Credicorp para asegurar consistencia.
+
+Taller de Descubrimiento Enfocado en ROI (4-6 semanas): Analiza el flujo de trabajo de diseñadores, cuantifica tiempo y costos actuales, identifica cuellos de botella de mayor impacto y co-crea un caso de negocio detallado para IA, demostrando ROI antes de un desarrollo a gran escala.
+
+Módulo de Consolidación de Datos de CX: Desarrollar una capa de integración (p. ej., usando "Detrix") conectada a APIs de Medalia, Qualtrics y otras. Los datos consolidados alimentarían agentes de IA para generar insights de preferencias del cliente y automatizar diseños personalizados.
+
+Programa de Capacitación y Adopción de IA para Diseñadores: Formación modular para los 300-350 diseñadores, orientada a pasar de "ejecutores" a "directores de arte". Incluye habilidades de prompt engineering, uso de nuevas herramientas de IA y pensamiento estratégico sobre su aplicación, abordando costos de tokens y adopción.</div>
+    </div>
+  </div>
+</div>
+
+<!-- YAPE -->
+<div id="yape" class="meeting-view">
+  <div class="meeting-header">
+    <div class="top">
+      <h2><img class="meeting-logo" src="https://www.google.com/s2/favicons?domain=yape.com.pe&sz=128" alt="" onerror="this.style.display='none'"> Yape</h2>
+      <button class="back-btn" onclick="showOverview(event)">← Vista general</button>
+    </div>
+    <div class="meeting-meta">
+      <span class="meta-chip">📅 27/05/2026</span>
+      <span class="meta-chip">⏱ 31m 53s</span>
+      <span class="meta-chip">🏢 Fintech / Branding / MMM</span>
+    </div>
+  </div>
+
+  <div class="tabs">
+    <button class="tab active" onclick="switchTab(this, 'yape-resumen')">Resumen</button>
+    <button class="tab" onclick="switchTab(this, 'yape-acciones')">Acciones</button>
+    <button class="tab" onclick="switchTab(this, 'yape-email')">Email</button>
+    <button class="tab" onclick="switchTab(this, 'yape-notas')">Notas Plaud</button>
+  </div>
+
+  <div id="yape-resumen">
+    <div class="section">
+      <h3><span class="icon">📋</span> Contexto</h3>
+      <p>App de pagos con presupuestos de branding de ~50K USD por campaña. Usan Meta, TikTok, Google y programática. Centralizan en AppsFlyer con problemas de atribución. Hace 3 años consideraron MMM pero concluyeron que "no estaban listos". Ahora quieren retomarlo. Tienen equipo interno de datos con expertos en A/B testing.</p>
+    </div>
+    <div class="section">
+      <h3><span class="icon">🔴</span> Puntos de Dolor</h3>
+      <ul class="bullets">
+        <li>No pueden justificar la inversión en branding más allá de "views".</li>
+        <li>Problemas de atribución y calibración en AppsFlyer.</li>
+        <li>Equipo de comunicaciones también invierte en TV sin claridad de retorno.</li>
+        <li>No pueden responder: <em>"¿estoy invirtiendo bien o mal?"</em></li>
+      </ul>
+    </div>
+    <div class="section">
+      <h3><span class="icon">🎯</span> Expectativas</h3>
+      <ul class="bullets">
+        <li><strong>MMM con Meridian (Google)</strong>: qué canales generaron ventas los últimos 2 años, ROI por canal, distribución óptima de inversión (online + offline).</li>
+        <li>Lift studies: Brand Lift, Search Lift, Conversion Lift.</li>
+        <li>Geoexperimentos como complemento.</li>
+      </ul>
+    </div>
+  </div>
+
+  <div id="yape-acciones" style="display:none">
+    <div class="section">
+      <h3><span class="icon">✅</span> Action Items <span class="progress-badge" id="prog-yape">0/0</span></h3>
+      <ul class="actions-list" id="actions-yape">
+        <li class="action-item" data-id="yape-1">
+          <input type="checkbox" class="action-check" onchange="toggleAction(this, 'yape', 'yape-1')">
+          <div><div class="action-text">Enviar lista detallada de datos necesarios para el proyecto de MMM (inversión por canal semanal, variable dependiente, estacionalidad, TV/offline).</div></div>
+        </li>
+        <li class="action-item" data-id="yape-2">
+          <input type="checkbox" class="action-check" onchange="toggleAction(this, 'yape', 'yape-2')">
+          <div><div class="action-text">Preparar demo/caso de uso de MMM con datos anónimos para que el cliente pueda vender el proyecto internamente (especialmente al equipo de comunicaciones).</div></div>
+        </li>
+        <li class="action-item" data-id="yape-3">
+          <input type="checkbox" class="action-check" onchange="toggleAction(this, 'yape', 'yape-3')">
+          <div><div class="action-text">Investigar bonificaciones de Google disponibles para implementaciones de Meridian y proponer próximos pasos.</div></div>
+        </li>
+      </ul>
+    </div>
+  </div>
+
+  <div id="yape-email" style="display:none">
+    <div class="section">
+      <h3><span class="icon">✉️</span> Email de Seguimiento</h3>
+      <div class="email-subject">Asunto: Lista de datos + demo MMM — Próximos pasos Yape</div>
+      <div class="email-box" id="email-yape">Hola,
+
+Gracias por la conversación de hoy. Fue muy claro el desafío: tienen el presupuesto, los canales y los datos, pero falta el modelo que los conecte para tomar decisiones con confianza.
+
+Tal como acordamos, les estaremos enviando:
+
+1. Lista de datos necesarios para el MMM
+Para arrancar con Meridian necesitaremos principalmente:
+- Inversión por canal (online y offline), granularidad semanal — últimos 2 años
+- Métricas de negocio como variable dependiente (transacciones, usuarios activos, ingresos)
+- Datos de estacionalidad (feriados, promociones, eventos)
+- Datos de TV y medios tradicionales
+
+Les envío el listado completo en documento separado.
+
+2. Demo de MMM con datos anónimos
+Voy a preparar un caso de uso que puedan usar para presentar el proyecto internamente — especialmente al equipo de comunicaciones.
+
+3. Bonificación de Google
+Estoy investigando las opciones de subsidio disponibles para implementaciones de Meridian y les comento pronto.
+
+¿Tienen disponibilidad la próxima semana para revisar el material juntos?
+
+Saludos,
+[Tu nombre]</div>
+      <button class="copy-btn" onclick="copyEmail('email-yape', this)">📋 Copiar email</button>
+    </div>
+  </div>
+
+  <div id="yape-notas" style="display:none">
+    <div class="section">
+      <h3><span class="icon">📝</span> Notas Plaud — Yape (27/05/2026 · 31m 53s)</h3>
+      <div class="notes-content">Fecha y Hora: 2026-05-27 15:52:02
+
+Ubicación: [Insertar Ubicación]
+
+Cliente: Yape (Inferido)
+
+Resumen
+
+La consulta se centra en la necesidad del cliente (Yape) de medir de manera más efectiva el impacto de sus campañas de branding, que actualmente manejan un presupuesto significativo (por ejemplo, 50 mil dólares por campaña). El principal desafío es justificar la inversión en branding con métricas de negocio tangibles, más allá de los "views", y demostrar su contribución a los objetivos generales, como la recordación de marca y el apoyo a las campañas de performance. El cliente utiliza Meta, TikTok, Google y programática, centralizando la data en AppsFlyer pero con problemas de atribución y calibración. Se discutieron tres soluciones principales: estudios de Lift (Brand, Search, Conversion), Geoexperimentos y, con mayor profundidad, Marketing Mix Modeling (MMM) utilizando la solución Meridian de Google. El cliente mostró gran interés en el MMM para obtener una visión completa del ROI por canal (online y offline) y para alinear a los equipos de branding, performance y comunicaciones.
+
+Antecedentes
+
+El cliente gestiona las campañas de branding para todos los productos de Yape en Perú, enfocándose en las etapas de upper y middle funnel. Su equipo implementa directamente las campañas en canales como Meta, TikTok, y Google, además de programática. Anterioriormente, trabajaban con la agencia OMD, que utilizaba DV360, pero ahora prefieren trabajar directamente con los medios tradicionales por los beneficios adicionales. Para la analítica de datos, centralizan la información en AppsFlyer y utilizan Power BI para reportes externos. Existe una colaboración con el equipo de performance, ya que comparten una misma jefatura, pero la atribución del impacto del branding sigue siendo un desafío. El cliente está buscando metodologías para sustentar el gasto en branding (ej. 50.000 dólares por campaña) con indicadores de negocio más sólidos que las métricas de vanidad, como por ejemplo, el aumento en la recordación de marca.
+
+Puntos de Dolor
+
+El principal problema es la dificultad para medir y justificar el impacto real de las campañas de branding con métricas de negocio. El cliente necesita ir más allá de los indicadores de vanidad como los "2 millones de views" para poder sustentar inversiones significativas, como 50.000 dólares, ante el equipo de planeamiento. La necesidad es atribuir correctamente el valor que genera el branding, como el aumento en la recordación de marca (ej. tres puntos más), y entender su contribución incremental a los objetivos de performance. Actualmente, la falta de una metodología robusta de medición y atribución dificulta la optimización del presupuesto y la demostración del ROI de las campañas de upper funnel.
+
+La plataforma de atribución actual, AppsFlyer, presenta deficiencias significativas que complican la medición precisa del rendimiento de las campañas. Se menciona que la herramienta recién se ha "calibrado" este año, y que anteriormente sufrían de una "sobre atribución" porque se basa en un modelo de last click. Este modelo atribuye conversiones de usuarios que orgánicamente ya iban a convertir. Además, AppsFlyer no permite configurar ventanas de atribución diferenciadas por producto, lo cual es un problema crítico. Por ejemplo, la decisión de compra de un televisor (puede tardar 4 o 5 días) es muy diferente a la de una promoción de comida (puede ser en 10 o 30 minutos), pero la plataforma no puede manejar estas diferencias, lo que lleva a una visión distorsionada del customer journey y la efectividad de las campañas.
+
+Existe una necesidad no resuelta de entender la contribución de los diferentes canales, tanto online como offline, al resultado general del negocio. El cliente quiere saber qué canales están funcionando, cuál es su ROI específico y cómo distribuir el presupuesto de manera más eficiente entre ellos. Esta falta de visibilidad afecta no solo al equipo de branding, sino también al de comunicaciones, que invierte en medios tradicionales como la televisión. La pregunta clave que no pueden responder es: "¿estoy invirtiendo bien o mal?". Mencionan que hace tres años consideraron implementar un Marketing Mix Modeling (MMM) pero internamente se decidió que "no estaban listos", y ahora quieren reevaluarlo para obtener una "verdad" basada en datos sobre el rendimiento de sus inversiones.
+
+Expectativas
+
+El cliente espera recibir una propuesta de solución que le permita medir de forma robusta el impacto y el ROI de sus campañas de branding. Específicamente, mostraron un gran interés en implementar un Marketing Mix Modeling (MMM). La expectativa es que este modelo les proporcione una visión clara sobre: 1) qué canales (online y offline) generaron ventas/ingresos en los últimos dos años, 2) cuál fue el ROI por canal, y 3) cómo deberían distribuir la inversión para ser más eficientes. Quieren un modelo que sirva como "simulador" para entender qué pasaría si aumentan o disminuyen la inversión en ciertos canales. El éxito se mediría por la capacidad de usar estos insights para justificar presupuestos y optimizar la estrategia de medios de forma continua (recorriendo el modelo trimestralmente).
+
+El cliente espera recibir la documentación necesaria para vender internamente la implementación de un Marketing Mix Modeling. Esto incluye dos elementos clave: 1) una lista detallada de los datos necesarios (históricos de medios y ventas de los últimos dos años) para poder validar internamente si cuentan con la información requerida, y 2) un caso de uso o demo del MMM que puedan presentar a otros equipos, como el de comunicaciones. El objetivo es mostrarles el valor que obtendrían, como la capacidad de medir el impacto de sus campañas offline (TV, radio, OOH) y entender si su inversión es efectiva. Quieren herramientas para convencer a otros stakeholders de que el proyecto les conviene a todos.
+
+El cliente busca explorar la posibilidad de que el proyecto de Marketing Mix Modeling (MMM) sea financiado a través de una bonificación de Google. Tienen experiencia previa obteniendo fondos de Google para otros proyectos (aunque no todos se ejecutaron) y quieren entender el proceso para solicitarlo para Meridian (la solución MMM de Google). La expectativa es que el consultor los guíe en este proceso, posiblemente facilitando el contacto con las personas adecuadas en Google o indicándoles cómo plantear el interés para maximizar las posibilidades de obtener la bonificación, que se mencionó podría ser de hasta 70.000 dólares.
+
+Resumen de Otra Información
+
+El equipo del cliente está compuesto por dos personas que gestionan toda la implementación de campañas de branding para Yape en Perú.
+
+Tienen contacto directo y una buena relación con el equipo de performance, ya que dependen de la misma jefatura, lo que facilita una visión de full funnel.
+
+El cliente tiene acceso a los account managers de Google y otros medios, con quienes podrían impulsar la implementación de estudios como Search Lift.
+
+Ya realizan internamente pruebas de Conversion Lift usando grupos de control, y cuentan con expertos en A/B testing dentro de su equipo de datos.
+
+Se mencionó la solución de Google, Meridian, como una implementación específica de MMM para la cual el consultor está certificado. También se mencionó Robyn como la alternativa de Meta.
+
+El cuello de botella principal para un proyecto de MMM suele ser la extracción y entrega de los datos históricos por parte del cliente.
+
+Lista de Tareas
+
+Enviar un correo electrónico al cliente con la lista detallada de los datos necesarios para el proyecto de Marketing Mix Modeling (MMM).
+
+Preparar y enviar un caso de uso o demo de un MMM (con datos anónimos) que el cliente pueda usar para vender el proyecto internamente, especialmente al equipo de comunicaciones.
+
+Investigar y proponer los siguientes pasos para explorar la bonificación de Google para el proyecto Meridian, incluyendo a quién contactar en Google (el cliente debe proporcionar el nombre de su contacto).
+
+Preparar una cotización para el proyecto MMM en caso de que la bonificación de Google no se concrete.
+
+Programar una reunión de seguimiento para presentar los entregables y discutir los próximos pasos una vez que el cliente haya validado internamente la disponibilidad de los datos.
+
+Sugerencias de IA
+
+La IA ha identificado que el mayor punto de dolor del cliente es la dificultad para medir y justificar el impacto real de las campañas de branding con métricas de negocio. Aquí hay algunas posibles soluciones para su consideración:
+
+Proponer un enfoque por fases, comenzando con una solución de menor complejidad y coste antes de pasar al MMM completo. Podrían empezar implementando sistemáticamente los estudios de Search Lift y Conversion Lift a través de las plataformas de Google y Meta. Esto proporcionaría victorias rápidas y datos tangibles sobre cómo el branding impulsa la intención de búsqueda y las conversiones, ayudando a construir el caso para una inversión mayor.
+
+Desarrollar un "Business Case" detallado para la implementación del Marketing Mix Modeling (MMM). Este documento debería ir más allá de los datos técnicos y enfocarse en los beneficios estratégicos: cómo el MMM ayudará a Yape a optimizar su presupuesto multimillonario, mejorar la colaboración entre equipos (branding, performance, comunicaciones) y tomar decisiones de inversión basadas en causalidad y no solo en correlación. Cuantificar el potencial retorno de la inversión del propio proyecto MMM.
+
+Ofrecer un taller de "Alineación de Medición de Branding" con los principales stakeholders (branding, performance, planeamiento, comunicaciones). El objetivo sería educarlos sobre las metodologías modernas de medición (Lift, Geo, MMM) y definir conjuntamente los KPIs clave que importan para el negocio de Yape. Esto ayudaría a asegurar la aceptación interna desde el principio y facilitaría la recolección de datos posterior.
+
+Explorar una solución de Geo-experimentos (Geo-Lift) como paso intermedio. Este tipo de estudio permite medir la incrementalidad de las campañas en diferentes regiones apagando y prendiendo la publicidad. Sería menos complejo en términos de datos que un MMM completo, pero proporcionaría evidencia causal sólida del impacto del branding, lo cual es exactamente lo que el cliente busca justificar.</div>
+    </div>
+  </div>
+</div>
+
+<!-- INLEARNING -->
+<div id="inlearning" class="meeting-view">
+  <div class="meeting-header">
+    <div class="top">
+      <h2><img class="meeting-logo" src="https://www.google.com/s2/favicons?domain=inlearning.pe&sz=128" alt="" onerror="this.style.display='none'"> InLearning</h2>
+      <button class="back-btn" onclick="showOverview(event)">← Vista general</button>
+    </div>
+    <div class="meeting-meta">
+      <span class="meta-chip">📅 28/05/2026</span>
+      <span class="meta-chip">⏱ 1h 7m</span>
+      <span class="meta-chip">👥 Carlos (NGR)</span>
+      <span class="meta-chip">🏢 E-learning / Martech / Temporada Nov</span>
+    </div>
+  </div>
+
+  <div class="tabs">
+    <button class="tab active" onclick="switchTab(this, 'inlearning-resumen')">Resumen</button>
+    <button class="tab" onclick="switchTab(this, 'inlearning-acciones')">Acciones</button>
+    <button class="tab" onclick="switchTab(this, 'inlearning-email')">Email</button>
+    <button class="tab" onclick="switchTab(this, 'inlearning-notas')">Notas Plaud</button>
+  </div>
+
+  <div id="inlearning-resumen">
+    <div class="section">
+      <h3><span class="icon">📋</span> Contexto</h3>
+      <p>Empresa e-learning con temporada alta en <strong>noviembre</strong>. Usan modelo de atribución "último clic". Equipo de TI interno saturado que no puede tomar proyectos de innovación. Foco de la reunión: presentar propuesta de equipo extendido Growth & Martech.</p>
+    </div>
+    <div class="section">
+      <h3><span class="icon">🔴</span> Puntos de Dolor</h3>
+      <ul class="bullets">
+        <li>Atribución básica ("último clic") — no refleja el recorrido real del cliente.</li>
+        <li>Monitoreo competitivo manual y costoso.</li>
+        <li>TI interna sobrecargada — no puede ejecutar proyectos de innovación.</li>
+        <li>Procesos operativos totalmente manuales.</li>
+        <li>Sienten que pierden oportunidades por no poder ejecutar proyectos a tiempo.</li>
+      </ul>
+    </div>
+    <div class="section">
+      <h3><span class="icon">🎯</span> Expectativas</h3>
+      <ul class="bullets">
+        <li>Equipo extendido autónomo que opere sin depender de su TI interna.</li>
+        <li>Modelo de atribución multi-canal en tiempo real (prepararse para noviembre).</li>
+        <li>Automatización del monitoreo de competencia (canales + análisis de sentimiento).</li>
+        <li>Quick wins que demuestren valor rápido.</li>
+      </ul>
+    </div>
+  </div>
+
+  <div id="inlearning-acciones" style="display:none">
+    <div class="section">
+      <h3><span class="icon">✅</span> Action Items <span class="progress-badge" id="prog-inlearning">0/0</span></h3>
+      <ul class="actions-list" id="actions-inlearning">
+        <li class="action-item" data-id="il-1">
+          <input type="checkbox" class="action-check" onchange="toggleAction(this, 'inlearning', 'il-1')">
+          <div><div class="action-text">Enviar propuesta de equipo extendido Growth & Martech (roles, alcance, modelo de trabajo sin depender de TI interna).</div></div>
+        </li>
+        <li class="action-item" data-id="il-2">
+          <input type="checkbox" class="action-check" onchange="toggleAction(this, 'inlearning', 'il-2')">
+          <div><div class="action-text">Armar roadmap hacia temporada alta de noviembre: auditoría tracking → MTA con GA4 → monitoreo competencia → dashboard.</div></div>
+        </li>
+        <li class="action-item" data-id="il-3">
+          <input type="checkbox" class="action-check" onchange="toggleAction(this, 'inlearning', 'il-3')">
+          <div><div class="action-text">Preparar demo en vivo de herramienta de monitoreo de competencia "sin código" y conexión a datos.</div></div>
+        </li>
+        <li class="action-item" data-id="il-4">
+          <input type="checkbox" class="action-check" onchange="toggleAction(this, 'inlearning', 'il-4')">
+          <div><div class="action-text">Proponer piloto de MMM con Meridian como proyecto acotado para demostrar valor rápido.</div></div>
+        </li>
+      </ul>
+    </div>
+  </div>
+
+  <div id="inlearning-email" style="display:none">
+    <div class="section">
+      <h3><span class="icon">✉️</span> Email de Seguimiento</h3>
+      <div class="email-subject">Asunto: Propuesta equipo extendido + roadmap hacia noviembre — NGR x ABN/Hyke</div>
+      <div class="email-box" id="email-inlearning">Hola Carlos,
+
+Gracias por el tiempo de hoy. Queda muy claro el desafío: tienen el negocio, el producto y la ambición — lo que hace falta es capacidad técnica para ejecutar sin depender de TI interno.
+
+Los próximos pasos que acordamos:
+
+1. Propuesta de equipo extendido Growth & Martech
+Te envío una propuesta con el modelo de trabajo, roles (tech lead, analista, martech) y cómo operamos de manera autónoma alineados a su negocio — sin generar carga a TI.
+
+2. Roadmap hacia temporada alta (noviembre)
+Armaré un cronograma que incluya:
+- Auditoría de tracking actual (GA4 + otros)
+- Implementación de modelo de atribución multi-canal
+- Setup de monitoreo automático de competencia
+- Dashboard centralizado
+
+3. Demo de herramientas "sin código"
+Quiero mostrarte en vivo cómo funciona el monitoreo de competencia y la conexión a datos sin necesidad de desarrollo técnico.
+
+¿Cuándo podemos agendar una sesión para revisar la propuesta juntos?
+
+Saludos,
+[Tu nombre]</div>
+      <button class="copy-btn" onclick="copyEmail('email-inlearning', this)">📋 Copiar email</button>
+    </div>
+  </div>
+
+  <div id="inlearning-notas" style="display:none">
+    <div class="section">
+      <h3><span class="icon">📝</span> Notas Plaud — InLearning / NGR (28/05/2026 · 1h 7m)</h3>
+      <div class="notes-content">Fecha y Hora: 28-05-2026 09:09:47
+
+Ubicación: [Insertar Ubicación]
+
+Cliente: [Insertar Cliente] / Carlos de NGR
+
+Resumen General
+
+La serie de reuniones se centró en presentar al cliente una propuesta de "equipo extendido" de Growth y Martech (Marketing Technology) para fortalecer sus capacidades digitales, diagnosticar sus procesos actuales y prepararse para su temporada alta en noviembre. Los principales puntos de dolor identificados son la dependencia de procesos manuales, la falta de un modelo de atribución de marketing sofisticado, un análisis competitivo lento y costoso, y la sobrecarga de su equipo interno de TI. Actualmente, el cliente utiliza un modelo de atribución de "último punto de contacto", lo que le impide entender el recorrido completo del cliente y optimizar su inversión. La expectativa del cliente es comprender el alcance de Martech, ver ejemplos prácticos y obtener "quick wins" (victorias rápidas) a través de soluciones como dashboards interactivos, agentes de IA para análisis de datos y herramientas de monitoreo de competencia, todo ello sin depender de sus recursos internos de TI. Se propuso un plan de trabajo de 6 meses que incluye un especialista dedicado por 40 horas mensuales para liderar la implementación de estas mejoras.
+
+Antecedentes
+
+El cliente, un grupo con múltiples marcas, ya utiliza herramientas como Google Analytics 4 (GA4) y Power BI, pero realiza muchos cruces de datos "por detrás", lo que indica una arquitectura de datos fragmentada. Han tenido conversaciones previas con la consultora y existe un objetivo grupal de adoptar tecnología, pero la falta de tiempo y recursos ha sido un obstáculo. La consultora, ABN, forma parte de un grupo de cuatro empresas (incluyendo HIKE para IA), y ya tiene una relación con el grupo del cliente a través de proyectos de IA y automatización para otras de sus empresas (NGR, Latinka). La propuesta actual no es la de una agencia tradicional, sino la de proporcionar un equipo extendido de especialistas en Growth y Martech para complementar al equipo interno, ofrecer una perspectiva externa y capacitarlo, con el objetivo de estar listos para su temporada alta en noviembre. Para el análisis de la competencia, dedican un recurso por marca a un proceso manual y costoso.
+
+Puntos de Dolor
+
+Modelo de Atribución Simplista: El cliente solo atribuye conversiones basándose en el último canal de interacción (último clic), lo que impide entender el verdadero valor de cada punto de contacto en el recorrido del cliente. Esto afecta la optimización de la inversión en marketing y la confianza en la precisión de sus datos.
+
+Procesos Manuales y Lentos: Se identificaron múltiples procesos manuales que consumen tiempo y recursos significativos.
+
+Análisis Competitivo: Es manual, lento (realizado quizás una vez al mes) y costoso, con un perfil dedicado por marca. El método para analizar la participación de mercado es "muy rústico" y propenso a errores, como comprar productos en tiendas de la competencia para contar tickets.
+
+Gestión de Datos: Aunque usan Power BI, realizan "muchos cruces por detrás", lo que indica una falta de consolidación y automatización, dificultando el acceso a insights en tiempo real.
+
+Sobrecarga del Equipo de TI: El equipo de TI del cliente está sobrecargado ("anda en mil"), lo que representa un "cuello de botella" para implementar cualquier nueva solución tecnológica. El cliente busca soluciones que no dependan de sus desarrolladores internos.
+
+Generación de Creativos y Tracking: Enfrentan desafíos en la readaptación masiva de creativos para diferentes formatos, lo que ralentiza la ejecución de campañas. Además, pierden datos de seguimiento de usuarios debido a tecnologías como los Ad-blockers, lo que afecta la precisión de la medición de conversiones.
+
+Falta de Capacidad de Ejecución: El equipo del cliente tiene ideas para mejoras tecnológicas, pero carece del tiempo y la dedicación para llevarlas a cabo, sintiendo que pierden oportunidades por no poder ejecutar proyectos de innovación.
+
+Expectativas
+
+Entender y Aplicar Martech: El cliente espera comprender claramente el concepto de Martech y sus aplicaciones prácticas para resolver problemas del día a día, buscando "quick wins" que demuestren valor rápidamente.
+
+Mejorar el Modelo de Atribución: Buscan ir más allá del "último clic" para analizar la atribución en tiempo real con datos fiables, permitiéndoles optimizar su inversión de cara a la temporada alta de noviembre.
+
+Automatización de Procesos: Esperan soluciones para automatizar tareas manuales, especialmente el monitoreo de la competencia en tiempo real (canales, análisis de sentimiento), para reducir costos y agilizar la toma de decisiones.
+
+Independencia del Equipo de TI: Su principal requisito es que la consultora funcione como un "equipo extendido" que se encargue de todo el trabajo técnico (acceder, almacenar y visualizar datos), necesitando únicamente que se les concedan los accesos.
+
+Dashboards y Análisis Avanzado: Desean dashboards en tiempo real, rápidos y fiables, con un agente de IA "conversacional" para facilitar el acceso a la información a todo el equipo.
+
+Gestión por Objetivos: Insisten en definir 3 objetivos clave y medibles para el proyecto desde el inicio, para enfocar los esfuerzos y medir el éxito.
+
+Resumen de Otra Información
+
+La temporada alta del cliente es en noviembre, marcando un plazo clave.
+
+El cliente ya experimentó con un Marketing Mix Model (MMM) hace dos años, lo que indica receptividad a análisis complejos.
+
+La consultora mencionó modelos de código abierto como Meridian de Google y Robin de Meta, posicionándose como un partner para implementarlos.
+
+La propuesta incluye 40 horas mensuales de un especialista en Martech, con un plan de trabajo sugerido de 6 meses.
+
+El cliente tiene un CRM interno (no Hubspot) y está abierto a mejorar su integración con el ecosistema de marketing.
+
+Se presentaron casos de éxito previos desarrollados para NGR, como la herramienta "Autovisión" para análisis de precios y el "Social Listener" para gestión de influencers.
+
+Lista de Tareas
+
+Enviar al cliente la presentación sobre Martech, la propuesta de Growth, casos de uso y ejemplos.
+
+El cliente revisará la propuesta internamente y dará una respuesta.
+
+Planificar una reunión de seguimiento para definir los 3 objetivos clave del proyecto si la propuesta es aprobada.
+
+Preparar una demo de la herramienta de monitoreo de competencia utilizando las marcas y competidores del cliente.
+
+Preparar una auditoría de tracking para las webs del cliente y presentar una propuesta de mejora.
+
+Investigar los detalles del proyecto MMM anterior que el cliente realizó para entender lecciones aprendidas.
+
+Preguntar a "Juampi" si se puede compartir el dashboard de "Control de gastos y presupuestos" con el cliente.
+
+Sugerencias de IA
+
+La IA ha identificado que los puntos de dolor más significativos del cliente son la falta de un modelo de atribución sofisticado y la dependencia de procesos manuales y costosos, agravados por la sobrecarga de su equipo de TI. A continuación, se presentan posibles soluciones para su consideración:
+
+Implementación de un Modelo de Atribución Multi-Canal (MTA) por Fases: Realizar una auditoría del tracking actual y luego implementar un modelo MTA basado en reglas (ej. lineal) para obtener una mejora inmediata sobre el "último clic". Esto puede hacerse utilizando sus herramientas existentes como GA4.
+
+Proyecto Piloto de Marketing Mix Modeling (MMM) con Meridian de Google: Proponer un proyecto acotado utilizando Meridian para demostrar valor rápidamente, destacando cómo esta nueva generación de MMM es más ágil y transparente que modelos anteriores que pudieron haber usado.
+
+Demostración de Implementación "Sin Código": Priorizar una demo en vivo de la herramienta de monitoreo de competencia o la creación de un dashboard conectándose a una fuente de datos simple. Esto abordaría directamente su miedo a la dependencia de TI al mostrar cómo su equipo asume toda la carga técnica.
+
+Cuantificar el Retorno de la Inversión (ROI): Calcular el ahorro de costos estimado al comparar las horas/hombre que actualmente dedican al monitoreo manual de la competencia con el costo de la plataforma tecnológica. Presentar este análisis para justificar la inversión.
+
+Ofrecer una Prueba de Concepto (PoC) de Bajo Riesgo: Proponer un proyecto muy pequeño y enfocado (ej. un dashboard para una marca o el monitoreo de un competidor) con una duración de 2-4 semanas para demostrar el valor y el proceso de trabajo ágil sin un gran compromiso inicial.
+
+Crear un Documento de "Requisitos de TI Mínimos": Detallar en una página el esfuerzo único y puntual que se necesita de su equipo de TI (ej. crear un usuario con permisos de solo lectura), reforzando que no requerirá mantenimiento continuo de su parte.</div>
+    </div>
+  </div>
+</div>
+
+<!-- INTERCORP -->
+<div id="intercorp" class="meeting-view">
+  <div class="meeting-header">
+    <div class="top">
+      <h2><img class="meeting-logo" src="https://www.google.com/s2/favicons?domain=intercorp.com.pe&sz=128" alt="" onerror="this.style.display='none'"> Intercorp — Gabriel (AI)</h2>
+      <button class="back-btn" onclick="showOverview(event)">← Vista general</button>
+    </div>
+    <div class="meeting-meta">
+      <span class="meta-chip">📅 28/05/2026</span>
+      <span class="meta-chip">⏱ 1h 2m</span>
+      <span class="meta-chip">👥 Gabi · Lupe</span>
+      <span class="meta-chip">🏢 Grupo multi-empresa / IA transversal</span>
+    </div>
+  </div>
+
+  <div class="tabs">
+    <button class="tab active" onclick="switchTab(this, 'intercorp-resumen')">Resumen</button>
+    <button class="tab" onclick="switchTab(this, 'intercorp-acciones')">Acciones</button>
+    <button class="tab" onclick="switchTab(this, 'intercorp-email')">Email</button>
+    <button class="tab" onclick="switchTab(this, 'intercorp-notas')">Notas Plaud</button>
+  </div>
+
+  <div id="intercorp-resumen">
+    <div class="section">
+      <h3><span class="icon">📋</span> Contexto</h3>
+      <p>Intercorp es un grupo multi-empresa con diferentes niveles de madurez en IA. El piloto arranca por la <strong>vertical de educación</strong> en 1-2 semanas. Gabi presentará un plan a Lupe internamente. Objetivo: estandarizar e institucionalizar el uso de IA en los equipos de marketing de todo el grupo.</p>
+    </div>
+    <div class="section">
+      <h3><span class="icon">🔴</span> Puntos de Dolor</h3>
+      <ul class="bullets">
+        <li>Sin estrategia centralizada de IA — cada empresa usa herramientas aisladas.</li>
+        <li>Fricción entre equipos de marketing y TI para configurar integraciones (APIs, credenciales).</li>
+        <li>Datos sensibles (ventas, inversión) con incertidumbre sobre dónde alojar soluciones.</li>
+        <li>Equipos de marketing no preparados para modelo de trabajo "agéntico".</li>
+      </ul>
+    </div>
+    <div class="section">
+      <h3><span class="icon">🎯</span> Expectativas</h3>
+      <ul class="bullets">
+        <li>Casos de uso de IA reutilizables y transversales entre empresas del grupo.</li>
+        <li>Piloto en vertical de educación en <strong>1-2 semanas</strong>.</li>
+        <li>Modelo operativo de marketing "agéntico" — uniforme y sostenible.</li>
+        <li>Change management + upskilling de equipos.</li>
+        <li>Plataforma hi-chat con acceso demo para que Gabi la explore.</li>
+      </ul>
+    </div>
+  </div>
+
+  <div id="intercorp-acciones" style="display:none">
+    <div class="section">
+      <h3><span class="icon">✅</span> Action Items <span class="progress-badge" id="prog-intercorp">0/0</span></h3>
+      <ul class="actions-list" id="actions-intercorp">
+        <li class="action-item" data-id="ic-1">
+          <input type="checkbox" class="action-check" onchange="toggleAction(this, 'intercorp', 'ic-1')">
+          <div><div class="action-text">Dar acceso a Gabi a cuenta demo de hi-chat con datos ficticios.</div><div class="action-date">Plazo: 1-2 semanas</div></div>
+        </li>
+        <li class="action-item" data-id="ic-2">
+          <input type="checkbox" class="action-check" onchange="toggleAction(this, 'intercorp', 'ic-2')">
+          <div><div class="action-text">Enviar documentación de scraping (Kernel) y arquitectura de seguridad (qué corre en GCP del cliente vs. externo).</div></div>
+        </li>
+        <li class="action-item" data-id="ic-3">
+          <input type="checkbox" class="action-check" onchange="toggleAction(this, 'intercorp', 'ic-3')">
+          <div><div class="action-text">Preparar propuesta formal de rol "equipo extendido" con proyectos piloto, workshops y modelo de costos.</div></div>
+        </li>
+        <li class="action-item" data-id="ic-4">
+          <input type="checkbox" class="action-check" onchange="toggleAction(this, 'intercorp', 'ic-4')">
+          <div><div class="action-text">Identificar primer proyecto piloto transversal en vertical de educación.</div></div>
+        </li>
+        <li class="action-item" data-id="ic-5">
+          <input type="checkbox" class="action-check" onchange="toggleAction(this, 'intercorp', 'ic-5')">
+          <div><div class="action-text">Alinearse con el plan que Gabi presentará a Lupe y definir frecuencia de reuniones de seguimiento.</div></div>
+        </li>
+      </ul>
+    </div>
+  </div>
+
+  <div id="intercorp-email" style="display:none">
+    <div class="section">
+      <h3><span class="icon">✉️</span> Email de Seguimiento</h3>
+      <div class="email-subject">Asunto: Próximos pasos — Piloto educación + acceso demo hi-chat</div>
+      <div class="email-box" id="email-intercorp">Hola Gabi,
+
+Gracias por la sesión de hoy. Fue muy valioso entender tanto la diversidad de empresas del grupo como la oportunidad de construir un modelo de IA que escale de manera estandarizada.
+
+Los próximos pasos que acordamos:
+
+Esta semana (1-2 semanas):
+- Te enviamos acceso a la cuenta demo de hi-chat con datos ficticios para que puedas explorarla.
+- Te enviamos documentación sobre el scraping (Kernel) y la arquitectura de seguridad (qué corre en GCP del cliente vs. externo).
+
+Propuesta formal:
+Vamos a preparar una propuesta que incluya:
+- Rol de "equipo extendido" con alcance claro
+- Proyectos piloto iniciales (comenzando por la vertical de educación)
+- Workshops de capacitación para los equipos
+- Modelo de costos (APIs, fees de configuración, reciclaje de soluciones)
+
+Alineación con Lupe:
+Me gustaría estar coordinado con el plan que vas a presentarle, para que nuestras próximas acciones estén alineadas.
+
+¿Cuándo podés avisarme cómo quedó la reunión con Lupe? ¿Y qué frecuencia de check-in te funciona mejor — semanal o quincenal?
+
+Saludos,
+[Tu nombre]</div>
+      <button class="copy-btn" onclick="copyEmail('email-intercorp', this)">📋 Copiar email</button>
+    </div>
+  </div>
+
+  <div id="intercorp-notas" style="display:none">
+    <div class="section">
+      <h3><span class="icon">📝</span> Notas Plaud — Intercorp AI / Gabriel (28/05/2026 · 1h 2m)</h3>
+      <div class="notes-content">Fecha y Hora: 28 de mayo de 2026, 11:34:04
+
+Lugar: [Insertar Lugar]
+
+Cliente: Intercorp (representado por Gabi/Speaker 2)
+
+Resumen General
+
+La consultoría con Intercorp se centra en la aceleración y estandarización de la implementación de proyectos de inteligencia artificial (IA) en sus equipos de marketing. El cliente busca evolucionar las capacidades del grupo, unificando la adopción de IA en diversas empresas con diferentes niveles de madurez. Los principales puntos débiles incluyen la falta de una estrategia centralizada, el uso aislado de herramientas, la fricción entre marketing y TI, y la necesidad de desarrollar nuevas habilidades técnicas en los equipos. Los objetivos clave son crear un modelo operativo de marketing más "agéntico" y escalable, implementar soluciones reutilizables que aborden dolores comunes (gestión de creatividades, medición de performance y automatización de tareas repetitivas), y capacitar a los equipos para asegurar la sostenibilidad de las soluciones. Se busca iniciar con un proyecto piloto en la vertical de educación, establecer una dinámica de trabajo continuo y definir una arquitectura de datos segura que distinga entre información sensible (alojada en el GCP del cliente) y no sensible.
+
+Antecedentes
+
+El consultor (AVNE Group / Hike AI) tiene una relación preexistente con Intercorp, habiendo realizado workshops de IA para unas 30-40 personas del grupo y un proyecto específico con NGR para automatizar tareas como el cálculo de Market Share. El cliente (Gabi), quien supervisa la estrategia de IA para marketing, busca centralizar y escalar estos esfuerzos a nivel de grupo. Actualmente, la adopción de IA es fragmentada, dependiendo de la curiosidad individual más que de una estrategia corporativa, lo que genera una gran disparidad en capacidades (madurez estimada en 3-4 de 10). Se discuten costos basados en el uso de APIs ("pay as you go"), la seguridad de los datos (distinguiendo entre lo que puede alojarse en el GCP del proveedor y lo que debe permanecer en el del cliente), y la posibilidad de desplegar soluciones multiempresa bajo una misma URL. El cliente planea presentar un plan de trabajo a su líder (Lupe) y desea iniciar con la plataforma de educación en el corto plazo.
+
+Puntos Débiles
+
+Falta de una estrategia de IA unificada y centralizada: Los esfuerzos son aislados y dependen de iniciativas individuales, lo que impide la creación de soluciones escalables y reutilizables. Esta fragmentación genera ineficiencias y una brecha de capacidades entre las empresas del grupo.
+
+Gestión y escalamiento ineficiente de creatividades y formatos de marketing: La adaptación manual de creatividades para diferentes plataformas y campañas es uno de los "tres dolores grandes", sobrecargando a los equipos de diseño y retrasando lanzamientos. Soluciones previas no han logrado resolver completamente desafíos complejos como la generación de cartelería a partir de vectores.
+
+Medición de rendimiento de campañas "muy desacoplada": La falta de una visión integrada del rendimiento, que conecte datos transaccionales con los de plataformas digitales (Google Ads, Meta Ads), dificulta la optimización del presupuesto (ej. CPL) y la toma de decisiones estratégicas. No se utilizan modelos de Marketing Mix Modeling (MMM) de manera consistente.
+
+Exceso de tareas manuales y repetitivas: Actividades como análisis de competidores, social listening y seguimiento de contratos consumen tiempo valioso de los equipos de marketing, reduciendo la productividad y el enfoque en tareas de mayor valor estratégico.
+
+Fricción entre marketing y TI: Los equipos de marketing enfrentan barreras para escalar pilotos de IA al no poder comunicar adecuadamente los requisitos y el valor técnico a los equipos de TI. Esto causa retrasos y desmotivación.
+
+Necesidad de evolución en capacidades y cultura: El perfil actual del marketero no está preparado para un modelo de trabajo "agéntico" y más tecnológico. Se requiere un plan de Change Management y upskilling para que la adopción de nuevas herramientas de IA sea efectiva y sostenible.
+
+Complejidad técnica y gobernanza de datos: Existe una barrera técnica alta para que los equipos de marketing configuren conexiones (APIs, credenciales) y hay incertidumbre sobre dónde alojar soluciones que manejan datos sensibles (ventas, inversión), lo que genera riesgos de seguridad y cumplimiento.
+
+Expectativas
+
+Implementar casos de uso de IA reutilizables y transversales: A corto plazo, el cliente espera identificar y desarrollar soluciones que aborden "pains similares" en las distintas empresas del grupo, comenzando con un piloto en la vertical de educación en 1-2 semanas.
+
+Desarrollar un modelo operativo de marketing "agéntico" y sostenible: A mediano y largo plazo, se busca transformar la forma en que trabajan los equipos, uniformizando el uso de IA y evolucionando el perfil del marketero hacia uno más tecnológico.
+
+Establecer una dinámica de colaboración recurrente: Crear un plan de trabajo conjunto con el consultor para avanzar en los frentes identificados (creatividades, performance, automatización), democratizando el acceso a herramientas y conocimiento.
+
+Asegurar la sostenibilidad y mantenibilidad de las soluciones: Las implementaciones deben ser transferibles a los equipos internos del cliente, quienes deben poder darles mantenimiento y monitorearlas sin dependencia externa a largo plazo.
+
+Definir una arquitectura de seguridad y claridad financiera: Establecer lineamientos claros sobre el alojamiento de datos (GCP del cliente vs. proveedor) y obtener transparencia sobre el modelo de costos (uso de APIs, fees de configuración y mantenimiento) y acceso a demos con datos ficticios para pruebas.
+
+Capacitar al comité de marketing de IA: Elevar las habilidades técnicas del comité para que puedan dialogar eficazmente con TI, explicar el valor de los proyectos y liderar la escalada de iniciativas de IA.
+
+Resumen de Otra Información
+
+El consultor tiene una relación preexistente con Intercorp, con socios que trabajaron en Frubis, una agencia del grupo. El contacto ejecutivo inicial fue con Lupe.
+
+El cliente (Gabi) reconoce sus limitaciones de ancho de banda ("soy yo") y necesita un socio ejecutor.
+
+Existen empresas avanzadas en IA dentro del grupo (ej. Interseguros) en las que no se enfocará el esfuerzo inicial.
+
+Se discutieron herramientas específicas: "hi-chat" (una plataforma que integra datos de marketing para análisis con lenguaje natural), "REACT" (para adaptar formatos de creatividades) y técnicas de scraping avanzado para social listening.
+
+Una preocupación clave de la dirección (Lupe) es evitar la dependencia de personas clave, buscando soluciones mantenibles por los equipos.
+
+Se propone una comunicación continua mediante un grupo de WhatsApp y reuniones periódicas.
+
+Lista de Tareas
+
+Establecer un grupo de WhatsApp y programar una reunión de seguimiento con el cliente (Gabi) para definir una frecuencia de comunicación.
+
+El consultor debe preparar una propuesta que formalice el rol de "equipo extendido", combine proyectos piloto con workshops de capacitación y detalle el modelo de costos (uso de APIs, fees de configuración/mantenimiento, reciclaje).
+
+Preparar y otorgar acceso a Gabi a una cuenta demo de la plataforma "hi-chat" con datos ficticios para que pueda probarla (plazo: 1-2 semanas).
+
+Enviar documentación sobre la técnica de scraping (Kernel) y la arquitectura de seguridad (qué corre en GCP del cliente vs. externo).
+
+Identificar un primer proyecto piloto transversal, comenzando por la vertical de educación, basado en los "pains similares" discutidos.
+
+Seguir de cerca el plan de trabajo que Gabi presentará a Lupe para alinear las próximas acciones y definir la siguiente fase.
+
+Sugerencias de IA
+
+La IA ha identificado que los puntos débiles más críticos son la falta de una estrategia de IA centralizada y la fricción entre Marketing y TI. A continuación, se presentan soluciones consolidadas:
+
+Crear un Centro de Excelencia (CoE) de IA en Marketing: Liderado conjuntamente, este CoE actuaría como ente centralizador para definir estándares, gobernar la estrategia, identificar casos de uso transversales y gestionar un repositorio de soluciones reutilizables (como playbooks y plantillas). Esto abordaría directamente la falta de una estrategia unificada.
+
+Lanzar un Proyecto "Faro" de alto impacto en Educación: Enfocarse en la vertical de educación para implementar un primer piloto transversal. Por ejemplo, adaptar una solución existente (como la de NGR) o usar la plataforma "hi-chat" para unificar la medición de performance. Un éxito tangible demostraría el valor de la reutilización y sentaría las bases para la estrategia centralizada.
+
+Diseñar un Programa de Habilitación "Tech for Marketers": Para reducir la fricción con TI y elevar las capacidades, crear un programa de capacitación en fundamentos de IA, arquitectura de datos (APIs, GCP) y desarrollo de aplicaciones. Esto debería complementarse con un "Playbook de Escalado" con plantillas estandarizadas para presentar casos de negocio a TI.
+
+Implementar un "Creative Workflow Hub" Centralizado: Para abordar el dolor de la gestión de creatividades, desarrollar una solución que integre un sistema de gestión de activos (DAM), flujos de aprobación y plantillas dinámicas (DCO). Esto automatizaría la adaptación de formatos y permitiría analizar el rendimiento de cada creatividad, conectándose al CoE.</div>
+    </div>
+  </div>
+</div>
+
+<!-- TE APUESTO -->
+<div id="teapuesto" class="meeting-view">
+  <div class="meeting-header">
+    <div class="top">
+      <h2><img class="meeting-logo" src="https://www.google.com/s2/favicons?domain=teapuesto.pe&sz=128" alt="" onerror="this.style.display='none'"> Te Apuesto</h2>
+      <button class="back-btn" onclick="showOverview(event)">← Vista general</button>
+    </div>
+    <div class="meeting-meta">
+      <span class="meta-chip">📅 28/05/2026</span>
+      <span class="meta-chip">⏱ 56m 51s</span>
+      <span class="meta-chip">🏢 Apuestas online / Casino / Perú regulado</span>
+    </div>
+  </div>
+
+  <div class="tabs">
+    <button class="tab active" onclick="switchTab(this, 'teapuesto-resumen')">Resumen</button>
+    <button class="tab" onclick="switchTab(this, 'teapuesto-acciones')">Acciones</button>
+    <button class="tab" onclick="switchTab(this, 'teapuesto-email')">Email</button>
+    <button class="tab" onclick="switchTab(this, 'teapuesto-notas')">Notas Plaud</button>
+  </div>
+
+  <div id="teapuesto-resumen">
+    <div class="section">
+      <h3><span class="icon">📋</span> Contexto</h3>
+      <p>Operador de apuestas online y casino en Perú, mercado altamente regulado. Agencia actual trabaja con rebates trimestrales. Complejidades: facturación desde Chile sin RUC peruano, diferencias de horarios y feriados AR-PE, Mundial en el horizonte (cambios antes del Mundial inviables).</p>
+    </div>
+    <div class="section">
+      <h3><span class="icon">🔴</span> Puntos de Dolor</h3>
+      <ul class="bullets">
+        <li>No pueden medir conversiones en plataformas de terceros como <strong>Pragmatic</strong> (ej: juego "Super 7").</li>
+        <li>Agencia actual operativa y poco proactiva en innovación, atribución y automatización.</li>
+        <li>Sin guía para distribución óptima de presupuesto entre canales.</li>
+        <li>Modelo de cobro incompatible: rebates trimestrales vs. fee mensual.</li>
+        <li>Temas contables/tesorería: facturación desde Chile, flujos de caja, calendario afectado por el Mundial.</li>
+      </ul>
+    </div>
+    <div class="section">
+      <h3><span class="icon">🎯</span> Expectativas</h3>
+      <ul class="bullets">
+        <li><strong>Tracking robusto:</strong> auditoría + integración APIs Pragmatic + solución server-to-server para medir conversiones a nivel de producto.</li>
+        <li><strong>Consultoría estratégica proactiva:</strong> DV360, distribución de inversión por canal.</li>
+        <li><strong>Lift measurements mensuales</strong> con Google + Ipsos (Brand/Search/Conversion).</li>
+        <li><strong>MMM/Meridian</strong> con datos on/off de 2 años (cronograma 6 meses).</li>
+        <li>Equipo dedicado en Lima con SLA &lt; 1 hora. Herramienta creativa mejorada (resize 16:9 y 9:16).</li>
+      </ul>
+    </div>
+  </div>
+
+  <div id="teapuesto-acciones" style="display:none">
+    <div class="section">
+      <h3><span class="icon">✅</span> Action Items <span class="progress-badge" id="prog-teapuesto">0/0</span></h3>
+      <ul class="actions-list" id="actions-teapuesto">
+        <li class="action-item" data-id="ta-1">
+          <input type="checkbox" class="action-check" onchange="toggleAction(this, 'teapuesto', 'ta-1')">
+          <div><div class="action-text">Propuesta de equipo dedicado (team leader + manager + analista) con fee mensual, alcance, SLAs y modelo operativo alineado a Perú.</div><div class="action-date">Plazo: 05/06/2026</div></div>
+        </li>
+        <li class="action-item" data-id="ta-2">
+          <input type="checkbox" class="action-check" onchange="toggleAction(this, 'teapuesto', 'ta-2')">
+          <div><div class="action-text">Plan de implementación de DV360 con calendario de capacitaciones y lanzamiento en el primer mes.</div><div class="action-date">Plazo: 07/06/2026</div></div>
+        </li>
+        <li class="action-item" data-id="ta-3">
+          <input type="checkbox" class="action-check" onchange="toggleAction(this, 'teapuesto', 'ta-3')">
+          <div><div class="action-text">Auditoría de tracking + propuesta de integración con APIs de Pragmatic + página intermedia para medir intención de juego.</div><div class="action-date">Plazo: 07/06/2026</div></div>
+        </li>
+        <li class="action-item" data-id="ta-4">
+          <input type="checkbox" class="action-check" onchange="toggleAction(this, 'teapuesto', 'ta-4')">
+          <div><div class="action-text">Investigar viabilidad de conexión a APIs de Pragmatic para datos de conversión en tiempo real.</div><div class="action-date">Plazo: 14/06/2026</div></div>
+        </li>
+        <li class="action-item" data-id="ta-5">
+          <input type="checkbox" class="action-check" onchange="toggleAction(this, 'teapuesto', 'ta-5')">
+          <div><div class="action-text">Metodología de Brand/Search/Conversion Lift mensual + propuesta con Google e Ipsos + bonificaciones disponibles.</div><div class="action-date">Plazo: 14/06/2026</div></div>
+        </li>
+        <li class="action-item" data-id="ta-6">
+          <input type="checkbox" class="action-check" onchange="toggleAction(this, 'teapuesto', 'ta-6')">
+          <div><div class="action-text">Propuesta de Meridian (MMM) con requisitos de datos on/off de 2 años y cronograma de 6 meses.</div><div class="action-date">Plazo: 21/06/2026</div></div>
+        </li>
+        <li class="action-item" data-id="ta-7">
+          <input type="checkbox" class="action-check" onchange="toggleAction(this, 'teapuesto', 'ta-7')">
+          <div><div class="action-text">Prototipo de mejora de herramienta creativa (capas, resize 16:9 y 9:16, flujo de QA y métricas de desempeño).</div><div class="action-date">Plazo: 21/06/2026</div></div>
+        </li>
+      </ul>
+    </div>
+  </div>
+
+  <div id="teapuesto-email" style="display:none">
+    <div class="section">
+      <h3><span class="icon">✉️</span> Email de Seguimiento</h3>
+      <div class="email-subject">Asunto: Propuesta equipo dedicado + roadmap técnico — ABN/Hyke x Te Apuesto</div>
+      <div class="email-box" id="email-teapuesto">Hola,
+
+Gracias por la reunión de hoy. Entendemos el contexto: operan en un mercado exigente donde cada punto de conversión cuenta, y hoy no tienen visibilidad suficiente para optimizar con confianza.
+
+Tal como acordamos, les compartimos el cronograma de entregas:
+
+📅 5 de junio:
+- Propuesta de equipo dedicado (team leader + manager + analista) con fee mensual, alcance, SLAs y modelo operativo alineado a Perú (horarios, feriados).
+
+📅 7 de junio:
+- Plan de implementación de DV360 con calendario de capacitaciones y lanzamiento en el primer mes.
+- Auditoría de tracking + propuesta de integración con APIs de Pragmatic + página intermedia para medir intención de juego.
+
+📅 14 de junio:
+- Investigación de viabilidad de APIs de Pragmatic para datos en tiempo real.
+- Metodología de Brand/Search/Conversion Lift mensual + propuesta con Google e Ipsos, incluyendo bonificaciones.
+
+📅 21 de junio:
+- Propuesta completa de Meridian (MMM) con requisitos de datos y cronograma de 6 meses.
+- Prototipo de herramienta creativa (capas, resize 16:9 y 9:16, QA y métricas).
+
+Antes del Mundial, el objetivo es tener el equipo operativo y el tracking resuelto.
+¿Confirman que el 5 de junio es la fecha límite para evaluar la propuesta comercial?
+
+Saludos,
+[Tu nombre]</div>
+      <button class="copy-btn" onclick="copyEmail('email-teapuesto', this)">📋 Copiar email</button>
+    </div>
+  </div>
+
+  <div id="teapuesto-notas" style="display:none">
+    <div class="section">
+      <h3><span class="icon">📝</span> Notas Plaud — Te Apuesto (28/05/2026 · 56m 51s)</h3>
+      <div class="notes-content">Fecha y Hora: 28-05-2026 15:06:12
+
+Ubicación: [Insertar Ubicación]
+
+Cliente: [Insertar Cliente]
+
+Resumen General
+
+El cliente, operador de apuestas online y casino en un entorno altamente regulado (Perú), enfrenta desafíos críticos de medición y estrategia. El principal problema es la falta de visibilidad del comportamiento post-clic dentro de plataformas de terceros (p. ej., Pragmatic), lo que impide medir conversiones a nivel de producto (ej., juego "Super 7") y optimizar inversión. Además, perciben a su agencia actual como predominantemente operativa, con baja proactividad en innovación, atribución y automatización, y sin guía para distribución óptima de presupuesto entre canales. Buscan un socio estratégico con capacidades integradas de MarTech y medios, uso de DSP (DV360), modelos de atribución avanzados (MMM/Meridian), mediciones de lift robustas, y mejoras operativas (equipos dedicados, alertas, SLA, coordinación local). La operación digital es de alto volumen (≈45 campañas, US$250.000–300.000/mes en digital; ~US$150.000/mes en branding), con necesidad de separar ATL y digital vía licitación post-Mundial, ordenar procesos contables/tesorería (fee vs. rebates, facturación desde Chile), y elevar eficiencia y transparencia a lo largo del funnel.
+
+Antecedentes
+
+Estructura de marketing dividida: captación (registros/primer depósito) con tracking más completo en landings; producto/CRM, liderado por Félix, enfocado en promover juegos y apuestas específicas a usuarios ya registrados, con bajo seguimiento dentro de plataformas externas.
+
+La arquitectura técnica depende de una página intermedia que integra plugins de proveedores de juegos; los desarrollos tardan meses, afectando agilidad en implementar soluciones de tracking.
+
+La agencia actual ejecuta con eficiencia táctica (CPMs) en plataformas como Meta, pero no entrega recomendaciones macro de inversión ni soluciones técnicas que sorteen restricciones de seguimiento y políticas de apuestas (Google).
+
+La agencia proponente es independiente, partner de GMP/Google/Meta/TikTok, habilitada para Meridian (MMM de Google), con más de 20 ingenieros y soporte transversal MarTech (tracking, reporting, AI). Ofrece herramientas de adaptación de creativos con Google Cloud y Gemini, sistemas de alertas (Teams/Slack), capacitaciones (DV360), y modalidad operativa dedicada/híbrida con presencia en Lima.
+
+Puntos Problemáticos
+
+Falta de seguimiento de conversiones post-clic en plataformas de terceros:
+
+Impacto: imposibilidad de atribuir inversión a resultados de producto (ej., "Super 7"), optimizaciones limitadas a métricas de parte alta del embudo (sesión).
+
+Situación actual: solo cuentan con reportes diarios agregados de ventas; sin granularidad por campaña/juego/función (ej., botón "spin", apuestas especiales).
+
+Stakeholders: equipos de producto y marketing (Félix), datos insuficientes para decisiones.
+
+Dependencia de proveedores y lentitud de desarrollos:
+
+Página intermedia con capacidad limitada y desarrollos que demoran meses; políticas restrictivas en plataformas de apuestas (Google) limitan remarketing y estrategias.
+
+Agencia actual poco proactiva e innovadora:
+
+Impacto: sin recomendaciones de distribución presupuestaria multicanal ni adopción de MarTech para superar barreras de medición; enfoque operativo (planners/trader/supervisor) con baja estrategia y escasa automatización/alertas.
+
+Dificultades para medir impacto de branding:
+
+Brand lift histórico poco representativo ("no había lift"), falta de visión mensual estratégica y de metodologías constantes; se evalúan servicios con Google/Ipsos.
+
+Ineficiencias en adaptación creativa multiformato:
+
+Herramienta actual con problemas de resize (16:9, 9:16) y manejo de capas, generando demoras y errores visuales.
+
+Operación digital fragmentada y gobernanza insuficiente:
+
+Alto volumen de campañas y presupuesto sin estructura formal de agencia y sin evidencia clara de eficiencia por canal/pieza; necesidad de dashboards, weeklys y SLA (<1 hora) para coordinación ágil.
+
+Desalineación financiera y operativa:
+
+Esquema de cobro: agencia actual con rebates trimestrales; la proponente trabaja con fee mensual. Temas contables/tesorería (facturación desde Chile, sin RUC peruano), flujos de caja, y calendario afectado por el Mundial (cambios antes del Mundial inviable).
+
+Disponibilidad y presencia local:
+
+Diferencias de feriados AR/PE y husos horarios impactan tiempos de respuesta; se requiere modelo operativo alineado a Perú y potencial equipo 100% Lima.
+
+Expectativas
+
+Implementar tracking robusto de conversiones:
+
+Auditoría integral de seguimiento, integración con APIs de proveedores y/o soluciones server-to-server (S2S), y eventos en la página intermedia para medir intención (ej., "Jugar Super 7").
+
+Consultoría estratégica y proactiva:
+
+Distribución óptima de inversión entre canales, piloto y lanzamiento de publicidad programática con DV360, y adopción de MMM (Meridian) para ROI por canal con data on/off de hasta dos años.
+
+Medición continua y representativa:
+
+Metodologías constantes de brand/search/conversion lift (mensual) con soporte Google/Ipsos; insights rápidos y estratégicos semestrales via MMM.
+
+Eficiencia creativa y automatización:
+
+Mejoras rápidas en herramienta de adaptación (capas, resize, QA), pipelines con Google Cloud/Gemini, y reducción de tiempos/errores.
+
+Modelo operativo alineado a Perú:
+
+Equipo dedicado (team leader, manager, analista), SLAs de respuesta, presencia local/híbrida, coordinación en Teams con alertas, war rooms semanales, y reuniones estratégicas trimestrales.
+
+Esquema financiero transparente y compatible:
+
+Definición de fee mensual vs. rebates sin afectar flujo de caja; contratos y términos claros; evaluación de referencias internas (ej., "515% 5.15") y trimestralidad si aplica.
+
+Licitación post-Mundial:
+
+Separar agencias ATL y digital; preparar credenciales, procesos y herramientas para competir; transición ordenada con fechas claras.
+
+Proyectos paralelos:
+
+Social listening, dashboards interactivos, "ChatGPT interno" para análisis, y adaptación de piezas.
+
+Otras Informaciones Relevantes
+
+Dashboards en tiempo real ya disponibles para métricas hasta sesión/CPM; cliente abierto a nuevas tecnologías (DV360 considerado innovador).
+
+La agencia propone centralizar comunicación en Teams (evitar WhatsApp), planes de medios mensuales, weeklys, y SLA de respuesta "antes de la hora".
+
+Presencia regional y soporte de country manager en Perú (Alberto Bandujano); posibilidad de montar equipo en Lima.
+
+Bonificaciones/soportes de Google para estudios de lift pueden explorarse; proyectos MMM estiman 6 meses.
+
+Se sugiere asignar 50 horas de MarTech para automatizaciones y tracking; proyectos mayores (Meridian) se cotizan aparte.
+
+Lista de Tareas
+
+Auditoría del equipo de tracking y alcance actual; identificar integraciones posibles (S2S/APIs de proveedores) y eventos en página intermedia. Responsable: MarTech. Plazo: 2026-06-07.
+
+Investigar viabilidad de conexión a APIs de proveedores (Pragmatic) para datos de conversión en tiempo real. Responsable: MarTech/Producto. Plazo: 2026-06-14.
+
+Enviar propuesta de equipo dedicado (team leader, manager, analista) con fee mensual, alcance y SLAs; modelo operativo alineado a Perú (feriados, horarios). Responsable: Agencia. Plazo: 2026-06-05.
+
+Compartir plan de implementación de DV360, calendario de capacitaciones y lanzamiento en primer mes. Responsable: Agencia. Plazo: 2026-06-07.
+
+Presentar metodología de brand/search/conversion lift mensual y propuesta con Google + Ipsos; evaluar bonificaciones. Responsable: Agencia/Proveedor. Plazo: 2026-06-14.
+
+Entregar propuesta de Meridian (MMM) con requisitos de data on/off de 2 años y cronograma de 6 meses. Responsable: Agencia/Analítica. Plazo: 2026-06-21.
+
+Prototipo de mejora de herramienta creativa (capas, discriminación, resize 16:9 y 9:16) con flujo de QA y métricas de tiempo/error. Responsable: MarTech. Plazo: 2026-06-10.
+
+Definir esquema financiero (fee vs. rebates), términos contractuales, facturación desde Chile y evaluación de impacto en flujo de caja. Responsable: Finanzas/Procurement. Plazo: 2026-06-12.
+
+Preparar propuesta operativa para licitación digital post-Mundial (procesos, SLA, Teams, reporting, planes de medios). Responsable: Agencia. Plazo: previo al inicio de licitación.
+
+Enviar credenciales y presentación con casos de éxito (Despegar), MCP de Meta con Cloud y novedades GML; demo de dashboards con KPIs y filtros CMM; training. Responsable: Agencia. Plazo: semana del 2026-06-01.
+
+Coordinar reunión con Willy y Dani para proyectos de social listening y adaptación de piezas; consolidar presupuestos. Responsable: Cliente/Agencia. Plazo: antes del 2026-06-15.
+
+Entregar plan de medios de junio con insights y optimizaciones; establecer war room semanal y automatizar alertas en Teams/Slack. Responsable: Agencia. Plazo: semana del 2026-06-01.
+
+Sugerencias de IA
+
+Integración S2S y/o Data Clean Room (Google/Meta/Snowflake) para cruzar datos first-party con proveedores en entorno seguro, midiendo conversiones sin exponer PII.
+
+Modelado de conversiones con datos indirectos mientras se negocian integraciones: correlaciones/regresiones a partir de ventas agregadas diarias y sesiones por campaña para estimar contribución por canal/producto.
+
+Métricas proxy de intención en la página intermedia (ej., clic "Jugar Super 7") como objetivos de optimización transitorios.
+
+Equipo dedicado con "quick wins" en 30 días: backlog de alertas, automatizaciones y pruebas de formatos; war room semanal de optimización con KPIs y acciones inmediatas.
+
+Marco de medición integral con dashboards por campaña/creativo, atribución y lift continuo; MMM (Meridian) para guiar inversión semestral.
+
+Playbook operativo y gobernanza de canales con SLA (<1 hora) y hub en Teams; automatización de flujos de creativos y aprobaciones.
+
+Piloto controlado pre-licitación en 3–5 campañas clave para demostrar eficiencia (incrementalidad, lift, reducción de CPA/CPC) y generar evidencia para finanzas/marketing.</div>
+    </div>
+  </div>
+</div>
+
+</main>
+
+<script>
+const meetings = [
+  { id: 'tottus',    emoji: '🏬', logo: 'https://www.google.com/s2/favicons?domain=tottus.com.pe&sz=128',       name: 'Tottus',                  date: '26/05/2026', tags: 'Retail · Data · Hyke Chat' },
+  { id: 'latinka1',  emoji: '🎰', logo: 'https://www.google.com/s2/favicons?domain=latinka.com.pe&sz=128',       name: 'La Tinka — Willy (R1)',   date: '27/05/2026', tags: 'Loterías · IA Estratégica · 5 iniciativas' },
+  { id: 'latinka2',  emoji: '🎰', logo: 'https://www.google.com/s2/favicons?domain=latinka.com.pe&sz=128',       name: 'La Tinka — Willy (R2)',   date: '27/05/2026', tags: 'Creatividades · Dashboard · No fees' },
+  { id: 'credicorp', emoji: '🏦', logo: 'https://www.google.com/s2/favicons?domain=credicorp.com&sz=128',        name: 'Credicorp',               date: '27/05/2026', tags: 'Diseño · 13 subsidiarias · BCP' },
+  { id: 'yape',      emoji: '💳', logo: 'https://www.google.com/s2/favicons?domain=yape.com.pe&sz=128',          name: 'Yape',                    date: '27/05/2026', tags: 'Fintech · MMM · Meridian' },
+  { id: 'inlearning',emoji: '📚', logo: 'https://www.google.com/s2/favicons?domain=inlearning.pe&sz=128',        name: 'InLearning',              date: '28/05/2026', tags: 'E-learning · Martech · Nov' },
+  { id: 'intercorp', emoji: '🏢', logo: 'https://www.google.com/s2/favicons?domain=intercorp.com.pe&sz=128',     name: 'Intercorp — Gabriel AI',  date: '28/05/2026', tags: 'Grupo · Educación · hi-chat' },
+  { id: 'teapuesto', emoji: '🎲', logo: 'https://www.google.com/s2/favicons?domain=teapuesto.pe&sz=128',         name: 'Te Apuesto',              date: '28/05/2026', tags: 'Apuestas · Tracking · Pragmatic' },
+];
+
+// Load state from localStorage
+function getState() {
+  try { return JSON.parse(localStorage.getItem('peru-meetings') || '{}'); } catch { return {}; }
+}
+function saveState(s) { localStorage.setItem('peru-meetings', JSON.stringify(s)); }
+
+function getTasksForMeeting(id) {
+  return document.querySelectorAll(`#actions-${id} .action-item`);
+}
+function getDoneCount(id) {
+  const state = getState();
+  const items = document.querySelectorAll(`#actions-${id} .action-item`);
+  let done = 0;
+  items.forEach(item => { if (state[id + '_' + item.dataset.id]) done++; });
+  return { done, total: items.length };
+}
+
+function updateProgress(meetingId) {
+  const { done, total } = getDoneCount(meetingId);
+  const badge = document.getElementById(`prog-${meetingId}`);
+  if (badge) badge.textContent = `${done}/${total}`;
+  updateOverviewCard(meetingId);
+  updateHeader();
+}
+
+function updateOverviewCard(id) {
+  const card = document.getElementById(`card-${id}`);
+  if (!card) return;
+  const { done, total } = getDoneCount(id);
+  const fill = card.querySelector('.progress-fill');
+  const label = card.querySelector('.progress-label');
+  if (fill) fill.style.width = total ? `${(done/total)*100}%` : '0%';
+  if (label) label.textContent = `${done} de ${total} tareas completadas`;
+}
+
+function updateHeader() {
+  let totalDone = 0, totalTasks = 0;
+  meetings.forEach(m => {
+    const { done, total } = getDoneCount(m.id);
+    totalDone += done; totalTasks += total;
+  });
+  document.getElementById('total-done').textContent = totalDone;
+  document.getElementById('total-tasks').textContent = totalTasks;
+}
+
+function toggleAction(checkbox, meetingId, taskId) {
+  const state = getState();
+  const key = meetingId + '_' + taskId;
+  state[key] = checkbox.checked;
+  saveState(state);
+  const item = checkbox.closest('.action-item');
+  checkbox.checked ? item.classList.add('done') : item.classList.remove('done');
+  updateProgress(meetingId);
+}
+
+function restoreCheckboxes() {
+  const state = getState();
+  meetings.forEach(m => {
+    const items = document.querySelectorAll(`#actions-${m.id} .action-item`);
+    items.forEach(item => {
+      const key = m.id + '_' + item.dataset.id;
+      const cb = item.querySelector('.action-check');
+      if (state[key]) { cb.checked = true; item.classList.add('done'); }
+    });
+    updateProgress(m.id);
+  });
+  updateHeader();
+}
+
+// Build overview cards
+function buildOverview() {
+  const grid = document.getElementById('overview-grid');
+  meetings.forEach(m => {
+    const card = document.createElement('div');
+    card.className = 'overview-card';
+    card.id = `card-${m.id}`;
+    card.innerHTML = `
+      <img class="co-logo" src="${m.logo}" alt="${m.name}" onerror="this.outerHTML='<div class=\'emoji\'>${m.emoji}</div>'">
+      <h3>${m.name}</h3>
+      <div class="date">📅 ${m.date} &nbsp;·&nbsp; ${m.tags}</div>
+      <div class="progress-bar"><div class="progress-fill" style="width:0%"></div></div>
+      <div class="progress-label">Cargando...</div>
+    `;
+    card.onclick = () => { showMeetingById(m.id); };
+    grid.appendChild(card);
+  });
+}
+
+function showOverview(e) {
+  if (e) e.preventDefault();
+  document.getElementById('overview').classList.add('visible');
+  document.querySelectorAll('.meeting-view').forEach(v => v.classList.remove('visible'));
+  document.querySelectorAll('nav a').forEach(a => a.classList.remove('active'));
+  document.querySelector('nav a').classList.add('active');
+  meetings.forEach(m => updateOverviewCard(m.id));
+}
+
+function showMeetingById(id) {
+  document.getElementById('overview').classList.remove('visible');
+  document.querySelectorAll('.meeting-view').forEach(v => v.classList.remove('visible'));
+  const target = document.getElementById(id);
+  if (target) target.classList.add('visible');
+  document.querySelectorAll('nav a').forEach(a => a.classList.remove('active'));
+  updateProgress(id);
+}
+
+function showMeeting(e, id) {
+  e.preventDefault();
+  showMeetingById(id);
+  document.querySelectorAll('nav a').forEach(a => {
+    if (a.getAttribute('onclick') && a.getAttribute('onclick').includes(`'${id}'`)) a.classList.add('active');
+  });
+}
+
+function switchTab(btn, targetId) {
+  const meeting = btn.closest('.meeting-view');
+  meeting.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+  btn.classList.add('active');
+  const parent = meeting.querySelector('.tabs').parentElement;
+  // Hide all sibling divs after tabs
+  let el = meeting.querySelector('.tabs').nextElementSibling;
+  while (el) { el.style.display = 'none'; el = el.nextElementSibling; }
+  const target = document.getElementById(targetId);
+  if (target) target.style.display = 'block';
+}
+
+function copyEmail(id, btn) {
+  const text = document.getElementById(id).innerText;
+  navigator.clipboard.writeText(text).then(() => {
+    btn.textContent = '✅ Copiado!';
+    btn.classList.add('copied');
+    setTimeout(() => { btn.textContent = '📋 Copiar email'; btn.classList.remove('copied'); }, 2000);
+  });
+}
+
+// Init
+buildOverview();
+restoreCheckboxes();
+</script>
+</body>
+</html>
