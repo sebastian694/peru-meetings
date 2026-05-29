@@ -161,8 +161,7 @@
 <nav id="main-nav">
   <a href="#" class="active" onclick="showOverview(event)">Vista General</a>
   <a href="#" onclick="showMeeting(event, 'tottus')">🏬 Tottus</a>
-  <a href="#" onclick="showMeeting(event, 'latinka1')">🎰 La Tinka 1</a>
-  <a href="#" onclick="showMeeting(event, 'latinka2')">🎰 La Tinka 2</a>
+  <a href="#" onclick="showMeeting(event, 'latinka1')">🎰 La Tinka — Willy</a>
   <a href="#" onclick="showMeeting(event, 'credicorp')">🏦 Credicorp</a>
   <a href="#" onclick="showMeeting(event, 'yape')">💳 Yape</a>
   <a href="#" onclick="showMeeting(event, 'inlearning')">📚 InLearning</a>
@@ -367,14 +366,14 @@ Investigar y compartir información sobre el posicionamiento en IA generativa ("
 <div id="latinka1" class="meeting-view">
   <div class="meeting-header">
     <div class="top">
-      <h2><img class="meeting-logo" src="https://www.google.com/s2/favicons?domain=latinka.com.pe&sz=128" alt="" onerror="this.style.display='none'"> La Tinka — Willy (Reunión 1)</h2>
+      <h2><img class="meeting-logo" src="https://www.google.com/s2/favicons?domain=latinka.com.pe&sz=128" alt="" onerror="this.style.display='none'"> La Tinka — Willy</h2>
       <button class="back-btn" onclick="showOverview(event)">← Vista general</button>
     </div>
     <div class="meeting-meta">
       <span class="meta-chip">📅 27/05/2026</span>
-      <span class="meta-chip">⏱ 13m 18s</span>
+      <span class="meta-chip">⏱ 1h 33m (2 sesiones)</span>
       <span class="meta-chip">👥 Willy · Sandra Aguero · Lupe · Ricardo · Félix · Pamela</span>
-      <span class="meta-chip">🏢 Loterías / IA Estratégica</span>
+      <span class="meta-chip">🏢 Loterías / IA / Creatividades / Performance</span>
     </div>
   </div>
 
@@ -388,7 +387,7 @@ Investigar y compartir información sobre el posicionamiento en IA generativa ("
   <div id="latinka1-resumen">
     <div class="section">
       <h3><span class="icon">📋</span> Contexto</h3>
-      <p>Grupo con dos marcas: <strong>La Tinka</strong> (loterías) y <strong>Te Apuesto</strong> (apuestas deportivas). Reunión estructurada con 5 iniciativas concretas y fechas definidas. Willy es el líder del área de loterías. Sandra Aguero lidera TI.</p>
+      <p>Dos sesiones con Willy, líder del área de loterías en Intercorp. El grupo opera <strong>La Tinka</strong> (loterías) y <strong>Te Apuesto</strong> (apuestas deportivas). La primera sesión fue estratégica (5 iniciativas con fechas). La segunda profundizó en creatividades, dashboards y modelo comercial. Sandra Aguero lidera TI. <strong>Restricción clave: no aprueban fees mensuales</strong> — solo proyectos cerrados con soporte on-demand.</p>
     </div>
     <div class="section">
       <h3><span class="icon">🎯</span> 5 Iniciativas Identificadas</h3>
@@ -398,6 +397,25 @@ Investigar y compartir información sobre el posicionamiento en IA generativa ("
         <li><strong>3. Programa de capacitación y workshops de IA:</strong> Procesos nuevos que nazcan integrados con IA. Workshops por roles (marketing, datos, TI, negocio).</li>
         <li><strong>4. Proyecto optimización rentabilidad con IA/ML + capa generativa:</strong> Conectar toda la data en BigQuery + queries en lenguaje natural. Reunión técnica con Sandra.</li>
         <li><strong>5. Portabilidad de soluciones dentro del grupo:</strong> Social listening (ya hecho para NFR) transportable a otras cuentas. Definir gobernanza y licenciamiento interno.</li>
+      </ul>
+    </div>
+    <div class="section">
+      <h3><span class="icon">🔴</span> Puntos de Dolor (Sesión 2)</h3>
+      <ul class="bullets">
+        <li>Análisis de campañas Meta/TikTok 100% manual en Excel.</li>
+        <li>Adaptación de piezas creativas: hasta <strong>800 formatos</strong>, proceso caro y lento. Agencia produce 500/mes de las 700 necesarias.</li>
+        <li>Falta de claridad interna sobre cómo y para qué usar IA.</li>
+        <li>Costos variables e impredecibles en generación de contenido con IA.</li>
+        <li>Falta de tech partners confiables en Perú y México.</li>
+      </ul>
+    </div>
+    <div class="section">
+      <h3><span class="icon">✨</span> Expectativas (Sesión 2)</h3>
+      <ul class="bullets">
+        <li>Dashboard integrado Meta+TikTok con recomendaciones proactivas de IA para optimizar CPA.</li>
+        <li>Producción creativa con IA (imagen/video) en 2-3 días a menor costo — cubrir el gap de 200 piezas/mes.</li>
+        <li>Workshop "para qué usar IA" para líderes de negocio y TI.</li>
+        <li>Pricing unificado para social listening en ambas marcas (con Félix).</li>
       </ul>
     </div>
   </div>
@@ -434,6 +452,34 @@ Investigar y compartir información sobre el posicionamiento en IA generativa ("
           <input type="checkbox" class="action-check" onchange="toggleAction(this, 'latinka1', 'lt1-7')">
           <div><div class="action-text">Selección de 1-2 soluciones para implementación rápida en La Tinka y/o Te Apuesto.</div><div class="action-date">Plazo: 25/06/2026 — Lupe + Ricardo</div></div>
         </li>
+        <li class="action-item" data-id="lt1-8">
+          <input type="checkbox" class="action-check" onchange="toggleAction(this, 'latinka1', 'lt1-8')">
+          <div><div class="action-text">Compartir tarifarios detallados de generación de contenido por IA (imagen y video).</div></div>
+        </li>
+        <li class="action-item" data-id="lt1-9">
+          <input type="checkbox" class="action-check" onchange="toggleAction(this, 'latinka1', 'lt1-9')">
+          <div><div class="action-text">Preparar propuesta de piloto de producción creativa con IA (alcance, tiempos de 2-3 días, costos cerrados).</div></div>
+        </li>
+        <li class="action-item" data-id="lt1-10">
+          <input type="checkbox" class="action-check" onchange="toggleAction(this, 'latinka1', 'lt1-10')">
+          <div><div class="action-text">Diseñar y proponer workshop inicial "para qué usar IA" dirigido a líderes de unidades y TI.</div></div>
+        </li>
+        <li class="action-item" data-id="lt1-11">
+          <input type="checkbox" class="action-check" onchange="toggleAction(this, 'latinka1', 'lt1-11')">
+          <div><div class="action-text">Reunirse con Félix para alinear proyectos similares y definir pricing unificado de social listening para ambas marcas.</div></div>
+        </li>
+        <li class="action-item" data-id="lt1-12">
+          <input type="checkbox" class="action-check" onchange="toggleAction(this, 'latinka1', 'lt1-12')">
+          <div><div class="action-text">Definir arquitectura sin fee mensual + marco de integración segura de IA con sistemas internos (correo, TI).</div></div>
+        </li>
+        <li class="action-item" data-id="lt1-13">
+          <input type="checkbox" class="action-check" onchange="toggleAction(this, 'latinka1', 'lt1-13')">
+          <div><div class="action-text">Coordinar reunión con el estudio creativo (Aven/Gas Studio) para presentar capacidades a Félix, Pamela y Willy.</div></div>
+        </li>
+        <li class="action-item" data-id="lt1-14">
+          <input type="checkbox" class="action-check" onchange="toggleAction(this, 'latinka1', 'lt1-14')">
+          <div><div class="action-text">Enviar ejemplos de videos generados con IA (ej. campaña CALM) al cliente.</div></div>
+        </li>
       </ul>
     </div>
   </div>
@@ -444,21 +490,32 @@ Investigar y compartir información sobre el posicionamiento en IA generativa ("
       <div class="email-subject">Asunto: Resumen y próximos pasos — ABN/Hyke x La Tinka & Te Apuesto</div>
       <div class="email-box" id="email-latinka1">Hola Willy,
 
-Gracias por la sesión de hoy — fue muy productivo poder estructurar las 5 iniciativas con claridad.
+Gracias por las dos sesiones de hoy — fue muy valioso tanto estructurar las iniciativas estratégicas como profundizar en los desafíos de creatividades y datos de campañas.
 
-Resumen de los proyectos que vamos a trabajar:
+Resumen de los proyectos acordados:
 
-1. Arquitectura de IA compartida para gestión de contenidos y paid media (La Tinka + Te Apuesto) — con motor común y datos completamente segregados por marca.
+1. Arquitectura de IA compartida para contenidos y paid media (La Tinka + Te Apuesto) — motor común con datos completamente segregados por marca.
 
 2. Refuerzo de performance marketing para Te Apuesto — auditoría + plan de optimización 90 días como equipo externo complementario.
 
 3. Programa de capacitación y workshops de IA por roles — procesos que nazcan ya integrados con IA desde el inicio.
 
-4. Capa generativa sobre BigQuery para optimización de rentabilidad — coordinar reunión técnica con Sandra para explorar aceleración.
+4. Capa generativa sobre BigQuery para optimización de rentabilidad — reunión técnica pendiente con Sandra.
 
-5. Modelo de portabilidad de soluciones del grupo — inventario de lo existente (ej. social listening de NFR) y gobernanza de reutilización.
+5. Modelo de portabilidad de soluciones del grupo — inventario de lo existente y gobernanza de reutilización.
 
-Próxima acción: ¿Podemos confirmar la reunión técnica con Sandra Aguero para la semana del 6/06?
+Esta semana te enviamos:
+📊 Tarifarios de generación de contenido por IA (imagen y video)
+🎬 Ejemplos de videos generados con IA (campaña CALM y otros)
+📋 Propuesta de piloto de producción creativa (alcance, 2-3 días, costos cerrados — sin fee mensual)
+🧠 Diseño del workshop "para qué usar IA" para líderes y TI
+
+Próximas reuniones a coordinar:
+• Con Sandra Aguero — reunión técnica BigQuery/rentabilidad (semana del 6/06)
+• Con Félix — pricing unificado de social listening para ambas marcas
+• Con Félix, Pamela y vos — presentación del estudio creativo (Aven/Gas Studio)
+
+¿Cuándo tienen disponibilidad?
 
 Saludos,
 [Tu nombre]</div>
@@ -468,7 +525,7 @@ Saludos,
 
   <div id="latinka1-notas" style="display:none">
     <div class="section">
-      <h3><span class="icon">📝</span> Notas Plaud — La Tinka Reunión 1 (27/05/2026 · 13m 18s)</h3>
+      <h3><span class="icon">📝</span> Notas Plaud — La Tinka Sesión 1 (27/05/2026 · 13m 18s)</h3>
       <div class="notes-content">1. Solución conjunta de IA para gestión de contenidos y paid media en "Te Apuesto" y "La Tinka" (loterías)
 
 Las unidades de negocio de loterías ("La Tinka") y apuestas deportivas ("Te Apuesto") convergen en la necesidad de usar IA para gestión de contenidos en redes sociales, moderación/gestión de comentarios y optimización de paid media. El impacto buscado es mejorar eficiencia operativa y performance de marketing, evitando esfuerzos duplicados. Se plantea una arquitectura compartida: un mismo motor/lógica de IA con despliegues separados para cada marca, asegurando separación de datos. Se considera apoyo adicional en performance marketing debido a debilidades de la agencia actual de "Te Apuesto", y la posibilidad de trasladar soluciones entre cuentas del grupo para ganar velocidad y ahorro.
@@ -556,123 +613,8 @@ Estructura de costos y esquema de pricing "de entrada" para el primer proyecto n
 
 Alcance concreto del piloto en el proyecto transversal de rentabilidad (dominio, KPIs, alertas y datasets) aún no especificado; riesgo de demoras y desalineación técnica.</div>
     </div>
-  </div>
-</div>
-
-<!-- LA TINKA 2 -->
-<div id="latinka2" class="meeting-view">
-  <div class="meeting-header">
-    <div class="top">
-      <h2><img class="meeting-logo" src="https://www.google.com/s2/favicons?domain=latinka.com.pe&sz=128" alt="" onerror="this.style.display='none'"> La Tinka — Willy (Reunión 2)</h2>
-      <button class="back-btn" onclick="showOverview(event)">← Vista general</button>
-    </div>
-    <div class="meeting-meta">
-      <span class="meta-chip">📅 27/05/2026</span>
-      <span class="meta-chip">⏱ 1h 20m</span>
-      <span class="meta-chip">👥 Willy · Félix · Pamela</span>
-      <span class="meta-chip">🏢 Creatividades / Dashboard / IA</span>
-    </div>
-  </div>
-
-  <div class="tabs">
-    <button class="tab active" onclick="switchTab(this, 'latinka2-resumen')">Resumen</button>
-    <button class="tab" onclick="switchTab(this, 'latinka2-acciones')">Acciones</button>
-    <button class="tab" onclick="switchTab(this, 'latinka2-email')">Email</button>
-    <button class="tab" onclick="switchTab(this, 'latinka2-notas')">Notas Plaud</button>
-  </div>
-
-  <div id="latinka2-resumen">
-    <div class="section">
-      <h3><span class="icon">📋</span> Contexto</h3>
-      <p>Segunda reunión de profundización con Willy (1h20m). Foco en creatividades, dashboards de performance y claridad de uso de IA. La empresa no aprueba fees mensuales — solo proyectos cerrados con soporte on-demand.</p>
-    </div>
-    <div class="section">
-      <h3><span class="icon">🔴</span> Puntos de Dolor</h3>
-      <ul class="bullets">
-        <li>Análisis de campañas Meta/TikTok 100% manual en Excel.</li>
-        <li>Adaptación de piezas creativas: hasta <strong>800 formatos</strong>, proceso caro y lento con agencia gráfica actual.</li>
-        <li>Falta de claridad interna sobre cómo y para qué usar IA.</li>
-        <li><strong>No aprueban fees mensuales</strong> — solo proyectos cerrados con soporte on-demand.</li>
-        <li>Falta de tech partners confiables en Perú y México.</li>
-      </ul>
-    </div>
-    <div class="section">
-      <h3><span class="icon">🎯</span> Expectativas</h3>
-      <ul class="bullets">
-        <li>Dashboard integrado Meta+TikTok con recomendaciones proactivas de IA.</li>
-        <li>Producción creativa con IA (imagen/video) en 2-3 días a menor costo.</li>
-        <li>Workshop de "para qué usar IA" para líderes de negocio y TI.</li>
-        <li>Pricing unificado para social listening en ambas marcas.</li>
-      </ul>
-    </div>
-  </div>
-
-  <div id="latinka2-acciones" style="display:none">
-    <div class="section">
-      <h3><span class="icon">✅</span> Action Items <span class="progress-badge" id="prog-latinka2">0/0</span></h3>
-      <ul class="actions-list" id="actions-latinka2">
-        <li class="action-item" data-id="lt2-1">
-          <input type="checkbox" class="action-check" onchange="toggleAction(this, 'latinka2', 'lt2-1')">
-          <div><div class="action-text">Compartir tarifarios detallados de generación de contenido por IA (imagen y video).</div></div>
-        </li>
-        <li class="action-item" data-id="lt2-2">
-          <input type="checkbox" class="action-check" onchange="toggleAction(this, 'latinka2', 'lt2-2')">
-          <div><div class="action-text">Preparar propuesta de piloto de producción creativa con IA (alcance, tiempos de 2-3 días, costos cerrados).</div></div>
-        </li>
-        <li class="action-item" data-id="lt2-3">
-          <input type="checkbox" class="action-check" onchange="toggleAction(this, 'latinka2', 'lt2-3')">
-          <div><div class="action-text">Diseñar y proponer workshop inicial "para qué usar IA" dirigido a líderes de unidades y TI.</div></div>
-        </li>
-        <li class="action-item" data-id="lt2-4">
-          <input type="checkbox" class="action-check" onchange="toggleAction(this, 'latinka2', 'lt2-4')">
-          <div><div class="action-text">Reunirse con Félix para alinear proyectos similares y definir pricing unificado de social listening para ambas marcas.</div></div>
-        </li>
-        <li class="action-item" data-id="lt2-5">
-          <input type="checkbox" class="action-check" onchange="toggleAction(this, 'latinka2', 'lt2-5')">
-          <div><div class="action-text">Definir arquitectura sin fee mensual + marco de integración segura de IA con sistemas internos (correo, TI).</div></div>
-        </li>
-        <li class="action-item" data-id="lt2-6">
-          <input type="checkbox" class="action-check" onchange="toggleAction(this, 'latinka2', 'lt2-6')">
-          <div><div class="action-text">Coordinar reunión con el estudio creativo (Aven/Gas Studio) para presentar capacidades a Félix, Pamela y Willy.</div></div>
-        </li>
-        <li class="action-item" data-id="lt2-7">
-          <input type="checkbox" class="action-check" onchange="toggleAction(this, 'latinka2', 'lt2-7')">
-          <div><div class="action-text">Enviar ejemplos de videos generados con IA (ej. campaña CALM) al cliente.</div></div>
-        </li>
-      </ul>
-    </div>
-  </div>
-
-  <div id="latinka2-email" style="display:none">
-    <div class="section">
-      <h3><span class="icon">✉️</span> Email de Seguimiento</h3>
-      <div class="email-subject">Asunto: Creatividades IA + Dashboard + Próximos pasos — ABN/Hyke x La Tinka</div>
-      <div class="email-box" id="email-latinka2">Hola Willy,
-
-Gracias por la segunda sesión de hoy — fue muy valioso profundizar en los desafíos de creatividades y datos de campañas.
-
-Tal como acordamos, esta semana te estaremos enviando:
-
-📊 Tarifarios de generación de contenido por IA (imagen y video)
-🎬 Ejemplos de videos generados con IA (campaña CALM y otros)
-📋 Propuesta de piloto de producción creativa con alcance, tiempos (2-3 días) y costos cerrados — sin fee mensual
-🧠 Diseño del workshop "para qué usar IA" para líderes y TI
-
-Además, me gustaría coordinar dos reuniones:
-1. Con Félix — para alinear pricing del social listening en ambas marcas.
-2. Con Félix, Pamela y vos — para presentar las capacidades del estudio creativo (Aven/Gas Studio).
-
-¿Cuándo tienen disponibilidad para ambas? ¿La semana que viene funciona?
-
-Saludos,
-[Tu nombre]</div>
-      <button class="copy-btn" onclick="copyEmail('email-latinka2', this)">📋 Copiar email</button>
-    </div>
-  </div>
-
-  <div id="latinka2-notas" style="display:none">
-    <div class="section">
-      <h3><span class="icon">📝</span> Notas Plaud — La Tinka Reunión 2 (27/05/2026 · 1h 20m)</h3>
+    <div class="section" style="margin-top:16px">
+      <h3><span class="icon">📝</span> Notas Plaud — La Tinka Sesión 2 (27/05/2026 · 1h 20m)</h3>
       <div class="notes-content">Fecha y Hora: 2026-05-27 12:24:39
 
 Ubicación: [Insertar Ubicación]
@@ -1772,8 +1714,7 @@ Piloto controlado pre-licitación en 3–5 campañas clave para demostrar eficie
 <script>
 const meetings = [
   { id: 'tottus',    emoji: '🏬', logo: 'https://www.google.com/s2/favicons?domain=tottus.com.pe&sz=128',       name: 'Tottus',                  date: '26/05/2026', tags: 'Retail · Data · Hyke Chat' },
-  { id: 'latinka1',  emoji: '🎰', logo: 'https://www.google.com/s2/favicons?domain=latinka.com.pe&sz=128',       name: 'La Tinka — Willy (R1)',   date: '27/05/2026', tags: 'Loterías · IA Estratégica · 5 iniciativas' },
-  { id: 'latinka2',  emoji: '🎰', logo: 'https://www.google.com/s2/favicons?domain=latinka.com.pe&sz=128',       name: 'La Tinka — Willy (R2)',   date: '27/05/2026', tags: 'Creatividades · Dashboard · No fees' },
+  { id: 'latinka1',  emoji: '🎰', logo: 'https://www.google.com/s2/favicons?domain=latinka.com.pe&sz=128',       name: 'La Tinka — Willy',        date: '27/05/2026', tags: 'Loterías · IA · Creatividades · Performance' },
   { id: 'credicorp', emoji: '🏦', logo: 'https://www.google.com/s2/favicons?domain=credicorp.com&sz=128',        name: 'Credicorp',               date: '27/05/2026', tags: 'Diseño · 13 subsidiarias · BCP' },
   { id: 'yape',      emoji: '💳', logo: 'https://www.google.com/s2/favicons?domain=yape.com.pe&sz=128',          name: 'Yape',                    date: '27/05/2026', tags: 'Fintech · MMM · Meridian' },
   { id: 'inlearning',emoji: '📚', logo: 'https://www.google.com/s2/favicons?domain=inlearning.pe&sz=128',        name: 'InLearning',              date: '28/05/2026', tags: 'E-learning · Martech · Nov' },
